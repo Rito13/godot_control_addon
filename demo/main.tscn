@@ -1,0 +1,212 @@
+[gd_scene load_steps=12 format=3 uid="uid://b8v40ha70irn5"]
+
+[ext_resource type="Texture2D" uid="uid://bpp4jjt84srtg" path="res://icon.svg" id="1_6elc7"]
+[ext_resource type="Script" path="res://main.gd" id="1_74n6x"]
+[ext_resource type="Texture2D" uid="uid://d3v73lp7bhkkm" path="res://double_icon.svg" id="3_f8e6h"]
+[ext_resource type="Script" path="res://valign.gd" id="4_hhe6y"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0qd0r"]
+bg_color = Color(0.188235, 0.188235, 0.184314, 1)
+border_width_left = 10
+border_width_top = 10
+border_width_right = 10
+border_width_bottom = 10
+border_color = Color(0.145098, 0.145098, 0.145098, 1)
+border_blend = true
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jkop4"]
+bg_color = Color(0.203922, 0.207843, 0.188235, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.862745, 0.384314, 0, 1)
+border_blend = true
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+corner_detail = 20
+shadow_color = Color(0.384314, 0.568627, 0.239216, 0.6)
+shadow_size = 1
+shadow_offset = Vector2(1, 1)
+
+[sub_resource type="Theme" id="Theme_w6lh5"]
+Button/colors/font_color = Color(0.521569, 1, 0.584314, 1)
+Button/colors/font_disabled_color = Color(1, 0.509804, 0.25098, 0.501961)
+Button/colors/font_focus_color = Color(0, 0.580392, 0.505882, 1)
+Button/colors/font_hover_color = Color(0, 0.733333, 0.611765, 1)
+Button/colors/font_hover_pressed_color = Color(0, 0.792157, 0.580392, 1)
+Button/colors/font_outline_color = Color(0.141176, 0.74902, 0, 1)
+Button/colors/font_pressed_color = Color(0.454902, 0.819608, 0, 1)
+Button/colors/icon_hover_color = Color(0.92549, 0.478431, 0.92549, 1)
+Button/font_sizes/font_size = 18
+Button/styles/hover = SubResource("StyleBoxFlat_0qd0r")
+Button/styles/normal = SubResource("StyleBoxFlat_jkop4")
+Label/colors/font_color = Color(0.768627, 0.658824, 0.454902, 1)
+RichTextLabel/colors/default_color = Color(0.933333, 0.470588, 0.572549, 1)
+RichTextLabel/colors/font_outline_color = Color(0.756863, 0.196078, 0.796078, 1)
+RichTextLabel/colors/table_border = Color(0.572549, 0.498039, 0.219608, 0.839216)
+RichTextLabel/colors/table_even_row_bg = Color(0.196078, 0.34902, 0.211765, 0.568627)
+RichTextLabel/colors/table_odd_row_bg = Color(0.117647, 0.356863, 0.423529, 0.988235)
+RichTextLabel/constants/outline_size = 4
+
+[sub_resource type="LabelSettings" id="LabelSettings_df58a"]
+line_spacing = 0.0
+font_size = 64
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_egaxk"]
+bg_color = Color(0.227451, 0.227451, 0.227451, 1)
+border_width_top = 10
+border_color = Color(0.380392, 0.380392, 0.380392, 1)
+border_blend = true
+
+[sub_resource type="Theme" id="Theme_1wl5k"]
+OptionButton/colors/font_color = Color(0.976471, 0, 0.513726, 1)
+OptionButton/colors/font_hover_color = Color(0, 0.694118, 0.498039, 1)
+OptionButton/styles/normal = SubResource("StyleBoxFlat_egaxk")
+
+[sub_resource type="RichTextEffect" id="RichTextEffect_fxh6l"]
+script = ExtResource("4_hhe6y")
+
+[node name="Main" type="Node"]
+script = ExtResource("1_74n6x")
+
+[node name="Node2D" type="Node2D" parent="."]
+position = Vector2(800, 150)
+
+[node name="GDExample" type="GDExample" parent="Node2D"]
+position = Vector2(19.4633, 0.106196)
+texture = ExtResource("1_6elc7")
+
+[node name="RevisedButton" type="RevisedButton" parent="."]
+vertical_text_alignment = 1
+text = "[color=Pink][font_size=24]Tytuł[/font_size][color=VIOLET]
+To jest bardzo fajny tekst wyświetlany na przycisku. 
+To jest druga linia tego tekstu.
+A to trzecia.
+I czwarta.
+A nawet piąta.
+6
+7
+[/color][/color]"
+offset_left = 72.0
+offset_top = 79.0
+offset_right = 708.0
+offset_bottom = 229.0
+theme = SubResource("Theme_w6lh5")
+text = "[color=Pink][font_size=24]Tytuł[/font_size][color=VIOLET]
+To jest bardzo fajny tekst wyświetlany na przycisku. 
+To jest druga linia tego tekstu.
+A to trzecia.
+I czwarta.
+A nawet piąta.
+6
+7
+[/color][/color]"
+icon = ExtResource("3_f8e6h")
+alignment = 0
+text_overrun_behavior = 1
+
+[node name="Button" type="Button" parent="RevisedButton"]
+layout_mode = 0
+offset_left = 1130.0
+offset_top = 30.0
+offset_right = 1481.0
+offset_bottom = 98.0
+text = "[color=VIOLET] Jakiś Tekst [/color]"
+alignment = 0
+expand_icon = true
+
+[node name="Label" type="Label" parent="RevisedButton"]
+visible = false
+layout_mode = 0
+offset_left = 185.0
+offset_top = 198.0
+offset_right = 498.0
+offset_bottom = 254.0
+text = "TO"
+label_settings = SubResource("LabelSettings_df58a")
+
+[node name="OptionButton" type="OptionButton" parent="RevisedButton"]
+layout_mode = 0
+offset_left = 736.0
+offset_top = 248.0
+offset_right = 888.0
+offset_bottom = 279.0
+theme = SubResource("Theme_1wl5k")
+item_count = 3
+popup/item_0/text = "1"
+popup/item_0/id = 0
+popup/item_1/text = "2"
+popup/item_1/id = 1
+popup/item_2/text = "3"
+popup/item_2/id = 2
+
+[node name="ItemList" type="ItemList" parent="."]
+offset_left = 83.0
+offset_top = 443.0
+offset_right = 171.0
+offset_bottom = 710.0
+item_count = 3
+item_0/text = "lol"
+item_1/text = "troll"
+item_2/text = "koko"
+
+[node name="Control" type="Control" parent="."]
+clip_contents = true
+layout_mode = 3
+anchors_preset = 0
+offset_left = 254.0
+offset_top = 457.0
+offset_right = 864.0
+offset_bottom = 682.0
+
+[node name="VBoxContainer" type="PanelContainer" parent="Control"]
+layout_mode = 0
+offset_right = 607.0
+offset_bottom = 231.0
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Control/VBoxContainer"]
+layout_mode = 2
+focus_mode = 2
+bbcode_enabled = true
+text = "LOL [s][color=yellow]LoL[/color][/s] 
+ll
+[font_size=12
+]tekst mały[/font_size] [font_size=2
+4]tekst duży[/font_size]
+		Tekst z wcięciem
+
+
+
+
+
+
+
+
+
+
+
+
+"
+custom_effects = [SubResource("RichTextEffect_fxh6l")]
+selection_enabled = true
+
+[node name="Timer" type="Timer" parent="Control"]
+
+[node name="HScrollBar" type="VScrollBar" parent="."]
+offset_left = 1031.0
+offset_top = 82.0
+offset_right = 1115.0
+offset_bottom = 636.0
+page = 12.0
+value = 12.2011
+allow_greater = true
+allow_lesser = true
+
+[node name="AutoScroll" type="AutoScroll" parent="HScrollBar"]
+speed = 9.0
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0

@@ -1,0 +1,188 @@
+#include "button.h"
+#include <godot_cpp/core/class_db.hpp>
+#include <godot_cpp/classes/text_server.hpp>
+#include <godot_cpp/classes/texture2d.hpp>
+#include <godot_cpp/classes/ref.hpp>
+#include <godot_cpp/variant/utility_functions.hpp>
+
+using namespace godot;
+
+void RevisedButton::_bind_methods() {
+    ClassDB::bind_method(D_METHOD("get_text"), &RevisedButton::get_text);
+	ClassDB::bind_method(D_METHOD("set_text", "p_text"), &RevisedButton::set_text);
+	ClassDB::bind_method(D_METHOD("get_v_text_alignment"), &RevisedButton::get_v_text_alignment);
+	ClassDB::bind_method(D_METHOD("set_v_text_alignment", "p_alignment"), &RevisedButton::set_v_text_alignment);
+	ClassDB::bind_method(D_METHOD("get_text_autowrap"), &RevisedButton::get_text_autowrap);
+	ClassDB::bind_method(D_METHOD("set_text_autowrap", "p_autowrap"), &RevisedButton::set_text_autowrap);
+	//An funny property
+	ClassDB::add_property_group("RevisedButton","Advance Text Behavior","");
+	ClassDB::add_property("RevisedButton", PropertyInfo(Variant::INT, "vertical_text_alignment", PROPERTY_HINT_ENUM, "Top,Center,Bottom"), "set_v_text_alignment", "get_v_text_alignment");
+	ClassDB::add_property("RevisedButton", PropertyInfo(Variant::INT, "autowrap_mode", PROPERTY_HINT_ENUM, "Arbitrary:1,Word:2,Word (Smart):3"), "set_text_autowrap", "get_text_autowrap");
+	ClassDB::add_property("RevisedButton", PropertyInfo(Variant::STRING, "text"), "set_text", "get_text");
+}
+
+RevisedButton::RevisedButton() {
+	// Initialize any variables here.
+	time_passed = 0.0;
+	amplitude = 30;
+
+	text_parent = memnew(Control);
+	scroll = memnew(AutoScroll);
+	text_container = memnew(RichTextLabel);
+	idle_time_timer = memnew(Timer);
+	add_child(text_parent, false, INTERNAL_MODE_FRONT);
+	text_parent->add_child(text_container, false, INTERNAL_MODE_FRONT);
+	text_parent->add_child(idle_time_timer, false, INTERNAL_MODE_FRONT);
+
+	Node *scroll_bar = text_container->get_child(0,true);
+	scroll_bar->add_child(scroll, false, INTERNAL_MODE_FRONT);
+	update_text_vertical_alignment();
+	idle_time_timer->set_one_shot(true);
+
+	text_parent->set_clip_contents(true);
+	text_container->set_autowrap_mode(TextServer::AutowrapMode::AUTOWRAP_WORD_SMART);
+	text_container->set_use_bbcode(true);
+	text_container->set_mouse_filter(Control::MouseFilter::MOUSE_FILTER_IGNORE);
+	text_parent->set_mouse_filter(Control::MouseFilter::MOUSE_FILTER_IGNORE);
+	text_container->set_scroll_active(true);
+	text_container->set_scroll_follow(false);
+}
+
+RevisedButton::~RevisedButton() {
+	// Add your cleanup here.
+	text_parent->remove_child(text_container);
+	text_container->queue_free();
+	text_parent->remove_child(scroll);
+	scroll->queue_free();
+	remove_child(text_parent);
+	text_parent->queue_free();
+}
+
+void RevisedButton::update_text() {
+    text_container->set_text(_h_bbcode+_v_bbcode+better_text);
+    //UtilityFunctions::print(_h_bbcode+_v_bbcode+better_text);
+    Range *range_object = Object::cast_to<Range>(scroll->get_parent());
+    range_object->set_value(scroll->get_auto_min_value());
+    set_adaptable_speed(adaptable_speed);
+    //scroll->scroll_to(-1);
+}
+
+void RevisedButton::update_text_horizontal_alignment() {
+    if(h_text_alignment == HORIZONTAL_ALIGNMENT_LEFT) _h_bbcode = "[left]";
+    else if(h_text_alignment == HORIZONTAL_ALIGNMENT_CENTER) _h_bbcode = "[center]";
+    else _h_bbcode = "[right]";
+    update_text();
+}
+
+void RevisedButton::update_text_vertical_alignment() {
+    double margin = 0;
+    if(v_text_alignment == VERTICAL_ALIGNMENT_TOP) margin = 2;
+    else if(v_text_alignment == VERTICAL_ALIGNMENT_CENTER) margin = double(get_size().y)/2;
+    else margin = double(get_size().y);
+    _v_bbcode = String("[table=1][cell][font_size=") + std::to_string(int(margin/1.375)).c_str() + "] [/font_size][/cell][cell]";
+    scroll->set_auto_min_value(margin-2);
+    update_text();
+}
+
+void RevisedButton::_process(double delta) {
+	time_passed += delta;
+	if(time_passed < 0.016) return;
+	time_passed = 0;
+	Vector2 siz = get_size();
+	Vector2 pos = Vector2(0,0);
+	Ref<Texture2D> texture = get_button_icon();
+	//Check if texture exist
+	if(texture.is_valid()) {
+        Vector2 texture_size = texture->get_size();
+        HorizontalAlignment h_aligment = get_icon_alignment();
+        VerticalAlignment v_aligment = get_vertical_icon_alignment();
+
+        //HORIZONTAL_ALIGNMENT is LEFT
+        if(h_aligment == HORIZONTAL_ALIGNMENT_LEFT) {
+            pos.x = texture_size.x;
+            siz.x -= texture_size.x;
+        }
+        //HORIZONTAL_ALIGNMENT is RIGHT
+        else if(h_aligment == HORIZONTAL_ALIGNMENT_RIGHT) {
+            siz.x -= texture_size.x;
+        }
+        //HORIZONTAL_ALIGNMENT is CENTER
+        else {
+            HorizontalAlignment text_aligment = get_text_alignment();
+            //TEXT_ALIGNMENT is LEFT
+            if(text_aligment == HORIZONTAL_ALIGNMENT_LEFT) {
+                siz.x = (siz.x-texture_size.x)/2;
+            }
+            //TEXT_ALIGNMENT is RIGHT
+            else if(text_aligment == HORIZONTAL_ALIGNMENT_RIGHT) {
+                siz.x = (siz.x-texture_size.x)/2;
+                pos.x = siz.x+texture_size.x;
+            }
+        }
+	}
+	if(old_height!=siz.y) {
+        old_height = siz.y;
+        update_text_vertical_alignment();
+    }
+	if(h_text_alignment!=get_text_alignment()) {
+        h_text_alignment = get_text_alignment();
+        update_text_horizontal_alignment();
+	}
+	text_container->set_size(siz);
+	text_parent->set_size(siz);
+	text_parent->set_position(pos);
+	if(!scrolling) {
+        scroll->scroll_to(INFINITY);
+        scrolling = true;
+    }
+}
+
+void RevisedButton::set_amplitude(const double p_amplitude) {
+	amplitude = p_amplitude;
+}
+
+double RevisedButton::get_amplitude() const {
+	return amplitude;
+}
+
+void RevisedButton::set_adaptable_speed(double p_speed) {
+    adaptable_speed = p_speed;
+    Vector2 t_size = text_container->get_size();
+    p_speed = p_speed/100*(45000/(t_size.x*t_size.y));
+	scroll->set_speed(p_speed);
+    //UtilityFunctions::print(p_speed);
+}
+
+double RevisedButton::get_adaptable_speed() {
+	return adaptable_speed;
+}
+
+void RevisedButton::set_v_text_alignment(const VerticalAlignment p_amplitude) {
+	v_text_alignment = p_amplitude;
+	update_text_vertical_alignment();
+}
+
+VerticalAlignment RevisedButton::get_v_text_alignment() const {
+	return v_text_alignment;
+}
+
+void RevisedButton::set_text_autowrap(const TextServer::AutowrapMode p_autowrap) {
+    if(p_autowrap == TextServer::AutowrapMode::AUTOWRAP_OFF) {
+        UtilityFunctions::print("AUTOWRAP_OFF is not suported");
+        ERR_FAIL_MSG("AUTOWRAP_OFF is not suported");
+    }
+	text_container->set_autowrap_mode(p_autowrap);
+}
+
+TextServer::AutowrapMode RevisedButton::get_text_autowrap() const {
+	return text_container->get_autowrap_mode();
+}
+
+void RevisedButton::set_text(const String p_text) {
+	better_text = p_text;
+	update_text();
+}
+
+String RevisedButton::get_text() const {
+	return better_text;
+}

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<class name="RevisedButton" inherits="Button" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../class.xsd">
+	<brief_description>
+		A themed button that can contain text and an icon.
+	</brief_description>
+	<description>
+		[Button] is the standard themed button. It can contain text and an icon, and it will display them according to the current [Theme].
+		[b]Example of creating a button and assigning an action when pressed by code:[/b]
+		[codeblocks]
+		[gdscript]
+		func _ready():
+		    var button = Button.new()
+		    button.text = "Click me"
+		    button.pressed.connect(self._button_pressed)
+		    add_child(button)
+
+		func _button_pressed():
+		    print("Hello world!")
+		[/gdscript]
+		[csharp]
+		public override void _Ready()
+		{
+		    var button = new Button();
+		    button.Text = "Click me";
+		    button.Pressed += ButtonPressed;
+		    AddChild(button);
+		}
+
+		private void ButtonPressed()
+		{
+		    GD.Print("Hello world!");
+		}
+		[/csharp]
+		[/codeblocks]
+		See also [BaseButton] which contains common properties and methods associated with this node.
+		[b]Note:[/b] Buttons do not interpret touch input and therefore don't support multitouch, since mouse emulation can only press one button at a given time. Use [TouchScreenButton] for buttons that trigger gameplay movement or actions.
+	</description>
+	<tutorials>
+		<link title="2D Dodge The Creeps Demo">https://godotengine.org/asset-library/asset/515</link>
+		<link title="OS Test Demo">https://godotengine.org/asset-library/asset/677</link>
+	</tutorials>
+	<members>
+		<member name="amplitude" type="float" setter="set_amplitude" getter="get_amplitude" default="30.0">
+			Text alignment policy for the button's text, use one of the [enum HorizontalAlignment] constants.
+		</member>
+	</members>
+</class>
