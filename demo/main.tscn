@@ -1,9 +1,11 @@
-[gd_scene load_steps=12 format=3 uid="uid://b8v40ha70irn5"]
+[gd_scene load_steps=14 format=3 uid="uid://b8v40ha70irn5"]
 
 [ext_resource type="Texture2D" uid="uid://bpp4jjt84srtg" path="res://icon.svg" id="1_6elc7"]
 [ext_resource type="Script" path="res://main.gd" id="1_74n6x"]
 [ext_resource type="Texture2D" uid="uid://d3v73lp7bhkkm" path="res://double_icon.svg" id="3_f8e6h"]
 [ext_resource type="Script" path="res://valign.gd" id="4_hhe6y"]
+[ext_resource type="Texture2D" uid="uid://bkfjbqqbshahc" path="res://addons/control++/icons/Documentation.svg" id="5_7ynqh"]
+[ext_resource type="Texture2D" uid="uid://cjll4fqy6hd1" path="res://addons/control++/icons/Add.svg" id="6_33f2h"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0qd0r"]
 bg_color = Color(0.188235, 0.188235, 0.184314, 1)
@@ -62,8 +64,6 @@ border_color = Color(0.380392, 0.380392, 0.380392, 1)
 border_blend = true
 
 [sub_resource type="Theme" id="Theme_1wl5k"]
-OptionButton/colors/font_color = Color(0.976471, 0, 0.513726, 1)
-OptionButton/colors/font_hover_color = Color(0, 0.694118, 0.498039, 1)
 OptionButton/styles/normal = SubResource("StyleBoxFlat_egaxk")
 
 [sub_resource type="RichTextEffect" id="RichTextEffect_fxh6l"]
@@ -76,7 +76,7 @@ script = ExtResource("1_74n6x")
 position = Vector2(800, 150)
 
 [node name="GDExample" type="GDExample" parent="Node2D"]
-position = Vector2(19.4633, 0.106196)
+position = Vector2(12.2782, 1.82085)
 texture = ExtResource("1_6elc7")
 
 [node name="RevisedButton" type="RevisedButton" parent="."]
@@ -92,7 +92,7 @@ A nawet piąta.
 [/color][/color]"
 offset_left = 72.0
 offset_top = 79.0
-offset_right = 708.0
+offset_right = 681.0
 offset_bottom = 229.0
 theme = SubResource("Theme_w6lh5")
 text = "[color=Pink][font_size=24]Tytuł[/font_size][color=VIOLET]
@@ -105,7 +105,6 @@ A nawet piąta.
 7
 [/color][/color]"
 icon = ExtResource("3_f8e6h")
-alignment = 0
 text_overrun_behavior = 1
 
 [node name="Button" type="Button" parent="RevisedButton"]
@@ -142,6 +141,21 @@ popup/item_1/text = "2"
 popup/item_1/id = 1
 popup/item_2/text = "3"
 popup/item_2/id = 2
+
+[node name="ExpandableButton" type="ExpandableButton" parent="RevisedButton"]
+vertical_text_alignment = 1
+text = "[color=LIME][font_size=24]Tytuł[/font_size][color=GREEN]
+Drugi Tekst 
+[/color][/color]"
+layout_mode = 0
+offset_left = 1085.0
+offset_top = 415.0
+offset_right = 1566.0
+offset_bottom = 557.0
+text = "[color=LIME][font_size=24]Tytuł[/font_size][color=GREEN]
+Drugi Tekst 
+[/color][/color]"
+icon = ExtResource("1_6elc7")
 
 [node name="ItemList" type="ItemList" parent="."]
 offset_left = 83.0
@@ -210,3 +224,59 @@ speed = 9.0
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
+
+[node name="MenuButton" type="MenuButton" parent="."]
+offset_left = 1248.0
+offset_top = 251.0
+offset_right = 1384.0
+offset_bottom = 387.0
+icon = ExtResource("1_6elc7")
+icon_alignment = 1
+vertical_icon_alignment = 2
+item_count = 3
+popup/item_0/text = "1"
+popup/item_0/id = 0
+popup/item_1/text = "2"
+popup/item_1/id = 1
+popup/item_2/text = "3"
+popup/item_2/id = 2
+
+[node name="RevisedButton2" type="RevisedButton" parent="."]
+vertical_text_alignment = 1
+text = "Show PopupMenu"
+offset_left = 592.0
+offset_top = 328.0
+offset_right = 715.0
+offset_bottom = 401.0
+text = "Show PopupMenu"
+
+[node name="PopupMenu" type="PopupMenu" parent="."]
+title = "popup"
+initial_position = 4
+size = Vector2i(100, 143)
+unresizable = false
+borderless = false
+always_on_top = true
+hide_on_item_selection = false
+hide_on_checkable_item_selection = false
+item_count = 5
+item_0/text = "Item 1"
+item_0/icon = ExtResource("5_7ynqh")
+item_0/id = 0
+item_1/text = "Item 2"
+item_1/checkable = 1
+item_1/id = 1
+item_2/text = "Item 3"
+item_2/checkable = 2
+item_2/id = 2
+item_3/text = "Item 4"
+item_3/icon = ExtResource("6_33f2h")
+item_3/id = 3
+item_3/separator = true
+item_4/text = "Item  5"
+item_4/checkable = 2
+item_4/checked = true
+item_4/id = 4
+item_4/disabled = true
+
+[connection signal="pressed" from="RevisedButton2" to="." method="_on_revised_button_2_pressed"]

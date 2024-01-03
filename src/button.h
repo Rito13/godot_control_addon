@@ -35,6 +35,7 @@ private:
 	bool scrolling = true;
 	bool timer_time_2 = false;
 	uint8_t is_CVA_calculated = 0;
+	bool is_text_off = false;
 
 	// Theme properties
 	struct ThemeCache {
@@ -106,6 +107,9 @@ public:
 	//Adaptable Speed property
 	void set_adaptable_speed(double p_speed);
 	double get_adaptable_speed();
+	//Is Text Off property
+	virtual void set_is_text_off(bool p_status);
+	virtual bool get_is_text_off();
 };
 
 }

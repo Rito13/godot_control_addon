@@ -20,7 +20,10 @@ void RevisedButton::_bind_methods() {
 	ClassDB::bind_method(D_METHOD("on_timer_out"), &RevisedButton::on_timer_out);
 	ClassDB::bind_method(D_METHOD("set_adaptable_speed", "p_autowrap"), &RevisedButton::set_adaptable_speed);
 	ClassDB::bind_method(D_METHOD("get_adaptable_speed"), &RevisedButton::get_adaptable_speed);
+	ClassDB::bind_method(D_METHOD("set_is_text_off", "p_status"), &RevisedButton::set_is_text_off);
+	ClassDB::bind_method(D_METHOD("get_is_text_off"), &RevisedButton::get_is_text_off);
 	// An funny property
+	ClassDB::add_property("RevisedButton", PropertyInfo(Variant::BOOL, "is_text_off"), "set_is_text_off", "get_is_text_off");
 	ClassDB::add_property_group("RevisedButton","Advance Text Behavior","");
 	ClassDB::add_property("RevisedButton", PropertyInfo(Variant::FLOAT, "auto_scrolling_speed"), "set_adaptable_speed", "get_adaptable_speed");
 	ClassDB::add_property("RevisedButton", PropertyInfo(Variant::INT, "vertical_text_alignment", PROPERTY_HINT_ENUM, "Top,Center,Bottom"), "set_v_text_alignment", "get_v_text_alignment");
@@ -197,6 +200,8 @@ void RevisedButton::_process(double delta) {
         }
 	}
 
+    if(is_text_off) return;
+
 	// Update text alignment
 	if(old_height!=siz.y) {
         old_height = siz.y;
@@ -282,4 +287,17 @@ void RevisedButton::set_text(const String p_text) {
 
 String RevisedButton::get_text() const {
 	return better_text;
+}
+
+void RevisedButton::set_is_text_off(bool p_status) {
+    is_text_off = p_status;
+    if(p_status) text_parent->hide();
+    else {
+        text_parent->show();
+        update_text();
+    }
+}
+
+bool RevisedButton::get_is_text_off() {
+    return is_text_off;
 }

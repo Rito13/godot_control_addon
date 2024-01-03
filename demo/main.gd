@@ -8,9 +8,7 @@ extends Node
 @export var p5 = false 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	#$HScrollBar/AutoScroll.scroll_to(56.6)
-	#$HScrollBar/AutoScroll.set_auto_min_value(40)
-	pass#$HScrollBar/AutoScroll.scroll_to(12.2)
+	pass
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -33,3 +31,7 @@ func _process(delta):
 	if p5:
 		p5 = false
 		print($RevisedButton/Button.theme_type_variation)
+
+
+func _on_revised_button_2_pressed():
+	$PopupMenu.show()
