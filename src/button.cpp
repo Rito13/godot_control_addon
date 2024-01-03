@@ -38,7 +38,7 @@ void RevisedButton::_bind_methods() {
 RevisedButton::RevisedButton() {
 	// Initialize variables
 	time_passed = 0.0;
-	amplitude = 30;
+	amplitude = 31;
 
 	// Initialize internal childs
 	text_parent = memnew(Control);
