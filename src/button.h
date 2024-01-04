@@ -16,7 +16,6 @@ class RevisedButton : public Button {
 private:
 	double time_passed;
 	double amplitude;
-	String better_text = "Text";
 	double old_height = 0;
 	//Internal children
 	AutoScroll *scroll;
@@ -82,6 +81,7 @@ private:
 
 protected:
 	static void _bind_methods();
+	String better_text = "Text";
 
 public:
 	RevisedButton();

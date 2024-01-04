@@ -15,6 +15,11 @@ run/main_scene="res://main.tscn"
 config/features=PackedStringArray("4.1", "Forward Plus")
 config/icon="res://icon.svg"
 
+[display]
+
+window/size/viewport_width=1728
+window/size/viewport_height=972
+
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/control++/plugin.cfg")

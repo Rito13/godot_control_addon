@@ -30,7 +30,7 @@ func _process(delta):
 		#print($AnimatedSprite2D._get_configuration_warnings())
 	if p5:
 		p5 = false
-		print($RevisedButton/Button.theme_type_variation)
+		$"ExpandableButton 2".expand()
 
 
 func _on_revised_button_2_pressed():

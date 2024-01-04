@@ -76,8 +76,14 @@ script = ExtResource("1_74n6x")
 position = Vector2(800, 150)
 
 [node name="GDExample" type="GDExample" parent="Node2D"]
-position = Vector2(12.2782, 1.82085)
+position = Vector2(17.2872, 18.1831)
 texture = ExtResource("1_6elc7")
+
+[node name="ExpandableButton 2" type="ExpandableButton" parent="."]
+offset_left = 1098.0
+offset_top = 703.0
+offset_right = 1476.12
+offset_bottom = 758.0
 
 [node name="RevisedButton" type="RevisedButton" parent="."]
 vertical_text_alignment = 1
@@ -143,6 +149,8 @@ popup/item_2/text = "3"
 popup/item_2/id = 2
 
 [node name="ExpandableButton" type="ExpandableButton" parent="RevisedButton"]
+expansion_size = 140
+expansion_indentation = 20
 vertical_text_alignment = 1
 text = "[color=LIME][font_size=24]Tytuł[/font_size][color=GREEN]
 Drugi Tekst 
@@ -150,7 +158,7 @@ Drugi Tekst
 layout_mode = 0
 offset_left = 1085.0
 offset_top = 415.0
-offset_right = 1566.0
+offset_right = 1487.08
 offset_bottom = 557.0
 text = "[color=LIME][font_size=24]Tytuł[/font_size][color=GREEN]
 Drugi Tekst 
@@ -278,5 +286,3 @@ item_4/checkable = 2
 item_4/checked = true
 item_4/id = 4
 item_4/disabled = true
-
-[connection signal="pressed" from="RevisedButton2" to="." method="_on_revised_button_2_pressed"]

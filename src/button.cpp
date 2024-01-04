@@ -62,7 +62,7 @@ RevisedButton::RevisedButton() {
 	text_parent->set_clip_contents(true);
     text_parent->set_mouse_filter(Control::MouseFilter::MOUSE_FILTER_IGNORE);
 	Error err1 = idle_time_timer->connect("timeout", Callable(this, "on_timer_out"));
-	idle_time_timer->start();
+	//idle_time_timer->start();
 
 	// Setup RichTextLabel (text_container)
 	text_container->set_autowrap_mode(TextServer::AutowrapMode::AUTOWRAP_WORD_SMART);
@@ -70,8 +70,6 @@ RevisedButton::RevisedButton() {
 	text_container->set_mouse_filter(Control::MouseFilter::MOUSE_FILTER_IGNORE);
 	text_container->set_scroll_active(false);
 	text_container->set_scroll_follow(false);
-
-	UtilityFunctions::print(theme_cache.font_color,"  ",theme_cache.font_hover_color);
 }
 
 RevisedButton::~RevisedButton() {
@@ -106,7 +104,7 @@ void RevisedButton::on_timer_out() {
 void RevisedButton::_notification(int p_what) {
 	switch (p_what) {
 		case NOTIFICATION_THEME_CHANGED: {
-			UtilityFunctions::print(theme_cache.font_color,"  ",theme_cache.font_hover_color);
+			return;//UtilityFunctions::print(theme_cache.font_color,"  ",theme_cache.font_hover_color);
 		} break;
     }
 }
@@ -248,6 +246,7 @@ void RevisedButton::set_adaptable_speed(double p_speed) {
 	scroll->set_speed(int(p_speed));
 	// Calculate adaptation of waiting speed
 	p_speed = 22/p_speed;
+	if(p_speed<=0) return;
 	idle_time_timer->set_wait_time(p_speed);
 	// Adapt scroll step
 	Range *range_object = Object::cast_to<Range>(scroll->get_parent());

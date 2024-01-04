@@ -11,12 +11,18 @@ class ExpandableButton : public RevisedButton {
 private:
     bool is_text_off = false;
     Timer *idle_time_timer;
-	Control *expand_parent;
-	RevisedButton *expand;
-	int expand_size = 30;
+	Control *expansion_parent;
+	RevisedButton *expansion;
+	Button *base;
+	int expansion_size = 70;
+	int expansion_indentation = 0;
+	Vector2 old_size = Vector2(0,0);
+	bool is_expanded = false;
+	double speed = 50;
 
 protected:
 	static void _bind_methods();
+	void update_base_size();
 
 public:
 	ExpandableButton();
@@ -27,8 +33,14 @@ public:
 	void set_is_text_off(bool p_status)override;
 	bool get_is_text_off()override;
 
-	void set_expand_size(int p_size);
-	int get_expand_size();
+	void set_expansion_size(int p_size);
+	int get_expansion_size();
+
+	void set_expansion_indentation(int p_indentation);
+	int get_expansion_indentation();
+
+	void expand();
+	void reduce();
 };
 
 }

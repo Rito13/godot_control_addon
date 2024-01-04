@@ -47,6 +47,8 @@
 		<Unit filename="src/documentation.h" />
 		<Unit filename="src/editor/doc_tools.cpp" />
 		<Unit filename="src/editor/doc_tools.h" />
+		<Unit filename="src/expandable_button.cpp" />
+		<Unit filename="src/expandable_button.h" />
 		<Unit filename="src/gdexample.cpp" />
 		<Unit filename="src/gdexample.h" />
 		<Unit filename="src/platform_config.h" />
