@@ -15,10 +15,11 @@ private:
 	RevisedButton *expansion;
 	Button *base;
 	int expansion_size = 70;
+	int expansion_size_full = 70;
 	int expansion_indentation = 0;
 	Vector2 old_size = Vector2(0,0);
 	bool is_expanded = false;
-	double speed = 50;
+	double speed = 25;
 
 protected:
 	static void _bind_methods();
@@ -41,6 +42,9 @@ public:
 
 	void expand();
 	void reduce();
+
+	void set_expansion_speed(double p_speed);
+	double get_expansion_speed();
 };
 
 }

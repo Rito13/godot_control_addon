@@ -76,14 +76,23 @@ script = ExtResource("1_74n6x")
 position = Vector2(800, 150)
 
 [node name="GDExample" type="GDExample" parent="Node2D"]
-position = Vector2(17.2872, 18.1831)
+position = Vector2(3.38528, 15.1592)
 texture = ExtResource("1_6elc7")
 
 [node name="ExpandableButton 2" type="ExpandableButton" parent="."]
+expansion_indentation = -100
+expansion_speed = 20.0
 offset_left = 1098.0
 offset_top = 703.0
-offset_right = 1476.12
+offset_right = 1438.38
 offset_bottom = 758.0
+
+[node name="ExpandableButton 3" type="ExpandableButton" parent="."]
+expansion_speed = 20.0
+offset_left = 1098.0
+offset_top = 759.0
+offset_right = 1439.8
+offset_bottom = 814.0
 
 [node name="RevisedButton" type="RevisedButton" parent="."]
 vertical_text_alignment = 1
@@ -150,15 +159,15 @@ popup/item_2/id = 2
 
 [node name="ExpandableButton" type="ExpandableButton" parent="RevisedButton"]
 expansion_size = 140
-expansion_indentation = 20
+expansion_indentation = -1
 vertical_text_alignment = 1
 text = "[color=LIME][font_size=24]Tytuł[/font_size][color=GREEN]
 Drugi Tekst 
 [/color][/color]"
 layout_mode = 0
-offset_left = 1085.0
+offset_left = 1099.0
 offset_top = 415.0
-offset_right = 1487.08
+offset_right = 1293.0
 offset_bottom = 557.0
 text = "[color=LIME][font_size=24]Tytuł[/font_size][color=GREEN]
 Drugi Tekst 
