@@ -16,7 +16,8 @@ func _ready():
 func _process(delta):
 	if p1:
 		p1 = false
-		$HScrollBar/AutoScroll.scroll_to(12.2)
+		var icon = $MenuButton.get_button_icon()
+		$GridContainer/ExpandableButton.add_theme_icon_override("icon",icon)
 	if p3:
 		p3 = false
 		$"RevisedButton".print_tree()

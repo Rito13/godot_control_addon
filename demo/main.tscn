@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://bpp4jjt84srtg" path="res://icon.svg" id="1_6elc7"]
 [ext_resource type="Script" path="res://main.gd" id="1_74n6x"]
-[ext_resource type="Theme" uid="uid://c48cbhud52ks5" path="res://project_theme.theme" id="3_is53j"]
+[ext_resource type="Theme" uid="uid://d3q45j3egfypp" path="res://theme1.theme" id="3_hl42y"]
 [ext_resource type="Script" path="res://valign.gd" id="4_hhe6y"]
 [ext_resource type="Texture2D" uid="uid://bkfjbqqbshahc" path="res://addons/control++/icons/Documentation.svg" id="5_7ynqh"]
 [ext_resource type="Texture2D" uid="uid://cjll4fqy6hd1" path="res://addons/control++/icons/Add.svg" id="6_33f2h"]
@@ -27,6 +27,7 @@ script = ExtResource("4_hhe6y")
 script = ExtResource("1_74n6x")
 
 [node name="GridContainer" type="GridContainer" parent="."]
+visible = false
 offset_left = 260.0
 offset_top = 116.0
 offset_right = 1048.0
@@ -34,31 +35,79 @@ offset_bottom = 802.0
 columns = 2
 
 [node name="ExpandableButton" type="ExpandableButton" parent="GridContainer"]
+_import_path = NodePath("")
+unique_name_in_owner = false
+process_mode = 0
+process_priority = 0
+process_physics_priority = 0
+process_thread_group = 0
+editor_description = ""
 layout_mode = 2
 size_flags_vertical = 3
+script = null
 
 [node name="ExpandableButton2" type="ExpandableButton" parent="GridContainer"]
+_import_path = NodePath("")
+unique_name_in_owner = false
+process_mode = 0
+process_priority = 0
+process_physics_priority = 0
+process_thread_group = 0
+editor_description = ""
 expansion_indentation = -50
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+script = null
 
 [node name="ExpandableButton3" type="ExpandableButton" parent="GridContainer"]
+_import_path = NodePath("")
+unique_name_in_owner = false
+process_mode = 0
+process_priority = 0
+process_physics_priority = 0
+process_thread_group = 0
+editor_description = ""
 layout_mode = 2
 size_flags_vertical = 3
+script = null
 
 [node name="ExpandableButton4" type="ExpandableButton" parent="GridContainer"]
+_import_path = NodePath("")
+unique_name_in_owner = false
+process_mode = 0
+process_priority = 0
+process_physics_priority = 0
+process_thread_group = 0
+editor_description = ""
 expansion_indentation = -134
 layout_mode = 2
 size_flags_vertical = 3
+script = null
 
 [node name="ExpandableButton5" type="ExpandableButton" parent="GridContainer"]
+_import_path = NodePath("")
+unique_name_in_owner = false
+process_mode = 0
+process_priority = 0
+process_physics_priority = 0
+process_thread_group = 0
+editor_description = ""
 layout_mode = 2
 size_flags_vertical = 3
+script = null
 
 [node name="ExpandableButton6" type="ExpandableButton" parent="GridContainer"]
+_import_path = NodePath("")
+unique_name_in_owner = false
+process_mode = 0
+process_priority = 0
+process_physics_priority = 0
+process_thread_group = 0
+editor_description = ""
 layout_mode = 2
 size_flags_vertical = 3
+script = null
 
 [node name="Button" type="Button" parent="GridContainer"]
 layout_mode = 2
@@ -77,18 +126,33 @@ visible = false
 position = Vector2(800, 150)
 
 [node name="GDExample" type="GDExample" parent="Node2D"]
-position = Vector2(19.8254, 18.6127)
+position = Vector2(12.129, 11.6022)
 texture = ExtResource("1_6elc7")
 
 [node name="ExpandableButton 2" type="ExpandableButton" parent="."]
+_import_path = NodePath("")
+unique_name_in_owner = false
+process_mode = 0
+process_priority = 0
+process_physics_priority = 0
+process_thread_group = 0
+editor_description = ""
 expansion_indentation = -100
 expansion_speed = 20.0
 offset_left = 1098.0
 offset_top = 703.0
 offset_right = 1438.38
 offset_bottom = 758.0
+script = null
 
 [node name="ExpandableButton 3" type="ExpandableButton" parent="."]
+_import_path = NodePath("")
+unique_name_in_owner = false
+process_mode = 0
+process_priority = 0
+process_physics_priority = 0
+process_thread_group = 0
+editor_description = ""
 expansion_size = 170
 expansion_indentation = 20
 offset_left = 1098.0
@@ -96,26 +160,7 @@ offset_top = 759.0
 offset_right = 1439.8
 offset_bottom = 814.0
 toggle_mode = true
-
-[node name="RevisedButton3" type="RevisedButton2" parent="."]
-offset_right = 40.0
-offset_bottom = 40.0
-theme = ExtResource("3_is53j")
-
-[node name="CheckButton" type="CheckButton" parent="RevisedButton3"]
-layout_mode = 0
-offset_top = 214.0
-offset_right = 194.0
-offset_bottom = 316.0
-text = "Check Button
-"
-
-[node name="CheckBox" type="CheckBox" parent="RevisedButton3"]
-layout_mode = 0
-offset_top = 82.0
-offset_right = 195.0
-offset_bottom = 168.0
-text = "Check Box Button"
+script = null
 
 [node name="RevisedButton" type="RevisedButton" parent="."]
 vertical_text_alignment = 1
@@ -133,15 +178,7 @@ offset_left = 72.0
 offset_top = 79.0
 offset_right = 681.0
 offset_bottom = 229.0
-text = "[color=Pink][font_size=24]Tytuł[/font_size][color=VIOLET]
-To jest bardzo fajny tekst wyświetlany na przycisku. 
-To jest druga linia tego tekstu.
-A to trzecia.
-I czwarta.
-A nawet piąta.
-6
-7
-[/color][/color]"
+theme = ExtResource("3_hl42y")
 
 [node name="Button" type="Button" parent="RevisedButton"]
 layout_mode = 0
@@ -180,6 +217,13 @@ popup/item_2/text = "3"
 popup/item_2/id = 2
 
 [node name="ExpandableButton" type="ExpandableButton" parent="RevisedButton"]
+_import_path = NodePath("")
+unique_name_in_owner = false
+process_mode = 0
+process_priority = 0
+process_physics_priority = 0
+process_thread_group = 0
+editor_description = ""
 expansion_size = 140
 expansion_indentation = 10
 layout_mode = 0
@@ -187,6 +231,7 @@ offset_left = 1099.0
 offset_top = 415.0
 offset_right = 1293.0
 offset_bottom = 557.0
+script = null
 
 [node name="ItemList" type="ItemList" parent="."]
 offset_left = 83.0
@@ -277,14 +322,13 @@ popup/item_2/text = "3"
 popup/item_2/id = 2
 
 [node name="RevisedButton2" type="RevisedButton" parent="."]
-vertical_text_alignment = 1
+vertical_text_alignment = 2
 text = "Show PopupMenu"
-visible = false
-offset_left = 592.0
-offset_top = 328.0
-offset_right = 715.0
-offset_bottom = 401.0
-text = "Show PopupMenu"
+offset_left = 517.0
+offset_top = 341.0
+offset_right = 974.0
+offset_bottom = 589.0
+theme = ExtResource("3_hl42y")
 
 [node name="PopupMenu" type="PopupMenu" parent="."]
 title = "popup"
@@ -314,5 +358,3 @@ item_4/checkable = 2
 item_4/checked = true
 item_4/id = 4
 item_4/disabled = true
-
-[connection signal="minimum_size_changed" from="GridContainer/ExpandableButton" to="." method="_on_expandable_button_2_item_rect_changed"]

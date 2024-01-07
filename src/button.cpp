@@ -1,7 +1,7 @@
 #include "button.h"
 #include <godot_cpp/core/class_db.hpp>
 #include <godot_cpp/classes/text_server.hpp>
-#include <godot_cpp/classes/texture2d.hpp>
+#include <godot_cpp/classes/theme.hpp>
 #include <godot_cpp/classes/ref.hpp>
 #include <godot_cpp/variant/utility_functions.hpp>
 #include <godot_cpp/classes/engine.hpp>
@@ -22,7 +22,9 @@ void RevisedButton::_bind_methods() {
 	ClassDB::bind_method(D_METHOD("get_adaptable_speed"), &RevisedButton::get_adaptable_speed);
 	ClassDB::bind_method(D_METHOD("set_is_text_off", "p_status"), &RevisedButton::set_is_text_off);
 	ClassDB::bind_method(D_METHOD("get_is_text_off"), &RevisedButton::get_is_text_off);
+	ClassDB::bind_method(D_METHOD("get_theme", "p_bool"), &RevisedButton::get_theme);
 	// An funny property
+	ClassDB::add_property("RevisedButton", PropertyInfo(Variant::BOOL, "find_theme"), "get_theme", "get_is_text_off");
 	ClassDB::add_property("RevisedButton", PropertyInfo(Variant::BOOL, "is_text_off"), "set_is_text_off", "get_is_text_off");
 	ClassDB::add_property_group("RevisedButton","Advance Text Behavior","");
 	ClassDB::add_property("RevisedButton", PropertyInfo(Variant::FLOAT, "auto_scrolling_speed"), "set_adaptable_speed", "get_adaptable_speed");
@@ -42,6 +44,7 @@ RevisedButton::RevisedButton() {
 	// Initialize variables
 	time_passed = 0.0;
 	amplitude = 31;
+	get_theme(true);
 
 	// Initialize internal childs
 	text_parent = memnew(Control);
@@ -101,12 +104,44 @@ void RevisedButton::on_timer_out() {
     idle_time_timer->start();
 }
 
-void RevisedButton::_notification(int p_what) {
-	switch (p_what) {
-		case NOTIFICATION_THEME_CHANGED: {
-			return;//UtilityFunctions::print(theme_cache.font_color,"  ",theme_cache.font_hover_color);
-		} break;
-    }
+void RevisedButton::find_theme(StringName type) {
+    theme_cache.normal = get_theme_stylebox("normal",type);
+    theme_cache.normal_mirrored = get_theme_stylebox("normal_mirrored",type);
+    theme_cache.pressed = get_theme_stylebox("pressed",type);
+    theme_cache.pressed_mirrored = get_theme_stylebox("pressed_mirrored",type);
+    theme_cache.hover = get_theme_stylebox("hover",type);
+    theme_cache.hover_mirrored = get_theme_stylebox("hover_mirrored",type);
+    theme_cache.hover_pressed = get_theme_stylebox("hover_pressed",type);
+    theme_cache.hover_pressed_mirrored = get_theme_stylebox("hover_pressed_mirrored",type);
+    theme_cache.disabled = get_theme_stylebox("disabled",type);
+    theme_cache.disabled_mirrored = get_theme_stylebox("disabled_mirrored",type);
+    theme_cache.focus = get_theme_stylebox("focus",type);
+
+    theme_cache.font_color = get_theme_color("font_color",type);
+    theme_cache.font_focus_color = get_theme_color("font_focus_color",type);
+    theme_cache.font_pressed_color = get_theme_color("font_pressed_color",type);
+    theme_cache.font_hover_color = get_theme_color("font_hover_color",type);
+    theme_cache.font_hover_pressed_color = get_theme_color("font_hover_pressed_color",type);
+    theme_cache.font_disabled_color = get_theme_color("font_disabled_color",type);
+
+    theme_cache.font = get_theme_font("font",type);
+    theme_cache.font_size = get_theme_font_size("font_size",type);
+    theme_cache.outline_size = get_theme_constant("outline_size",type);
+    theme_cache.font_outline_color = get_theme_color("font_outline_color",type);
+
+    theme_cache.icon_normal_color = get_theme_color("icon_normal_color",type);
+    theme_cache.icon_focus_color = get_theme_color("icon_focus_color",type);
+    theme_cache.icon_pressed_color = get_theme_color("icon_pressed_color",type);
+    theme_cache.icon_hover_color = get_theme_color("icon_hover_color",type);
+    theme_cache.icon_hover_pressed_color = get_theme_color("icon_hover_pressed_color",type);
+    theme_cache.icon_disabled_color = get_theme_color("icon_disabled_color",type);
+
+    theme_cache.h_separation = get_theme_constant("h_separation",type);
+    theme_cache.icon_max_width = get_theme_constant("icon_max_width",type);
+}
+
+void RevisedButton::get_theme(bool p_bool) {
+    find_theme("RevisedButton");
 }
 
 void RevisedButton::update_text(bool recursive) {
@@ -163,7 +198,7 @@ void RevisedButton::_process(double delta) {
 	time_passed = 0;
 	Vector2 siz = get_size();
 	Vector2 pos = Vector2(0,0);
-	Ref<Texture2D> texture = get_button_icon();
+	Ref<Texture2D> texture = icon;
 	if(is_CVA_calculated == 2) {
         is_CVA_calculated = 0;
         update_text_vertical_alignment();
@@ -205,10 +240,6 @@ void RevisedButton::_process(double delta) {
         old_height = siz.y;
         update_text_vertical_alignment();
     }
-	if(h_text_alignment!=get_text_alignment()) {
-        h_text_alignment = get_text_alignment();
-        update_text_horizontal_alignment();
-	}
 
 	// Update child sizes
 	text_container->set_size(siz);
@@ -228,6 +259,312 @@ void RevisedButton::_process(double delta) {
     if(!scroll->is_scrolling()&&idle_time_timer->get_time_left()==0) {
         idle_time_timer->start();
     }
+}
+
+void RevisedButton::_notification(int p_what) {
+	switch (p_what) {
+		case NOTIFICATION_LAYOUT_DIRECTION_CHANGED: {
+			queue_redraw();
+		} break;
+
+		case NOTIFICATION_TRANSLATION_CHANGED: {
+			//xl_text = atr(text);
+			//_shape();
+
+			update_minimum_size();
+			queue_redraw();
+		} break;
+
+		case NOTIFICATION_THEME_CHANGED: {
+			//_shape();
+
+			update_minimum_size();
+			queue_redraw();
+		} break;
+
+		case NOTIFICATION_DRAW: {
+			RID ci = get_canvas_item();
+			Vector2 size = get_size();
+			Color color;
+			Color color_icon(1, 1, 1, 1);
+
+			Ref<StyleBox> style = theme_cache.normal;
+			bool rtl = is_layout_rtl();
+
+			switch (get_draw_mode()) {
+				case DRAW_NORMAL: {
+					if (rtl && has_theme_stylebox( "normal_mirrored")) {
+						style = theme_cache.normal_mirrored;
+					} else {
+						style = theme_cache.normal;
+					}
+
+					if (!flat) {
+						style->draw(ci, Rect2(Vector2(0, 0), size));
+					}
+
+					// Focus colors only take precedence over normal state.
+					if (has_focus()) {
+						color = theme_cache.font_focus_color;
+						if (has_theme_color( "icon_focus_color")) {
+							color_icon = theme_cache.icon_focus_color;
+						}
+					} else {
+						color = theme_cache.font_color;
+						if (has_theme_color( "icon_normal_color")) {
+							color_icon = theme_cache.icon_normal_color;
+						}
+					}
+				} break;
+				case DRAW_HOVER_PRESSED: {
+					// Edge case for CheckButton and CheckBox.
+					if (has_theme_stylebox("hover_pressed")) {
+						if (rtl && has_theme_stylebox( "hover_pressed_mirrored")) {
+							style = theme_cache.hover_pressed_mirrored;
+						} else {
+							style = theme_cache.hover_pressed;
+						}
+
+						if (!flat) {
+							style->draw(ci, Rect2(Vector2(0, 0), size));
+						}
+						if (has_theme_color( "font_hover_pressed_color")) {
+							color = theme_cache.font_hover_pressed_color;
+						}
+						if (has_theme_color( "icon_hover_pressed_color")) {
+							color_icon = theme_cache.icon_hover_pressed_color;
+						}
+
+						break;
+					}
+					[[fallthrough]];
+				}
+				case DRAW_PRESSED: {
+					if (rtl && has_theme_stylebox( "pressed_mirrored")) {
+						style = theme_cache.pressed_mirrored;
+					} else {
+						style = theme_cache.pressed;
+					}
+
+					if (!flat) {
+						style->draw(ci, Rect2(Vector2(0, 0), size));
+					}
+					if (has_theme_color( "font_pressed_color")) {
+						color = theme_cache.font_pressed_color;
+					} else {
+						color = theme_cache.font_color;
+					}
+					if (has_theme_color( "icon_pressed_color")) {
+						color_icon = theme_cache.icon_pressed_color;
+					}
+
+				} break;
+				case DRAW_HOVER: {
+					if (rtl && has_theme_stylebox( "hover_mirrored")) {
+						style = theme_cache.hover_mirrored;
+					} else {
+						style = theme_cache.hover;
+					}
+
+					if (!flat) {
+						style->draw(ci, Rect2(Vector2(0, 0), size));
+					}
+					color = theme_cache.font_hover_color;
+					if (has_theme_color( "icon_hover_color")) {
+						color_icon = theme_cache.icon_hover_color;
+					}
+
+				} break;
+				case DRAW_DISABLED: {
+					if (rtl && has_theme_stylebox( "disabled_mirrored")) {
+						style = theme_cache.disabled_mirrored;
+					} else {
+						style = theme_cache.disabled;
+					}
+
+					if (!flat) {
+						style->draw(ci, Rect2(Vector2(0, 0), size));
+					}
+					color = theme_cache.font_disabled_color;
+					if (has_theme_color( "icon_disabled_color")) {
+						color_icon = theme_cache.icon_disabled_color;
+					} else {
+						color_icon.a = 0.4;
+					}
+
+				} break;
+			}
+
+			if (has_focus()) {
+				Ref<StyleBox> style2 = theme_cache.focus;
+				style2->draw(ci, Rect2(Vector2(), size));
+			}
+
+			Ref<Texture2D> _icon;
+			if (icon.is_null() && has_theme_icon( "icon")) {
+				_icon = get_theme_icon("icon","RevisedButton");
+			} else {
+				_icon = icon;
+			}
+
+			Rect2 icon_region;
+			HorizontalAlignment icon_align_rtl_checked = horizontal_icon_alignment;
+			HorizontalAlignment align_rtl_checked = h_text_alignment;
+			// Swap icon and text alignment sides if right-to-left layout is set.
+			if (rtl) {
+				if (horizontal_icon_alignment == HORIZONTAL_ALIGNMENT_RIGHT) {
+					icon_align_rtl_checked = HORIZONTAL_ALIGNMENT_LEFT;
+				} else if (horizontal_icon_alignment == HORIZONTAL_ALIGNMENT_LEFT) {
+					icon_align_rtl_checked = HORIZONTAL_ALIGNMENT_RIGHT;
+				}
+				if (h_text_alignment == HORIZONTAL_ALIGNMENT_RIGHT) {
+					align_rtl_checked = HORIZONTAL_ALIGNMENT_LEFT;
+				} else if (h_text_alignment == HORIZONTAL_ALIGNMENT_LEFT) {
+					align_rtl_checked = HORIZONTAL_ALIGNMENT_RIGHT;
+				}
+			}
+			if (!_icon.is_null()) {
+				int valign = size.y - style->get_minimum_size().y;
+
+				int voffset = 0;
+				Vector2 icon_size = _icon->get_size();
+
+				// Fix vertical size.
+				/*if (vertical_icon_alignment != VERTICAL_ALIGNMENT_CENTER) {
+					valign -= text_buf->get_size().y;
+				}*/
+
+				float icon_ofs_region = 0.0;
+				Vector2 style_offset;
+				if (icon_align_rtl_checked == HORIZONTAL_ALIGNMENT_LEFT) {
+					style_offset.x = style->get_margin(SIDE_LEFT);
+					if (_internal_margin[SIDE_LEFT] > 0) {
+						icon_ofs_region = _internal_margin[SIDE_LEFT] + theme_cache.h_separation;
+					}
+				} else if (icon_align_rtl_checked == HORIZONTAL_ALIGNMENT_CENTER) {
+					style_offset.x = 0.0;
+				} else if (icon_align_rtl_checked == HORIZONTAL_ALIGNMENT_RIGHT) {
+					style_offset.x = -style->get_margin(SIDE_RIGHT);
+					if (_internal_margin[SIDE_RIGHT] > 0) {
+						icon_ofs_region = -_internal_margin[SIDE_RIGHT] - theme_cache.h_separation;
+					}
+				}
+				style_offset.y = style->get_margin(SIDE_TOP);
+
+				if (shrink_icon) {
+					Vector2 _size = get_size() - style->get_offset() * 2;
+					int icon_text_separation = better_text.is_empty() ? 0 : theme_cache.h_separation;
+					_size.x -= icon_text_separation + icon_ofs_region;
+					/*if (!is_clipped && icon_align_rtl_checked != HORIZONTAL_ALIGNMENT_CENTER) {
+						_size.x -= text_buf->get_size().x;
+					}
+					if (vertical_icon_alignment != VERTICAL_ALIGNMENT_CENTER) {
+						_size.y -= text_buf->get_size().y;
+					}*/
+					float icon_width = _icon->get_width() * _size.y / _icon->get_height();
+					float icon_height = _size.y;
+
+					if (icon_width > _size.x) {
+						icon_width = _size.x;
+						icon_height = _icon->get_height() * icon_width / _icon->get_width();
+					}
+
+					icon_size = Vector2(icon_width, icon_height);
+				}
+				icon_size = _fit_icon_size(icon_size);
+
+				if (vertical_icon_alignment == VERTICAL_ALIGNMENT_TOP) {
+					voffset = -(valign - icon_size.y) / 2;
+				}
+				/*if (vertical_icon_alignment == VERTICAL_ALIGNMENT_BOTTOM) {
+					voffset = (valign - icon_size.y) / 2 + text_buf->get_size().y;
+				}*/
+
+				if (icon_align_rtl_checked == HORIZONTAL_ALIGNMENT_LEFT) {
+					icon_region = Rect2(style_offset + Vector2(icon_ofs_region, voffset + Math::floor((valign - icon_size.y) * 0.5)), icon_size);
+				} else if (icon_align_rtl_checked == HORIZONTAL_ALIGNMENT_CENTER) {
+					icon_region = Rect2(style_offset + Vector2(icon_ofs_region + Math::floor((size.x - icon_size.x) * 0.5), voffset + Math::floor((valign - icon_size.y) * 0.5)), icon_size);
+				} else {
+					icon_region = Rect2(style_offset + Vector2(icon_ofs_region + size.x - icon_size.x, voffset + Math::floor((valign - icon_size.y) * 0.5)), icon_size);
+				}
+
+				if (icon_region.size.x > 0) {
+					Rect2 icon_region_rounded = Rect2(icon_region.position.round(), icon_region.size.round());
+					draw_texture_rect(_icon, icon_region_rounded, false, color_icon);
+				}
+			}
+
+			Vector2 icon_ofs = !_icon.is_null() ? Vector2(icon_region.size.x + theme_cache.h_separation, 0) : Vector2();
+			if (align_rtl_checked == HORIZONTAL_ALIGNMENT_CENTER && icon_align_rtl_checked == HORIZONTAL_ALIGNMENT_CENTER) {
+				icon_ofs.x = 0.0;
+			}
+
+			int text_clip = size.x - style->get_minimum_size().x - icon_ofs.x;
+			if (_internal_margin[SIDE_LEFT] > 0) {
+				text_clip -= _internal_margin[SIDE_LEFT] + theme_cache.h_separation;
+			}
+			if (_internal_margin[SIDE_RIGHT] > 0) {
+				text_clip -= _internal_margin[SIDE_RIGHT] + theme_cache.h_separation;
+			}
+
+			/*text_buf->set_width(is_clipped ? text_clip : -1);
+
+			int text_width = MAX(1, is_clipped ? MIN(text_clip, text_buf->get_size().x) : text_buf->get_size().x);
+
+			Vector2 text_ofs = (size - style->get_minimum_size() - icon_ofs - text_buf->get_size() - Vector2(_internal_margin[SIDE_RIGHT] - _internal_margin[SIDE_LEFT], 0)) / 2.0;
+
+			if (vertical_icon_alignment == VERTICAL_ALIGNMENT_TOP) {
+				text_ofs.y += icon_region.size.y / 2;
+			}
+			if (vertical_icon_alignment == VERTICAL_ALIGNMENT_BOTTOM) {
+				text_ofs.y -= icon_region.size.y / 2;
+			}
+
+			text_buf->set_alignment(align_rtl_checked);
+			text_buf->set_width(text_width);
+			switch (align_rtl_checked) {
+				case HORIZONTAL_ALIGNMENT_FILL:
+				case HORIZONTAL_ALIGNMENT_LEFT: {
+					if (icon_align_rtl_checked != HORIZONTAL_ALIGNMENT_LEFT) {
+						icon_ofs.x = 0.0;
+					}
+					if (_internal_margin[SIDE_LEFT] > 0) {
+						text_ofs.x = style->get_margin(SIDE_LEFT) + icon_ofs.x + _internal_margin[SIDE_LEFT] + theme_cache.h_separation;
+					} else {
+						text_ofs.x = style->get_margin(SIDE_LEFT) + icon_ofs.x;
+					}
+					text_ofs.y += style->get_offset().y;
+				} break;
+				case HORIZONTAL_ALIGNMENT_CENTER: {
+					if (text_ofs.x < 0) {
+						text_ofs.x = 0;
+					}
+					if (icon_align_rtl_checked == HORIZONTAL_ALIGNMENT_LEFT) {
+						text_ofs += icon_ofs;
+					}
+					text_ofs += style->get_offset();
+				} break;
+				case HORIZONTAL_ALIGNMENT_RIGHT: {
+					if (_internal_margin[SIDE_RIGHT] > 0) {
+						text_ofs.x = size.x - style->get_margin(SIDE_RIGHT) - text_width - _internal_margin[SIDE_RIGHT] - theme_cache.h_separation;
+					} else {
+						text_ofs.x = size.x - style->get_margin(SIDE_RIGHT) - text_width;
+					}
+					text_ofs.y += style->get_offset().y;
+					if (icon_align_rtl_checked == HORIZONTAL_ALIGNMENT_RIGHT) {
+						text_ofs.x -= icon_ofs.x;
+					}
+				} break;
+			}
+
+			Color font_outline_color = theme_cache.font_outline_color;
+			int outline_size = theme_cache.outline_size;
+			if (outline_size > 0 && font_outline_color.a > 0) {
+				text_buf->draw_outline(ci, text_ofs, outline_size, font_outline_color);
+			}
+			text_buf->draw(ci, text_ofs, color);*/
+		} break;
+	}
 }
 
 void RevisedButton::set_amplitude(const double p_amplitude) {
@@ -257,13 +594,64 @@ double RevisedButton::get_adaptable_speed() {
 	return adaptable_speed;
 }
 
+void RevisedButton::set_text_alignment(HorizontalAlignment p_alignment) {
+	if (h_text_alignment != p_alignment) {
+		h_text_alignment = p_alignment;
+		update_text_horizontal_alignment();
+		queue_redraw();
+	}
+}
+
+HorizontalAlignment RevisedButton::get_text_alignment() const {
+	return h_text_alignment;
+}
+
 void RevisedButton::set_v_text_alignment(const VerticalAlignment p_alignment) {
-	v_text_alignment = p_alignment;
-	update_text_vertical_alignment();
+    if (v_text_alignment != p_alignment) {
+		v_text_alignment = p_alignment;
+		update_text_vertical_alignment();
+		queue_redraw();
+	}
 }
 
 VerticalAlignment RevisedButton::get_v_text_alignment() const {
 	return v_text_alignment;
+}
+
+void RevisedButton::set_icon_alignment(HorizontalAlignment p_alignment) {
+    if (horizontal_icon_alignment != p_alignment) {
+        horizontal_icon_alignment = p_alignment;
+        update_minimum_size();
+        queue_redraw();
+    }
+}
+
+void RevisedButton::set_vertical_icon_alignment(VerticalAlignment p_alignment) {
+    if (vertical_icon_alignment != p_alignment) {
+        vertical_icon_alignment = p_alignment;
+        update_minimum_size();
+        queue_redraw();
+    }
+}
+
+HorizontalAlignment RevisedButton::get_icon_alignment() const {
+	return horizontal_icon_alignment;
+}
+
+VerticalAlignment RevisedButton::get_vertical_icon_alignment() const {
+	return vertical_icon_alignment;
+}
+
+Vector2 RevisedButton::_fit_icon_size(const Vector2 &p_size) const {
+	int max_width = theme_cache.icon_max_width;
+	Vector2 icon_size = p_size;
+
+	if (max_width > 0 && icon_size.x > max_width) {
+		icon_size.y = icon_size.y * max_width / icon_size.x;
+		icon_size.x = max_width;
+	}
+
+	return icon_size;
 }
 
 void RevisedButton::set_text_autowrap(const TextServer::AutowrapMode p_autowrap) {

@@ -30,6 +30,7 @@ func _process(delta):
 		if Loader.exists(project_theme_path,"Theme"):
 			project_theme = Loader.load(project_theme_path,"Theme")
 		project_theme.merge_with(my_theme)
+		project_theme.add_type("RevisedButton")
 		Saver.save(project_theme,project_theme_path)
 
 func _handles(object: Object):
@@ -37,17 +38,17 @@ func _handles(object: Object):
 		return true
 
 func _edit(object: Object):
-	print(object)
+	#print(object)
 	if !object:
-		print(Edited_Node," reduced because of ",object)
+		#print(Edited_Node," reduced because of ",object)
 		Edited_Node.reduce()
 		return
 	if object is ExpandableButton:
 		if object != Edited_Node:
-			print(Edited_Node," reduced")
+			#print(Edited_Node," reduced")
 			Edited_Node.reduce()
 		Edited_Node = object
-		print(Edited_Node," expanded")
+		#print(Edited_Node," expanded")
 		Edited_Node.expand()
 
 

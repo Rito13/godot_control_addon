@@ -23,3 +23,7 @@ window/size/viewport_height=972
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/control++/plugin.cfg")
+
+[gui]
+
+theme/custom="res://project_theme.theme"
