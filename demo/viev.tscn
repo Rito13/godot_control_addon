@@ -1,6 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://enxjklrstl6o"]
-
-[ext_resource type="Texture2D" uid="uid://bpp4jjt84srtg" path="res://icon.svg" id="1_7go2y"]
+[gd_scene load_steps=2 format=3 uid="uid://enxjklrstl6o"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mk8y7"]
 bg_color = Color(0.372549, 0.372549, 0.372549, 1)
@@ -26,19 +24,26 @@ theme_override_constants/margin_top = 50
 theme_override_constants/margin_right = 50
 theme_override_constants/margin_bottom = 50
 
-[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer"]
+[node name="HBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer"]
 layout_mode = 2
-theme_override_constants/separation = 50
 
 [node name="RevisedButton" type="RevisedButton" parent="PanelContainer/MarginContainer/HBoxContainer"]
-text = "JakiS tekst dds ed fd "
-custom_minimum_size = Vector2(200, 60)
+text = "Normal"
+custom_minimum_size = Vector2(300, 40)
 layout_mode = 2
-theme_type_variation = &"_ExpandableButton_hidden"
+theme_type_variation = &"RevisedButton2"
 
-[node name="Button" type="Button" parent="PanelContainer/MarginContainer/HBoxContainer"]
-custom_minimum_size = Vector2(150, 60)
+[node name="RevisedButton2" type="RevisedButton" parent="PanelContainer/MarginContainer/HBoxContainer"]
+text = "Disabled"
+custom_minimum_size = Vector2(200, 40)
 layout_mode = 2
-text = "Jakiś Tekst"
-icon = ExtResource("1_7go2y")
-expand_icon = true
+theme_type_variation = &"RevisedButton2"
+disabled = true
+
+[node name="RevisedButton3" type="RevisedButton" parent="PanelContainer/MarginContainer/HBoxContainer"]
+text = "Pressed"
+custom_minimum_size = Vector2(200, 40)
+layout_mode = 2
+theme_type_variation = &"RevisedButton2"
+toggle_mode = true
+button_pressed = true

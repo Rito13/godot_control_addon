@@ -1,10 +1,11 @@
-[gd_scene load_steps=11 format=3 uid="uid://b8v40ha70irn5"]
+[gd_scene load_steps=12 format=3 uid="uid://b8v40ha70irn5"]
 
 [ext_resource type="Texture2D" uid="uid://bpp4jjt84srtg" path="res://icon.svg" id="1_6elc7"]
 [ext_resource type="Script" path="res://main.gd" id="1_74n6x"]
 [ext_resource type="Theme" uid="uid://d3q45j3egfypp" path="res://theme1.theme" id="3_hl42y"]
 [ext_resource type="Script" path="res://valign.gd" id="4_hhe6y"]
 [ext_resource type="Texture2D" uid="uid://bkfjbqqbshahc" path="res://addons/control++/icons/Documentation.svg" id="5_7ynqh"]
+[ext_resource type="Theme" uid="uid://dkco5byaykfug" path="res://Revised_Button_2.tres" id="5_fhkk6"]
 [ext_resource type="Texture2D" uid="uid://cjll4fqy6hd1" path="res://addons/control++/icons/Add.svg" id="6_33f2h"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_df58a"]
@@ -126,7 +127,7 @@ visible = false
 position = Vector2(800, 150)
 
 [node name="GDExample" type="GDExample" parent="Node2D"]
-position = Vector2(12.129, 11.6022)
+position = Vector2(6.62389, 19.6683)
 texture = ExtResource("1_6elc7")
 
 [node name="ExpandableButton 2" type="ExpandableButton" parent="."]
@@ -163,7 +164,6 @@ toggle_mode = true
 script = null
 
 [node name="RevisedButton" type="RevisedButton" parent="."]
-vertical_text_alignment = 1
 text = "[color=Pink][font_size=24]Tytuł[/font_size][color=VIOLET]
 To jest bardzo fajny tekst wyświetlany na przycisku. 
 To jest druga linia tego tekstu.
@@ -173,6 +173,7 @@ A nawet piąta.
 6
 7
 [/color][/color]"
+vertical_text_alignment = 1
 visible = false
 offset_left = 72.0
 offset_top = 79.0
@@ -322,13 +323,32 @@ popup/item_2/text = "3"
 popup/item_2/id = 2
 
 [node name="RevisedButton2" type="RevisedButton" parent="."]
-vertical_text_alignment = 2
-text = "Show PopupMenu"
+text = "W గedną drogą szli razem i człowiek, i zdrowie.Na początku biegł człowiek; towarzysz mu powie:Zdrowie, Choroba,Młodość, Starość,«Nie spiesz się, bo ustaniesz». Biegł గeszcze tym barǳieగ. UmiarkowanieWiǳąc zdrowie, że గego towarzystwem garǳi,Szło za nim, ale z wolna. Przyszli na pół drogi:Aż człowiek, że z początku nadwerężył nogi,Zelżył²⁰ kroku na środku. Za గego rozkazemPrzybliżyło się zdrowie i odtąd szli razem.Coraz człowiek ustawał, maగąc w pogotowiuZbliżył się: «Iść nie mogę, prowadź mnie» — rzekł zdrowiu.«Było mnie zrazu słuchać» — natenczas mu rzekło;Chciał człowiek odpowieǳieć… lecz zdrowie uciekło."
+icon = ExtResource("1_6elc7")
+horizontal_text_alignment = 0
+vertical_text_alignment = 1
 offset_left = 517.0
 offset_top = 341.0
-offset_right = 974.0
-offset_bottom = 589.0
-theme = ExtResource("3_hl42y")
+offset_right = 1080.0
+offset_bottom = 578.0
+theme = ExtResource("5_fhkk6")
+
+[node name="Button" type="Button" parent="RevisedButton2"]
+layout_mode = 0
+offset_left = 13.0
+offset_top = -149.0
+offset_right = 485.0
+offset_bottom = -91.0
+text = "Text na przycisku
+"
+
+[node name="Button2" type="Button" parent="RevisedButton2"]
+layout_mode = 0
+offset_left = 7.0
+offset_top = 416.0
+offset_right = 485.0
+offset_bottom = 477.0
+disabled = true
 
 [node name="PopupMenu" type="PopupMenu" parent="."]
 title = "popup"

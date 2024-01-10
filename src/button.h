@@ -14,6 +14,8 @@
 
 namespace godot {
 
+typedef bool (*theme_has) (const StringName&, const StringName&);
+
 class RevisedButton : public BaseButton {
 	GDCLASS(RevisedButton, BaseButton)
 
@@ -43,7 +45,7 @@ private:
 	bool timer_time_2 = false;
 	uint8_t is_CVA_calculated = 0;
 	bool is_text_off = false;
-	bool flat;
+	bool flat = false;
 	bool shrink_icon = false;
 	Ref<Texture2D> icon;
 
@@ -84,11 +86,20 @@ private:
 		int icon_max_width = 0;
 	} theme_cache;
 
+	static const uint8_t FHT_constant = 0;
+    static const uint8_t FHT_color = 1;
+	static const uint8_t FHT_stylebox = 2;
+	static const uint8_t FHT_font = 3;
+	static const uint8_t FHT_font_size = 4;
+	static const uint8_t FHT_icon = 255;
+
 protected:
 	static void _bind_methods();
 	String better_text = "Text";
 
 	Vector2 _fit_icon_size(const Vector2 &p_size) const;
+	//bool has_theme_something(bool (&what)(const StringName&, const StringName&)const,const StringName &name);
+	bool has_theme(uint8_t what,const StringName &name);
 
 public:
 	RevisedButton();
@@ -108,6 +119,10 @@ public:
 	void set_text(const String p_text);
 	String get_text() const;
 	void update_text(bool recursive = false);
+	//Icon property
+	void set_icon(const Ref<Texture2D> p_icon);
+	Ref<Texture2D> get_icon() const;
+	void update_icon();
 	//Autowrap property
 	TextServer::AutowrapMode get_text_autowrap() const;
 	void set_text_autowrap(const TextServer::AutowrapMode p_autowrap);
@@ -117,6 +132,12 @@ public:
 	//Is Text Off property
 	virtual void set_is_text_off(bool p_status);
 	virtual bool get_is_text_off();
+	//Flat property
+	void set_flat_status(bool p_status);
+	bool get_flat_status();
+	//Expand Icon property
+	void set_icon_shrink(bool p_status);
+	bool get_icon_shrink();
 
 	// Aligment
     //Text

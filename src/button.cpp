@@ -13,24 +13,43 @@ void RevisedButton::_bind_methods() {
     // Bind methods to godot editor
     ClassDB::bind_method(D_METHOD("get_text"), &RevisedButton::get_text);
 	ClassDB::bind_method(D_METHOD("set_text", "p_text"), &RevisedButton::set_text);
+	ClassDB::bind_method(D_METHOD("get_button_icon"), &RevisedButton::get_icon);
+	ClassDB::bind_method(D_METHOD("set_button_icon", "p_icon"), &RevisedButton::set_icon);
+	ClassDB::bind_method(D_METHOD("get_text_alignment"), &RevisedButton::get_text_alignment);
+	ClassDB::bind_method(D_METHOD("set_text_alignment", "p_alignment"), &RevisedButton::set_text_alignment);
 	ClassDB::bind_method(D_METHOD("get_v_text_alignment"), &RevisedButton::get_v_text_alignment);
 	ClassDB::bind_method(D_METHOD("set_v_text_alignment", "p_alignment"), &RevisedButton::set_v_text_alignment);
 	ClassDB::bind_method(D_METHOD("get_text_autowrap"), &RevisedButton::get_text_autowrap);
 	ClassDB::bind_method(D_METHOD("set_text_autowrap", "p_autowrap"), &RevisedButton::set_text_autowrap);
+	ClassDB::bind_method(D_METHOD("get_icon_alignment"), &RevisedButton::get_icon_alignment);
+	ClassDB::bind_method(D_METHOD("set_icon_alignment", "p_alignment"), &RevisedButton::set_icon_alignment);
+	ClassDB::bind_method(D_METHOD("get_vertical_icon_alignment"), &RevisedButton::get_vertical_icon_alignment);
+	ClassDB::bind_method(D_METHOD("set_vertical_icon_alignment", "p_alignment"), &RevisedButton::set_vertical_icon_alignment);
 	ClassDB::bind_method(D_METHOD("on_timer_out"), &RevisedButton::on_timer_out);
 	ClassDB::bind_method(D_METHOD("set_adaptable_speed", "p_autowrap"), &RevisedButton::set_adaptable_speed);
 	ClassDB::bind_method(D_METHOD("get_adaptable_speed"), &RevisedButton::get_adaptable_speed);
-	ClassDB::bind_method(D_METHOD("set_is_text_off", "p_status"), &RevisedButton::set_is_text_off);
-	ClassDB::bind_method(D_METHOD("get_is_text_off"), &RevisedButton::get_is_text_off);
+	ClassDB::bind_method(D_METHOD("set_text_off", "p_status"), &RevisedButton::set_is_text_off);
+	ClassDB::bind_method(D_METHOD("is_text_off"), &RevisedButton::get_is_text_off);
 	ClassDB::bind_method(D_METHOD("get_theme", "p_bool"), &RevisedButton::get_theme);
+	ClassDB::bind_method(D_METHOD("_texture_changed"), &RevisedButton::update_icon);
+	ClassDB::bind_method(D_METHOD("set_flat", "p_status"), &RevisedButton::set_flat_status);
+	ClassDB::bind_method(D_METHOD("is_flat"), &RevisedButton::get_flat_status);
+	ClassDB::bind_method(D_METHOD("set_expand_icon", "p_status"), &RevisedButton::set_icon_shrink);
+	ClassDB::bind_method(D_METHOD("is_expand_icon"), &RevisedButton::get_icon_shrink);
 	// An funny property
-	ClassDB::add_property("RevisedButton", PropertyInfo(Variant::BOOL, "find_theme"), "get_theme", "get_is_text_off");
-	ClassDB::add_property("RevisedButton", PropertyInfo(Variant::BOOL, "is_text_off"), "set_is_text_off", "get_is_text_off");
-	ClassDB::add_property_group("RevisedButton","Advance Text Behavior","");
+	ClassDB::add_property("RevisedButton", PropertyInfo(Variant::STRING, "text", PROPERTY_HINT_MULTILINE_TEXT), "set_text", "get_text");
+	ClassDB::add_property("RevisedButton", PropertyInfo(Variant::OBJECT, "icon", PROPERTY_HINT_RESOURCE_TYPE, "Texture2D"), "set_button_icon", "get_button_icon");
+	ClassDB::add_property("RevisedButton", PropertyInfo(Variant::BOOL, "flat"), "set_flat", "is_flat");
+	ClassDB::add_property_group("RevisedButton","Text Behavior","");
+	ClassDB::add_property("RevisedButton", PropertyInfo(Variant::BOOL, "is_text_off"), "set_text_off", "is_text_off");
 	ClassDB::add_property("RevisedButton", PropertyInfo(Variant::FLOAT, "auto_scrolling_speed"), "set_adaptable_speed", "get_adaptable_speed");
+	ClassDB::add_property("RevisedButton", PropertyInfo(Variant::INT, "horizontal_text_alignment", PROPERTY_HINT_ENUM, "Left,Center,Right"), "set_text_alignment", "get_text_alignment");
 	ClassDB::add_property("RevisedButton", PropertyInfo(Variant::INT, "vertical_text_alignment", PROPERTY_HINT_ENUM, "Top,Center,Bottom"), "set_v_text_alignment", "get_v_text_alignment");
 	ClassDB::add_property("RevisedButton", PropertyInfo(Variant::INT, "autowrap_mode", PROPERTY_HINT_ENUM, "Arbitrary:1,Word:2,Word (Smart):3"), "set_text_autowrap", "get_text_autowrap");
-	ClassDB::add_property("RevisedButton", PropertyInfo(Variant::STRING, "text"), "set_text", "get_text");
+	ClassDB::add_property_group("RevisedButton","Icon Behavior","");
+	ClassDB::add_property("RevisedButton", PropertyInfo(Variant::INT, "icon_alignment", PROPERTY_HINT_ENUM, "Left,Center,Right"), "set_icon_alignment", "get_icon_alignment");
+	ClassDB::add_property("RevisedButton", PropertyInfo(Variant::INT, "vertical_icon_alignment", PROPERTY_HINT_ENUM, "Top,Center,Bottom"), "set_vertical_icon_alignment", "get_vertical_icon_alignment");
+	ClassDB::add_property("RevisedButton", PropertyInfo(Variant::BOOL, "expand_icon"), "set_expand_icon", "is_expand_icon");
 	/*// Theme
 	BIND_THEME_ITEM(Theme::DATA_TYPE_COLOR, Button, font_color);
 	BIND_THEME_ITEM(Theme::DATA_TYPE_COLOR, Button, font_focus_color);
@@ -104,6 +123,42 @@ void RevisedButton::on_timer_out() {
     idle_time_timer->start();
 }
 
+bool RevisedButton::has_theme(uint8_t what,const StringName &name) {
+    switch (what) {
+		case FHT_constant: {
+			bool condition1 = has_theme_constant(name,"RevisedButton");
+			bool condition2 = has_theme_constant(name,"Button");
+			return condition1 || condition2;
+		} break;
+		case FHT_color: {
+			bool condition1 = has_theme_color(name,"RevisedButton");
+			bool condition2 = has_theme_color(name,"Button");
+			return condition1 || condition2;
+		} break;
+		case FHT_stylebox: {
+			bool condition1 = has_theme_stylebox(name,"RevisedButton");
+			bool condition2 = has_theme_stylebox(name,"Button");
+			return condition1 || condition2;
+		} break;
+		case FHT_font: {
+			bool condition1 = has_theme_font(name,"RevisedButton");
+			bool condition2 = has_theme_font(name,"Button");
+			return condition1 || condition2;
+		} break;
+		case FHT_font_size: {
+			bool condition1 = has_theme_font_size(name,"RevisedButton");
+			bool condition2 = has_theme_font_size(name,"Button");
+			return condition1 || condition2;
+		} break;
+		case FHT_icon: {
+			bool condition1 = has_theme_icon(name,"RevisedButton");
+			bool condition2 = has_theme_icon(name,"Button");
+			return condition1 || condition2;
+		} break;
+	}
+	return false;
+}
+
 void RevisedButton::find_theme(StringName type) {
     theme_cache.normal = get_theme_stylebox("normal",type);
     theme_cache.normal_mirrored = get_theme_stylebox("normal_mirrored",type);
@@ -141,7 +196,7 @@ void RevisedButton::find_theme(StringName type) {
 }
 
 void RevisedButton::get_theme(bool p_bool) {
-    find_theme("RevisedButton");
+    find_theme("Button");
 }
 
 void RevisedButton::update_text(bool recursive) {
@@ -271,18 +326,19 @@ void RevisedButton::_notification(int p_what) {
 			//xl_text = atr(text);
 			//_shape();
 
-			update_minimum_size();
+			//update_minimum_size();
 			queue_redraw();
 		} break;
 
 		case NOTIFICATION_THEME_CHANGED: {
 			//_shape();
-
-			update_minimum_size();
+            get_theme(true);
+			//update_minimum_size();
 			queue_redraw();
 		} break;
 
 		case NOTIFICATION_DRAW: {
+            StringName type = StringName("Button");
 			RID ci = get_canvas_item();
 			Vector2 size = get_size();
 			Color color;
@@ -293,7 +349,8 @@ void RevisedButton::_notification(int p_what) {
 
 			switch (get_draw_mode()) {
 				case DRAW_NORMAL: {
-					if (rtl && has_theme_stylebox( "normal_mirrored")) {
+                    //const auto &what (Control::has_theme_stylebox);
+					if (rtl && has_theme(FHT_stylebox,"normal_mirrored")) {
 						style = theme_cache.normal_mirrored;
 					} else {
 						style = theme_cache.normal;
@@ -306,20 +363,20 @@ void RevisedButton::_notification(int p_what) {
 					// Focus colors only take precedence over normal state.
 					if (has_focus()) {
 						color = theme_cache.font_focus_color;
-						if (has_theme_color( "icon_focus_color")) {
+						if (has_theme(FHT_color,"icon_focus_color")) {
 							color_icon = theme_cache.icon_focus_color;
 						}
 					} else {
 						color = theme_cache.font_color;
-						if (has_theme_color( "icon_normal_color")) {
+						if (has_theme(FHT_color,"icon_normal_color")) {
 							color_icon = theme_cache.icon_normal_color;
 						}
 					}
 				} break;
 				case DRAW_HOVER_PRESSED: {
 					// Edge case for CheckButton and CheckBox.
-					if (has_theme_stylebox("hover_pressed")) {
-						if (rtl && has_theme_stylebox( "hover_pressed_mirrored")) {
+					if (has_theme(FHT_stylebox,"hover_pressed")) {
+						if (rtl && has_theme(FHT_stylebox,"hover_pressed_mirrored")) {
 							style = theme_cache.hover_pressed_mirrored;
 						} else {
 							style = theme_cache.hover_pressed;
@@ -328,10 +385,10 @@ void RevisedButton::_notification(int p_what) {
 						if (!flat) {
 							style->draw(ci, Rect2(Vector2(0, 0), size));
 						}
-						if (has_theme_color( "font_hover_pressed_color")) {
+						if (has_theme(FHT_color,"font_hover_pressed_color")) {
 							color = theme_cache.font_hover_pressed_color;
 						}
-						if (has_theme_color( "icon_hover_pressed_color")) {
+						if (has_theme(FHT_color,"icon_hover_pressed_color")) {
 							color_icon = theme_cache.icon_hover_pressed_color;
 						}
 
@@ -340,7 +397,7 @@ void RevisedButton::_notification(int p_what) {
 					[[fallthrough]];
 				}
 				case DRAW_PRESSED: {
-					if (rtl && has_theme_stylebox( "pressed_mirrored")) {
+					if (rtl && has_theme(FHT_stylebox,"pressed_mirrored")) {
 						style = theme_cache.pressed_mirrored;
 					} else {
 						style = theme_cache.pressed;
@@ -349,18 +406,18 @@ void RevisedButton::_notification(int p_what) {
 					if (!flat) {
 						style->draw(ci, Rect2(Vector2(0, 0), size));
 					}
-					if (has_theme_color( "font_pressed_color")) {
+					if (has_theme(FHT_color,"font_pressed_color")) {
 						color = theme_cache.font_pressed_color;
 					} else {
 						color = theme_cache.font_color;
 					}
-					if (has_theme_color( "icon_pressed_color")) {
+					if (has_theme(FHT_color,"icon_pressed_color")) {
 						color_icon = theme_cache.icon_pressed_color;
 					}
 
 				} break;
 				case DRAW_HOVER: {
-					if (rtl && has_theme_stylebox( "hover_mirrored")) {
+					if (rtl && has_theme(FHT_stylebox,"hover_mirrored")) {
 						style = theme_cache.hover_mirrored;
 					} else {
 						style = theme_cache.hover;
@@ -370,13 +427,13 @@ void RevisedButton::_notification(int p_what) {
 						style->draw(ci, Rect2(Vector2(0, 0), size));
 					}
 					color = theme_cache.font_hover_color;
-					if (has_theme_color( "icon_hover_color")) {
+					if (has_theme(FHT_color,"icon_hover_color")) {
 						color_icon = theme_cache.icon_hover_color;
 					}
 
 				} break;
 				case DRAW_DISABLED: {
-					if (rtl && has_theme_stylebox( "disabled_mirrored")) {
+					if (rtl && has_theme(FHT_stylebox,"disabled_mirrored")) {
 						style = theme_cache.disabled_mirrored;
 					} else {
 						style = theme_cache.disabled;
@@ -386,7 +443,7 @@ void RevisedButton::_notification(int p_what) {
 						style->draw(ci, Rect2(Vector2(0, 0), size));
 					}
 					color = theme_cache.font_disabled_color;
-					if (has_theme_color( "icon_disabled_color")) {
+					if (has_theme(FHT_color,"icon_disabled_color")) {
 						color_icon = theme_cache.icon_disabled_color;
 					} else {
 						color_icon.a = 0.4;
@@ -401,8 +458,8 @@ void RevisedButton::_notification(int p_what) {
 			}
 
 			Ref<Texture2D> _icon;
-			if (icon.is_null() && has_theme_icon( "icon")) {
-				_icon = get_theme_icon("icon","RevisedButton");
+			if (icon.is_null() && has_theme(FHT_icon,"icon")) {
+				_icon = get_theme_icon("icon",type);
 			} else {
 				_icon = icon;
 			}
@@ -476,9 +533,9 @@ void RevisedButton::_notification(int p_what) {
 				if (vertical_icon_alignment == VERTICAL_ALIGNMENT_TOP) {
 					voffset = -(valign - icon_size.y) / 2;
 				}
-				/*if (vertical_icon_alignment == VERTICAL_ALIGNMENT_BOTTOM) {
-					voffset = (valign - icon_size.y) / 2 + text_buf->get_size().y;
-				}*/
+				if (vertical_icon_alignment == VERTICAL_ALIGNMENT_BOTTOM) {
+					voffset = (valign - icon_size.y) / 2;
+				}
 
 				if (icon_align_rtl_checked == HORIZONTAL_ALIGNMENT_LEFT) {
 					icon_region = Rect2(style_offset + Vector2(icon_ofs_region, voffset + Math::floor((valign - icon_size.y) * 0.5)), icon_size);
@@ -676,6 +733,30 @@ String RevisedButton::get_text() const {
 	return better_text;
 }
 
+void RevisedButton::set_icon(const Ref<Texture2D> p_icon) {
+	if (icon == p_icon) {
+		return;
+	}
+	if (icon.is_valid()) {
+		icon->disconnect("changed", Callable(this, "_texture_changed"));
+	}
+	icon = p_icon;
+	if (icon.is_valid()) {
+		icon->connect("changed", Callable(this, "_texture_changed"));
+	}
+	queue_redraw();
+	//update_minimum_size();
+}
+
+Ref<Texture2D> RevisedButton::get_icon() const {
+	return icon;
+}
+
+void RevisedButton::update_icon() {
+	queue_redraw();
+	//update_minimum_size();
+}
+
 void RevisedButton::set_is_text_off(bool p_status) {
     is_text_off = p_status;
     if(p_status) text_parent->hide();
@@ -687,4 +768,27 @@ void RevisedButton::set_is_text_off(bool p_status) {
 
 bool RevisedButton::get_is_text_off() {
     return is_text_off;
+}
+
+void RevisedButton::set_flat_status(bool p_status) {
+	if (flat != p_status) {
+    	flat = p_status;
+    	queue_redraw();
+	}
+}
+
+bool RevisedButton::get_flat_status() {
+    return flat;
+}
+
+void RevisedButton::set_icon_shrink(bool p_status) {
+	if (shrink_icon != p_status) {
+    	shrink_icon = p_status;
+    	queue_redraw();
+		//update_minimum_size();
+	}
+}
+
+bool RevisedButton::get_icon_shrink() {
+    return shrink_icon;
 }
