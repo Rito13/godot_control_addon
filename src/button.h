@@ -23,7 +23,6 @@ private:
 	double time_passed;
 	double amplitude;
 	double old_height = 0;
-	float _internal_margin[4] = {};
 	//Internal children
 	AutoScroll *scroll;
 	Timer *idle_time_timer;
@@ -31,10 +30,6 @@ private:
 	RichTextLabel *text_container;
 	double adaptable_speed = 20;
 	//Aligment functions and variables
-	HorizontalAlignment h_text_alignment = HORIZONTAL_ALIGNMENT_CENTER;
-	VerticalAlignment v_text_alignment = VERTICAL_ALIGNMENT_TOP;
-	HorizontalAlignment horizontal_icon_alignment = HORIZONTAL_ALIGNMENT_CENTER;
-	VerticalAlignment vertical_icon_alignment = VERTICAL_ALIGNMENT_TOP;
 	String _h_bbcode = "[center]";
 	String _v_bbcode = "";
 	double calculate_center_vertical_alignment(double y);
@@ -45,8 +40,30 @@ private:
 	bool timer_time_2 = false;
 	uint8_t is_CVA_calculated = 0;
 	bool is_text_off = false;
+	bool force_vertical_alignment_before_horizontal = false;
+
+protected:
+	static void _bind_methods();
+	String better_text = "Text";
+
+	Vector2 _fit_icon_size(const Vector2 &p_size) const;
+	//bool has_theme_something(bool (&what)(const StringName&, const StringName&)const,const StringName &name);
+	bool has_theme(uint8_t what,const StringName &name) const;
+
+	//Vars which expandable button uses
+	Color used_font_color = Color(1,1,1);
+	String _color_bbcode = "";
+	float _internal_margin[4] = {};
+	//Aligment functions and variables
+	HorizontalAlignment horizontal_icon_alignment = HORIZONTAL_ALIGNMENT_CENTER;
+	HorizontalAlignment h_text_alignment = HORIZONTAL_ALIGNMENT_CENTER;
+	VerticalAlignment v_text_alignment = VERTICAL_ALIGNMENT_TOP;
+	VerticalAlignment vertical_icon_alignment = VERTICAL_ALIGNMENT_TOP;
+	//State variables
 	bool flat = false;
 	bool shrink_icon = false;
+	Vector2 old_icon_size = Vector2(0,0);
+	Vector2 old_margin_size = Vector2(0,0);
 	Ref<Texture2D> icon;
 
 	// Theme properties
@@ -93,13 +110,6 @@ private:
 	static const uint8_t FHT_font_size = 4;
 	static const uint8_t FHT_icon = 255;
 
-protected:
-	static void _bind_methods();
-	String better_text = "Text";
-
-	Vector2 _fit_icon_size(const Vector2 &p_size) const;
-	//bool has_theme_something(bool (&what)(const StringName&, const StringName&)const,const StringName &name);
-	bool has_theme(uint8_t what,const StringName &name);
 
 public:
 	RevisedButton();
@@ -108,8 +118,9 @@ public:
 	void _process(double delta);
 	void on_timer_out();
 	void _notification(int p_what);
+	virtual Vector2 _get_minimum_size() const override;
 
-	void find_theme(StringName type);
+	void find_theme(StringName type,bool check = false);
 	void get_theme(bool p_bool);
 
 	//Amplitude property
@@ -150,6 +161,9 @@ public:
     VerticalAlignment get_vertical_icon_alignment() const;
     void set_icon_alignment(const HorizontalAlignment p_alignment);
     void set_vertical_icon_alignment(const VerticalAlignment p_alignment);
+	//Order
+	void set_force_vertical_alignment_before_horizontal(const int p_order);
+	int get_force_vertical_alignment_before_horizontal() const;
 };
 
 }

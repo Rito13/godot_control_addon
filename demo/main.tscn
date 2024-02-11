@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://b8v40ha70irn5"]
+[gd_scene load_steps=13 format=3 uid="uid://b8v40ha70irn5"]
 
 [ext_resource type="Texture2D" uid="uid://bpp4jjt84srtg" path="res://icon.svg" id="1_6elc7"]
 [ext_resource type="Script" path="res://main.gd" id="1_74n6x"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://valign.gd" id="4_hhe6y"]
 [ext_resource type="Texture2D" uid="uid://bkfjbqqbshahc" path="res://addons/control++/icons/Documentation.svg" id="5_7ynqh"]
 [ext_resource type="Theme" uid="uid://dkco5byaykfug" path="res://Revised_Button_2.tres" id="5_fhkk6"]
+[ext_resource type="Texture2D" uid="uid://d3v73lp7bhkkm" path="res://double_icon.svg" id="6_4u114"]
 [ext_resource type="Texture2D" uid="uid://cjll4fqy6hd1" path="res://addons/control++/icons/Add.svg" id="6_33f2h"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_df58a"]
@@ -36,79 +37,31 @@ offset_bottom = 802.0
 columns = 2
 
 [node name="ExpandableButton" type="ExpandableButton" parent="GridContainer"]
-_import_path = NodePath("")
-unique_name_in_owner = false
-process_mode = 0
-process_priority = 0
-process_physics_priority = 0
-process_thread_group = 0
-editor_description = ""
 layout_mode = 2
 size_flags_vertical = 3
-script = null
 
 [node name="ExpandableButton2" type="ExpandableButton" parent="GridContainer"]
-_import_path = NodePath("")
-unique_name_in_owner = false
-process_mode = 0
-process_priority = 0
-process_physics_priority = 0
-process_thread_group = 0
-editor_description = ""
 expansion_indentation = -50
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-script = null
 
 [node name="ExpandableButton3" type="ExpandableButton" parent="GridContainer"]
-_import_path = NodePath("")
-unique_name_in_owner = false
-process_mode = 0
-process_priority = 0
-process_physics_priority = 0
-process_thread_group = 0
-editor_description = ""
 layout_mode = 2
 size_flags_vertical = 3
-script = null
 
 [node name="ExpandableButton4" type="ExpandableButton" parent="GridContainer"]
-_import_path = NodePath("")
-unique_name_in_owner = false
-process_mode = 0
-process_priority = 0
-process_physics_priority = 0
-process_thread_group = 0
-editor_description = ""
 expansion_indentation = -134
 layout_mode = 2
 size_flags_vertical = 3
-script = null
 
 [node name="ExpandableButton5" type="ExpandableButton" parent="GridContainer"]
-_import_path = NodePath("")
-unique_name_in_owner = false
-process_mode = 0
-process_priority = 0
-process_physics_priority = 0
-process_thread_group = 0
-editor_description = ""
 layout_mode = 2
 size_flags_vertical = 3
-script = null
 
 [node name="ExpandableButton6" type="ExpandableButton" parent="GridContainer"]
-_import_path = NodePath("")
-unique_name_in_owner = false
-process_mode = 0
-process_priority = 0
-process_physics_priority = 0
-process_thread_group = 0
-editor_description = ""
 layout_mode = 2
 size_flags_vertical = 3
-script = null
 
 [node name="Button" type="Button" parent="GridContainer"]
 layout_mode = 2
@@ -127,41 +80,27 @@ visible = false
 position = Vector2(800, 150)
 
 [node name="GDExample" type="GDExample" parent="Node2D"]
-position = Vector2(6.62389, 19.6683)
+position = Vector2(19.6538, 18.306)
 texture = ExtResource("1_6elc7")
 
 [node name="ExpandableButton 2" type="ExpandableButton" parent="."]
-_import_path = NodePath("")
-unique_name_in_owner = false
-process_mode = 0
-process_priority = 0
-process_physics_priority = 0
-process_thread_group = 0
-editor_description = ""
 expansion_indentation = -100
 expansion_speed = 20.0
+visible = false
 offset_left = 1098.0
 offset_top = 703.0
 offset_right = 1438.38
 offset_bottom = 758.0
-script = null
 
 [node name="ExpandableButton 3" type="ExpandableButton" parent="."]
-_import_path = NodePath("")
-unique_name_in_owner = false
-process_mode = 0
-process_priority = 0
-process_physics_priority = 0
-process_thread_group = 0
-editor_description = ""
 expansion_size = 170
 expansion_indentation = 20
+visible = false
 offset_left = 1098.0
 offset_top = 759.0
 offset_right = 1439.8
 offset_bottom = 814.0
 toggle_mode = true
-script = null
 
 [node name="RevisedButton" type="RevisedButton" parent="."]
 text = "[color=Pink][font_size=24]Tytuł[/font_size][color=VIOLET]
@@ -218,13 +157,6 @@ popup/item_2/text = "3"
 popup/item_2/id = 2
 
 [node name="ExpandableButton" type="ExpandableButton" parent="RevisedButton"]
-_import_path = NodePath("")
-unique_name_in_owner = false
-process_mode = 0
-process_priority = 0
-process_physics_priority = 0
-process_thread_group = 0
-editor_description = ""
 expansion_size = 140
 expansion_indentation = 10
 layout_mode = 0
@@ -232,7 +164,6 @@ offset_left = 1099.0
 offset_top = 415.0
 offset_right = 1293.0
 offset_bottom = 557.0
-script = null
 
 [node name="ItemList" type="ItemList" parent="."]
 offset_left = 83.0
@@ -323,32 +254,60 @@ popup/item_2/text = "3"
 popup/item_2/id = 2
 
 [node name="RevisedButton2" type="RevisedButton" parent="."]
-text = "W గedną drogą szli razem i człowiek, i zdrowie.Na początku biegł człowiek; towarzysz mu powie:Zdrowie, Choroba,Młodość, Starość,«Nie spiesz się, bo ustaniesz». Biegł గeszcze tym barǳieగ. UmiarkowanieWiǳąc zdrowie, że గego towarzystwem garǳi,Szło za nim, ale z wolna. Przyszli na pół drogi:Aż człowiek, że z początku nadwerężył nogi,Zelżył²⁰ kroku na środku. Za గego rozkazemPrzybliżyło się zdrowie i odtąd szli razem.Coraz człowiek ustawał, maగąc w pogotowiuZbliżył się: «Iść nie mogę, prowadź mnie» — rzekł zdrowiu.«Było mnie zrazu słuchać» — natenczas mu rzekło;Chciał człowiek odpowieǳieć… lecz zdrowie uciekło."
+text = "W గedną drogą szli razem i człowiek, i zdrowie.Na początku biegł człowiek; towarzysz mu powie:Zdrowie, Choroba,Młodość, Starość,«Nie spiesz się, bo ustaniesz».[color=#d4556677] Biegł గeszcze tym barǳieగ. UmiarkowanieWiǳąc zdrowie, że గego towarzystwem garǳi,Szło za nim, ale z wolna. Przyszli na pół drogi:[/color]Aż człowiek, że z początku nadwerężył nogi,Zelżył²⁰ kroku na środku. Za గego rozkazemPrzybliżyło się zdrowie i odtąd szli razem.Coraz człowiek ustawał, maగąc w pogotowiuZbliżył się: «Iść nie mogę, prowadź mnie» — rzekł zdrowiu.«Było mnie zrazu słuchać» — natenczas mu rzekło;Chciał człowiek odpowieǳieć… lecz zdrowie uciekło."
 icon = ExtResource("1_6elc7")
+alignment_order = 1
 horizontal_text_alignment = 0
 vertical_text_alignment = 1
-offset_left = 517.0
-offset_top = 341.0
-offset_right = 1080.0
-offset_bottom = 578.0
+vertical_icon_alignment = 2
+offset_left = 514.0
+offset_top = 410.0
+offset_right = 904.0
+offset_bottom = 620.0
 theme = ExtResource("5_fhkk6")
 
 [node name="Button" type="Button" parent="RevisedButton2"]
 layout_mode = 0
-offset_left = 13.0
-offset_top = -149.0
-offset_right = 485.0
-offset_bottom = -91.0
-text = "Text na przycisku
-"
+offset_left = 442.0
+offset_top = 1.0
+offset_right = 817.0
+offset_bottom = 221.0
+text = "W గedną drogą szli razem i człowiek, i zdrowie.Na początku biegł człowiek; towarzysz mu powie:
+Zdrowie, Choroba,Młodość, Starość,«Nie spiesz się, bo ustaniesz». 
+Biegł గeszcze tym barǳieగ. UmiarkowanieWiǳąc zdrowie, że గego towarzystwem garǳi,Szło za nim, ale z wolna. "
+icon = ExtResource("1_6elc7")
+clip_text = true
+icon_alignment = 1
+vertical_icon_alignment = 2
 
-[node name="Button2" type="Button" parent="RevisedButton2"]
+[node name="ExpandableButton" type="ExpandableButton" parent="RevisedButton2"]
+text = "Text text 3t54tg45g54g54g45g4g54g"
+icon = ExtResource("6_4u114")
+horizontal_text_alignment = 0
+icon_alignment = 2
+vertical_icon_alignment = 2
 layout_mode = 0
-offset_left = 7.0
-offset_top = 416.0
-offset_right = 485.0
-offset_bottom = 477.0
+offset_left = -3.0
+offset_top = 299.0
+offset_right = 370.0
+offset_bottom = 460.0
+
+[node name="GridContainer2" type="GridContainer" parent="."]
+offset_left = 517.0
+offset_top = 341.0
+offset_right = 557.0
+offset_bottom = 381.0
+columns = 2
+
+[node name="Button" type="Button" parent="GridContainer2"]
+layout_mode = 2
+text = "Text na przycisku 1"
+alignment = 2
+
+[node name="Button2" type="Button" parent="GridContainer2"]
+layout_mode = 2
 disabled = true
+text = "Text jakiś to jest na tym przycisku o numerze 2"
 
 [node name="PopupMenu" type="PopupMenu" parent="."]
 title = "popup"

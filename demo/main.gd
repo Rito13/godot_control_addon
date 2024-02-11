@@ -9,15 +9,14 @@ extends Node
 var p52 = false 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass
+	p4 = true
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	if p1:
 		p1 = false
-		var icon = $MenuButton.get_button_icon()
-		$GridContainer/ExpandableButton.add_theme_icon_override("icon",icon)
+		print_rich("[color=#f34455ff] lol")
 	if p3:
 		p3 = false
 		$"RevisedButton".print_tree()
@@ -25,7 +24,8 @@ func _process(delta):
 		print(s.value," ",s.max_value," ",s.min_value," ",s.page," ",s.step)
 	if p4:
 		p4 = false
-		$RevisedButton/ExpandableButton.print_tree()
+		$RevisedButton2.set_alignment_order(3)
+		$RevisedButton2.set_text_autowrap(TextServer.AUTOWRAP_OFF)
 	if p2:
 		p2 = false
 		$HScrollBar/AutoScroll.scroll_to(56.6)
