@@ -26,9 +26,6 @@ private:
 	//Internal children
 	AutoScroll *scroll;
 	Timer *idle_time_timer;
-	Control *text_parent;
-	RichTextLabel *text_container;
-	double adaptable_speed = 20;
 	//Aligment functions and variables
 	String _h_bbcode = "[center]";
 	String _v_bbcode = "";
@@ -65,6 +62,10 @@ protected:
 	Vector2 old_icon_size = Vector2(0,0);
 	Vector2 old_margin_size = Vector2(0,0);
 	Ref<Texture2D> icon;
+	//Internal children
+	Control *text_parent;
+	RichTextLabel *text_container;
+	double adaptable_speed = 20;
 
 	// Theme properties
 	struct ThemeCache {
