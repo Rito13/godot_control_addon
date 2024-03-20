@@ -29,7 +29,6 @@ script = ExtResource("4_hhe6y")
 script = ExtResource("1_74n6x")
 
 [node name="GridContainer" type="GridContainer" parent="."]
-visible = false
 offset_left = 260.0
 offset_top = 116.0
 offset_right = 1048.0
@@ -43,7 +42,6 @@ size_flags_vertical = 3
 [node name="ExpandableButton2" type="ExpandableButton" parent="GridContainer"]
 expansion_indentation = -50
 layout_mode = 2
-size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="ExpandableButton3" type="ExpandableButton" parent="GridContainer"]
@@ -80,7 +78,7 @@ visible = false
 position = Vector2(800, 150)
 
 [node name="GDExample" type="GDExample" parent="Node2D"]
-position = Vector2(15.014, 6.18434)
+position = Vector2(15.8569, 1.08116)
 texture = ExtResource("1_6elc7")
 
 [node name="ExpandableButton 2" type="ExpandableButton" parent="."]
@@ -281,12 +279,13 @@ icon_alignment = 1
 vertical_icon_alignment = 2
 
 [node name="ExpandableButton" type="ExpandableButton" parent="RevisedButton2"]
-expansion_size = 400
+expansion_size = 310
+expansion_speed = 12.0
+information_margin = 40
 text = "W గedną drogą szli razem i człowiek, i zdrowie.Na początku biegł człowiek; towarzysz mu powie:Zdrowie, Choroba,Młodość, Starość,«Nie spiesz się, bo ustaniesz».[color=#d4556677] Biegł గeszcze tym barǳieగ. UmiarkowanieWiǳąc zdrowie, że గego towarzystwem garǳi,Szło za nim, ale z wolna. Przyszli na pół drogi:[/color]Aż człowiek, że z początku nadwerężył nogi,Zelżył²⁰ kroku na środku. Za గego rozkazemPrzybliżyło się zdrowie i odtąd szli razem.Coraz człowiek ustawał, maగąc w pogotowiuZbliżył się: «Iść nie mogę, prowadź mnie» — rzekł zdrowiu.«Było mnie zrazu słuchać» — natenczas mu rzekło;Chciał człowiek odpowieǳieć… lecz zdrowie uciekło.
 "
 icon = ExtResource("6_4u114")
-horizontal_text_alignment = 0
-icon_alignment = 2
+icon_alignment = 0
 expand_icon = true
 layout_mode = 0
 offset_left = -3.0
@@ -339,3 +338,5 @@ item_4/checkable = 2
 item_4/checked = true
 item_4/id = 4
 item_4/disabled = true
+
+[connection signal="button_down" from="GridContainer/ExpandableButton" to="." method="_on_expandable_button_button_down"]

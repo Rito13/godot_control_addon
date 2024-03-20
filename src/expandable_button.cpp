@@ -21,6 +21,14 @@ void ExpandableButton::_bind_methods() {
 	// Expand Methods
 	ClassDB::bind_method(D_METHOD("expand"), &ExpandableButton::expand);
 	ClassDB::bind_method(D_METHOD("reduce"), &ExpandableButton::reduce);
+	// Expansion Informations Property
+	ClassDB::bind_method(D_METHOD("set_expansion_info", "p_int"), &ExpandableButton::set_expansion_info);
+	ClassDB::bind_method(D_METHOD("get_expansion_info"), &ExpandableButton::get_expansion_info);
+	ClassDB::add_property("ExpandableButton", PropertyInfo(Variant::INT, "expansion_information", PROPERTY_HINT_ENUM, "Image,Text"), "set_expansion_info", "get_expansion_info");
+	// Informations Margin Property
+	ClassDB::bind_method(D_METHOD("set_info_margin", "p_margin"), &ExpandableButton::set_info_margin);
+	ClassDB::bind_method(D_METHOD("get_info_margin"), &ExpandableButton::get_info_margin);
+	ClassDB::add_property("ExpandableButton", PropertyInfo(Variant::INT, "information_margin"), "set_info_margin", "get_info_margin");
 	//ClassDB::bind_method(D_METHOD("_get_minimum_size"), &ExpandableButton::_get_minimum_size);
 	// Signals Methods
 	//ClassDB::bind_method(D_METHOD("on_timer_out2"), &ExpandableButton::on_timer_out2);
@@ -281,8 +289,13 @@ void ExpandableButton::_notification(int p_what) {
 				}
 			}
 			if (!_icon.is_null()) {
-				Vector2 ex_size = Vector2(expansion_vector);
-				ex_size.x -= expansion_indentation;
+				Vector2 ex_size;
+				if(expansion_info) {
+					ex_size = Vector2(base_vector);
+				} else {
+					ex_size = Vector2(expansion_vector);
+					ex_size.x = ex_size.x - expansion_indentation - info_margin;
+				}
 				int valign = ex_size.y - style->get_minimum_size().y;
 
 				int voffset = 0;
@@ -351,24 +364,44 @@ void ExpandableButton::_notification(int p_what) {
 				old_margin_size = style_offset;
 			}
 
-			Vector2 text_size,text_pos;
+			Vector2 text_size,text_parent_size,text_pos,text_parent_pos;
 
 			if (!flat)	style->draw(ci, Rect2(expansion_point, expansion_vector));
-			icon_region.position.x += expansion_indentation;
-			if (icon_region.size.x > 0) {
+			if (icon_region.size.x > 0 && !expansion_info) {
+				icon_region.position.x += expansion_indentation + info_margin;
 				old_icon_size = icon_region.size.round();
 				Rect2 icon_region_rounded = Rect2(icon_region.position.round()+expansion_point, icon_region.size.round());
 				draw_texture_rect(_icon, icon_region_rounded, false, color_icon);
 			}
 			if (!flat)	style->draw(ci, Rect2(Vector2(0, 0), base_vector));
+			if (icon_region.size.x > 0 && expansion_info) {
+				old_icon_size = icon_region.size.round();
+				Rect2 icon_region_rounded = Rect2(icon_region.position.round(), icon_region.size.round());
+				draw_texture_rect(_icon, icon_region_rounded, false, color_icon);
+			}
 
-			text_pos = Vector2(style->get_minimum_size());
-			text_size = Vector2(base_vector);
-			text_size -= text_pos*2;
+			if(expansion_info) {
+				text_pos = style->get_minimum_size();
+				text_size = expansion_vector;
+				text_size.x = text_size.x - expansion_indentation - info_margin;
+				text_size -= text_pos*2;
+				text_parent_size = Vector2(added_size-info_margin,size.y);
+				text_parent_size -= text_pos*2;
+				text_parent_pos.x = base_vector.x+text_pos.x+info_margin;
+				text_pos = Vector2(text_parent_size.x-text_size.x,0);
+				text_parent_pos.y = 0;
+			} else {
+				text_parent_pos = Vector2(style->get_minimum_size());
+				text_pos = Vector2(0,0);
+				text_size = Vector2(base_vector);
+				text_size -= text_pos*2;
+				text_parent_size = text_size;
+			}
 
 			text_container->set_size(text_size);
-			text_parent->set_size(text_size);
-			text_parent->set_position(text_pos);
+			text_parent->set_size(text_parent_size);
+			text_parent->set_position(text_parent_pos);
+			text_container->set_position(text_pos);
 
 			if (has_focus()) {
 				Ref<StyleBox> style2 = theme_cache.focus;
@@ -396,13 +429,16 @@ void ExpandableButton::_notification(int p_what) {
 
 void ExpandableButton::_process(double delta) {
 	Vector2 text_size = text_container->get_size();
-	Vector2 text_pos = text_parent->get_position();
+	Vector2 text_pos = text_container->get_position();
+	Vector2 text_parent_size = text_parent->get_size();
+	Vector2 text_parent_pos = text_parent->get_position();
 
     RevisedButton::_process(delta);
-
+	
 	text_container->set_size(text_size);
-	text_parent->set_size(text_size);
-	text_parent->set_position(text_pos);
+	text_parent->set_size(text_parent_size);
+	text_parent->set_position(text_parent_pos);
+	text_container->set_position(text_pos);
 
 	set_adaptable_speed(adaptable_speed);
 
@@ -552,6 +588,24 @@ void ExpandableButton::set_expansion_size(int p_size) {
 
 int ExpandableButton::get_expansion_size() {
     return expansion_size_full;
+}
+
+void ExpandableButton::set_expansion_info(int p_int) {
+    if(p_int<=0) expansion_info = false;
+    else expansion_info = true;
+}
+
+int ExpandableButton::get_expansion_info() {
+    if(expansion_info) return 1;
+	else return 0;
+}
+
+void ExpandableButton::set_info_margin(int p_margin) {
+    info_margin = p_margin;
+}
+
+int ExpandableButton::get_info_margin() {
+    return info_margin;
 }
 
 void ExpandableButton::set_expansion_indentation(int p_indentation) {

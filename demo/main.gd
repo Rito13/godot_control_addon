@@ -42,3 +42,7 @@ func _on_revised_button_2_pressed():
 
 func _on_expandable_button_2_item_rect_changed():
 	print($GridContainer/ExpandableButton2.get_minimum_size())
+
+
+func _on_expandable_button_button_down():
+	print($GridContainer/ExpandableButton.get_minimum_size())

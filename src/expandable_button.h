@@ -22,6 +22,8 @@ private:
 	bool is_expanded = false;
 	double speed = 25;
 	StringName theme_type_variation;
+	bool expansion_info = false;
+	int info_margin = 0;
 
 protected:
 	static void _bind_methods();
@@ -42,6 +44,12 @@ public:
 
 	void set_expansion_size(int p_size);
 	int get_expansion_size();
+
+	void set_expansion_info(int p_int);
+	int get_expansion_info();
+
+	void set_info_margin(int p_margin);
+	int get_info_margin();
 
 	void set_expansion_indentation(int p_indentation);
 	int get_expansion_indentation();
