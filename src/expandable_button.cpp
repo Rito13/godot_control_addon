@@ -29,6 +29,10 @@ void ExpandableButton::_bind_methods() {
 	ClassDB::bind_method(D_METHOD("set_info_margin", "p_margin"), &ExpandableButton::set_info_margin);
 	ClassDB::bind_method(D_METHOD("get_info_margin"), &ExpandableButton::get_info_margin);
 	ClassDB::add_property("ExpandableButton", PropertyInfo(Variant::INT, "information_margin"), "set_info_margin", "get_info_margin");
+	// Base Minimum Size Property
+	ClassDB::bind_method(D_METHOD("set_base_minimum_size", "p_size"), &ExpandableButton::set_base_minimum_size);
+	ClassDB::bind_method(D_METHOD("get_base_minimum_size"), &ExpandableButton::get_base_minimum_size);
+	ClassDB::add_property("ExpandableButton", PropertyInfo(Variant::VECTOR2, "base_minimum_size"), "set_base_minimum_size", "get_base_minimum_size");
 	//ClassDB::bind_method(D_METHOD("_get_minimum_size"), &ExpandableButton::_get_minimum_size);
 	// Signals Methods
 	//ClassDB::bind_method(D_METHOD("on_timer_out2"), &ExpandableButton::on_timer_out2);
@@ -461,9 +465,13 @@ void ExpandableButton::_process(double delta) {
 			else if(added_size - delta_speed > expansion_size)
 				added_size -= delta_speed;
 			else added_size = expansion_size;
+			emit_signal("minimum_size_changed");
+			update_minimum_size();
         }
         if(!is_expanded && added_size > 0){
 			added_size -= delta_speed;
+			emit_signal("minimum_size_changed");
+			update_minimum_size();
         }
 		queue_redraw();
 
@@ -474,16 +482,19 @@ void ExpandableButton::_process(double delta) {
 		double delta_speed = delta*speed*expansion_size/10;
 
         if(is_expanded && added_size < expansion_size){
+			emit_signal("minimum_size_changed");
+			update_minimum_size();
 			added_size += delta_speed;
 			width += delta_speed;
         }
         if(!is_expanded && added_size > 0){
+			emit_signal("minimum_size_changed");
+			update_minimum_size();
 			added_size -= delta_speed;
 			width -= delta_speed;
         }
         set_size(Vector2(width,height));
         emit_signal("size_flags_changed");
-        emit_signal("minimum_size_changed");
 	}
 
     /* double height = get_size().y;
@@ -571,19 +582,32 @@ void ExpandableButton::_process(double delta) {
 }
 
 Vector2 ExpandableButton::_get_minimum_size() const {
+	//UtilityFunctions::print("ExpandableButton::_get_minimum_size()");
     Ref<Texture2D> texture = get_icon();
 	//Check if texture exist
 	if(!texture.is_valid())
         texture = memnew(Ref<Texture2D>);
-    Vector2 _min = Vector2(0,0);//get_minimum_size_for_text_and_icon("", texture);
+    Vector2 _min = base_minimum_size;//get_minimum_size_for_text_and_icon("", texture);
 	if(!Engine::get_singleton()->is_editor_hint())
     	_min.x += added_size;
 	return _min;
 }
 
+void ExpandableButton::set_base_minimum_size(Vector2 p_size) {
+    base_minimum_size = p_size;
+	emit_signal("minimum_size_changed");
+	update_minimum_size();
+}
+
+Vector2 ExpandableButton::get_base_minimum_size() {
+    return base_minimum_size;
+}
+
 void ExpandableButton::set_expansion_size(int p_size) {
     expansion_size_full = p_size;
     expansion_size = p_size - expansion_indentation;
+	emit_signal("minimum_size_changed");
+	update_minimum_size();
 }
 
 int ExpandableButton::get_expansion_size() {
@@ -614,6 +638,8 @@ void ExpandableButton::set_expansion_indentation(int p_indentation) {
     // Vector2 pos = expansion_parent->get_position();
     // pos.x = old_size.x-expansion_indentation;
     // expansion_parent->set_position(pos);
+	emit_signal("minimum_size_changed");
+	update_minimum_size();
 }
 
 int ExpandableButton::get_expansion_indentation() {

@@ -36,6 +36,8 @@ offset_bottom = 802.0
 columns = 2
 
 [node name="ExpandableButton" type="ExpandableButton" parent="GridContainer"]
+base_minimum_size = Vector2(100, 0)
+custom_minimum_size = Vector2(40, 0)
 layout_mode = 2
 size_flags_vertical = 3
 
@@ -70,6 +72,7 @@ layout_mode = 2
 size_flags_vertical = 3
 
 [node name="Button3" type="Button" parent="GridContainer"]
+custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 size_flags_vertical = 3
 
@@ -78,7 +81,7 @@ visible = false
 position = Vector2(800, 150)
 
 [node name="GDExample" type="GDExample" parent="Node2D"]
-position = Vector2(15.8569, 1.08116)
+position = Vector2(12.8909, 12.1819)
 texture = ExtResource("1_6elc7")
 
 [node name="ExpandableButton 2" type="ExpandableButton" parent="."]
@@ -340,3 +343,4 @@ item_4/id = 4
 item_4/disabled = true
 
 [connection signal="button_down" from="GridContainer/ExpandableButton" to="." method="_on_expandable_button_button_down"]
+[connection signal="minimum_size_changed" from="GridContainer/ExpandableButton" to="." method="_on_expandable_button_minimum_size_changed"]

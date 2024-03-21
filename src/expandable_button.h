@@ -24,6 +24,7 @@ private:
 	StringName theme_type_variation;
 	bool expansion_info = false;
 	int info_margin = 0;
+	Vector2 base_minimum_size = Vector2(0,0);
 
 protected:
 	static void _bind_methods();
@@ -53,6 +54,9 @@ public:
 
 	void set_expansion_indentation(int p_indentation);
 	int get_expansion_indentation();
+
+	void set_base_minimum_size(Vector2 p_size);
+	Vector2 get_base_minimum_size();
 
 	void expand();
 	void reduce();

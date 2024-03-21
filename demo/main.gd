@@ -45,4 +45,10 @@ func _on_expandable_button_2_item_rect_changed():
 
 
 func _on_expandable_button_button_down():
+	$GridContainer.queue_sort()
+	$GridContainer.queue_redraw()
+	print($GridContainer/ExpandableButton.get_minimum_size())
+
+
+func _on_expandable_button_minimum_size_changed():
 	print($GridContainer/ExpandableButton.get_minimum_size())
