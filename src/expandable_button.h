@@ -15,6 +15,7 @@ private:
 	// RevisedButton *expansion;
 	// Button *base;
 	int expansion_size = 70;
+	int minimum_expansion_size = 0;
 	int expansion_size_full = 70;
 	int expansion_indentation = 0;
 	Vector2 old_size = Vector2(0,0);
@@ -22,7 +23,7 @@ private:
 	bool is_expanded = false;
 	double speed = 25;
 	StringName theme_type_variation;
-	bool expansion_info = false;
+	bool expansion_info = false;					// False - Button on expand ; True - Text on expand
 	int info_margin = 0;
 	Vector2 base_minimum_size = Vector2(0,0);
 
@@ -35,6 +36,8 @@ public:
 	~ExpandableButton();
 
 	virtual Vector2 _get_minimum_size() const override;
+
+	void _update_minimum_size(Vector2 texture_size);
 
 	void _process(double delta);
 	void _notification(int p_what);
@@ -63,6 +66,9 @@ public:
 
 	void set_expansion_speed(double p_speed);
 	double get_expansion_speed();
+
+	int get_minimum_expansion_size();
+	void set_minimum_expansion_size(int p_size=-100);
 
 	// void set_theme_childs_type_variation(const StringName &p_theme_type);
 	StringName get_theme_childs_type_variation() const;

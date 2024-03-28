@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://b8v40ha70irn5"]
+[gd_scene load_steps=14 format=3 uid="uid://b8v40ha70irn5"]
 
 [ext_resource type="Texture2D" uid="uid://bpp4jjt84srtg" path="res://icon.svg" id="1_6elc7"]
 [ext_resource type="Script" path="res://main.gd" id="1_74n6x"]
@@ -8,6 +8,7 @@
 [ext_resource type="Theme" uid="uid://dkco5byaykfug" path="res://Revised_Button_2.tres" id="5_fhkk6"]
 [ext_resource type="Texture2D" uid="uid://d3v73lp7bhkkm" path="res://double_icon.svg" id="6_4u114"]
 [ext_resource type="Texture2D" uid="uid://cjll4fqy6hd1" path="res://addons/control++/icons/Add.svg" id="6_33f2h"]
+[ext_resource type="Theme" uid="uid://ca4m2vdg2otj6" path="res://GreenTheme.tres" id="7_6b0mr"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_df58a"]
 line_spacing = 0.0
@@ -81,7 +82,7 @@ visible = false
 position = Vector2(800, 150)
 
 [node name="GDExample" type="GDExample" parent="Node2D"]
-position = Vector2(12.8909, 12.1819)
+position = Vector2(5.99425, 14.5849)
 texture = ExtResource("1_6elc7")
 
 [node name="ExpandableButton 2" type="ExpandableButton" parent="."]
@@ -262,9 +263,9 @@ horizontal_text_alignment = 0
 vertical_text_alignment = 1
 vertical_icon_alignment = 2
 offset_left = 514.0
-offset_top = 410.0
+offset_top = 324.0
 offset_right = 904.0
-offset_bottom = 620.0
+offset_bottom = 534.0
 theme = ExtResource("5_fhkk6")
 
 [node name="Button" type="Button" parent="RevisedButton2"]
@@ -282,9 +283,10 @@ icon_alignment = 1
 vertical_icon_alignment = 2
 
 [node name="ExpandableButton" type="ExpandableButton" parent="RevisedButton2"]
-expansion_size = 310
-expansion_speed = 12.0
-information_margin = 40
+expansion_size = 610
+expansion_indentation = 100
+expansion_speed = 15.0
+expansion_information_margin = 30
 text = "W గedną drogą szli razem i człowiek, i zdrowie.Na początku biegł człowiek; towarzysz mu powie:Zdrowie, Choroba,Młodość, Starość,«Nie spiesz się, bo ustaniesz».[color=#d4556677] Biegł గeszcze tym barǳieగ. UmiarkowanieWiǳąc zdrowie, że గego towarzystwem garǳi,Szło za nim, ale z wolna. Przyszli na pół drogi:[/color]Aż człowiek, że z początku nadwerężył nogi,Zelżył²⁰ kroku na środku. Za గego rozkazemPrzybliżyło się zdrowie i odtąd szli razem.Coraz człowiek ustawał, maగąc w pogotowiuZbliżył się: «Iść nie mogę, prowadź mnie» — rzekł zdrowiu.«Było mnie zrazu słuchać» — natenczas mu rzekło;Chciał człowiek odpowieǳieć… lecz zdrowie uciekło.
 "
 icon = ExtResource("6_4u114")
@@ -296,11 +298,26 @@ offset_top = 299.0
 offset_right = 217.0
 offset_bottom = 439.0
 
+[node name="ExpandableButton2" type="ExpandableButton" parent="RevisedButton2"]
+expansion_size = 356
+expansion_minimum_size = 356
+expansion_indentation = 100
+text = "W గedną drogą szli razem i człowiek, i zdrowie.Na początku biegł człowiek; towarzysz mu powie:Zdrowie, Choroba,Młodość, Starość,«Nie spiesz się, bo ustaniesz».[color=#d4556677] Biegł గeszcze tym barǳieగ. UmiarkowanieWiǳąc zdrowie, że గego towarzystwem garǳi,Szło za nim, ale z wolna. Przyszli na pół drogi:[/color]Aż człowiek, że z początku nadwerężył nogi,Zelżył²⁰ kroku na środku. Za గego rozkazemPrzybliżyło się zdrowie i odtąd szli razem.Coraz człowiek ustawał, maగąc w pogotowiuZbliżył się: «Iść nie mogę, prowadź mnie» — rzekł zdrowiu.«Było mnie zrazu słuchać» — natenczas mu rzekło;Chciał człowiek odpowieǳieć… lecz zdrowie uciekło.
+"
+icon = ExtResource("6_4u114")
+icon_alignment = 0
+layout_mode = 0
+offset_left = -2.0
+offset_top = 493.0
+offset_right = 118.0
+offset_bottom = 629.0
+theme = ExtResource("7_6b0mr")
+
 [node name="GridContainer2" type="GridContainer" parent="."]
-offset_left = 517.0
-offset_top = 341.0
-offset_right = 557.0
-offset_bottom = 381.0
+offset_left = 514.0
+offset_top = 225.0
+offset_right = 1045.0
+offset_bottom = 268.0
 columns = 2
 
 [node name="Button" type="Button" parent="GridContainer2"]

@@ -6,10 +6,20 @@
 using namespace godot;
 
 void ExpandableButton::_bind_methods() {
+	// Base Minimum Size Property
+	ClassDB::bind_method(D_METHOD("set_base_minimum_size", "p_size"), &ExpandableButton::set_base_minimum_size);
+	ClassDB::bind_method(D_METHOD("get_base_minimum_size"), &ExpandableButton::get_base_minimum_size);
+	ClassDB::add_property("ExpandableButton", PropertyInfo(Variant::VECTOR2, "base_minimum_size"), "set_base_minimum_size", "get_base_minimum_size");
+	// Add tab for Expansion Properties
+	ClassDB::add_property_group("ExpandableButton","Expansion Settings","expansion");
     // Expansion Size Property
     ClassDB::bind_method(D_METHOD("set_expansion_size", "p_size"), &ExpandableButton::set_expansion_size);
 	ClassDB::bind_method(D_METHOD("get_expansion_size"), &ExpandableButton::get_expansion_size);
 	ClassDB::add_property("ExpandableButton", PropertyInfo(Variant::INT, "expansion_size"), "set_expansion_size", "get_expansion_size");
+	// Minimum Expansion Size Display
+	ClassDB::bind_method(D_METHOD("get_minimum_expansion_size"), &ExpandableButton::get_minimum_expansion_size);
+	ClassDB::bind_method(D_METHOD("set_minimum_expansion_size", "p_size"), &ExpandableButton::set_minimum_expansion_size);
+	ClassDB::add_property("ExpandableButton", PropertyInfo(Variant::INT, "expansion_minimum_size",PROPERTY_HINT_NONE,"constant_int"), "set_minimum_expansion_size", "get_minimum_expansion_size");
 	// Expansion Indentation Property
 	ClassDB::bind_method(D_METHOD("set_expansion_indentation", "p_indentation"), &ExpandableButton::set_expansion_indentation);
 	ClassDB::bind_method(D_METHOD("get_expansion_indentation"), &ExpandableButton::get_expansion_indentation);
@@ -28,11 +38,7 @@ void ExpandableButton::_bind_methods() {
 	// Informations Margin Property
 	ClassDB::bind_method(D_METHOD("set_info_margin", "p_margin"), &ExpandableButton::set_info_margin);
 	ClassDB::bind_method(D_METHOD("get_info_margin"), &ExpandableButton::get_info_margin);
-	ClassDB::add_property("ExpandableButton", PropertyInfo(Variant::INT, "information_margin"), "set_info_margin", "get_info_margin");
-	// Base Minimum Size Property
-	ClassDB::bind_method(D_METHOD("set_base_minimum_size", "p_size"), &ExpandableButton::set_base_minimum_size);
-	ClassDB::bind_method(D_METHOD("get_base_minimum_size"), &ExpandableButton::get_base_minimum_size);
-	ClassDB::add_property("ExpandableButton", PropertyInfo(Variant::VECTOR2, "base_minimum_size"), "set_base_minimum_size", "get_base_minimum_size");
+	ClassDB::add_property("ExpandableButton", PropertyInfo(Variant::INT, "expansion_information_margin"), "set_info_margin", "get_info_margin");
 	//ClassDB::bind_method(D_METHOD("_get_minimum_size"), &ExpandableButton::_get_minimum_size);
 	// Signals Methods
 	//ClassDB::bind_method(D_METHOD("on_timer_out2"), &ExpandableButton::on_timer_out2);
@@ -243,10 +249,18 @@ void ExpandableButton::_notification(int p_what) {
 				} break;
 			}
 
-			Vector2 expansion_vector,expansion_point,base_vector;
+			Vector2 expansion_vector,expansion_point,base_vector,focus_vector;
+
+			focus_vector = Vector2(size);
+
+			int p_expansion_size_full = expansion_size_full;
+
+			if(expansion_size_full < minimum_expansion_size) {
+				p_expansion_size_full = minimum_expansion_size;
+			}
 
 			if (!flat) {
-				double tmp = expansion_size_full;
+				double tmp = p_expansion_size_full;
 				if(Engine::get_singleton()->is_editor_hint()) {
 					if(tmp > size.x + added_size)
 						tmp = size.x + added_size;
@@ -305,6 +319,7 @@ void ExpandableButton::_notification(int p_what) {
 				int voffset = 0;
 				Vector2 icon_size = _icon->get_size();
 
+				_update_minimum_size(icon_size);
 				// Fix vertical size.
 				/*if (vertical_icon_alignment != VERTICAL_ALIGNMENT_CENTER) {
 					valign -= text_buf->get_size().y;
@@ -372,10 +387,22 @@ void ExpandableButton::_notification(int p_what) {
 
 			if (!flat)	style->draw(ci, Rect2(expansion_point, expansion_vector));
 			if (icon_region.size.x > 0 && !expansion_info) {
-				icon_region.position.x += expansion_indentation + info_margin;
-				old_icon_size = icon_region.size.round();
-				Rect2 icon_region_rounded = Rect2(icon_region.position.round()+expansion_point, icon_region.size.round());
-				draw_texture_rect(_icon, icon_region_rounded, false, color_icon);
+				if(shrink_icon || size.x > p_expansion_size_full) {
+					icon_region.position.x += expansion_indentation + info_margin;
+					old_icon_size = icon_region.size.round();
+					Rect2 icon_region_rounded = Rect2(icon_region.position.round()+expansion_point, icon_region.size.round());
+					draw_texture_rect(_icon, icon_region_rounded, false, color_icon);
+				} else {
+					int tmp = p_expansion_size_full-expansion_vector.x;
+					icon_region.position.x += expansion_indentation + info_margin - tmp;
+					if(icon_region.position.x < 0) {
+						icon_region.size.x += icon_region.position.x;
+						icon_region.position.x = 0;
+					}
+					old_icon_size = icon_region.size.round();
+					Rect2 icon_region_rounded = Rect2(icon_region.position.round()+expansion_point, icon_region.size.round());
+					draw_texture_rect(_icon, icon_region_rounded, false, color_icon);
+				}
 			}
 			if (!flat)	style->draw(ci, Rect2(Vector2(0, 0), base_vector));
 			if (icon_region.size.x > 0 && expansion_info) {
@@ -398,7 +425,7 @@ void ExpandableButton::_notification(int p_what) {
 				text_parent_pos = Vector2(style->get_minimum_size());
 				text_pos = Vector2(0,0);
 				text_size = Vector2(base_vector);
-				text_size -= text_pos*2;
+				text_size -= text_parent_pos*2;
 				text_parent_size = text_size;
 			}
 
@@ -407,9 +434,12 @@ void ExpandableButton::_notification(int p_what) {
 			text_parent->set_position(text_parent_pos);
 			text_container->set_position(text_pos);
 
+			if(focus_vector < base_vector)
+				focus_vector = base_vector;
+
 			if (has_focus()) {
 				Ref<StyleBox> style2 = theme_cache.focus;
-				style2->draw(ci, Rect2(Vector2(), size));
+				style2->draw(ci, Rect2(Vector2(0,0), focus_vector));
 			}
 
 			Vector2 icon_ofs = !_icon.is_null() ? Vector2(icon_region.size.x + theme_cache.h_separation, 0) : Vector2();
@@ -453,18 +483,24 @@ void ExpandableButton::_process(double delta) {
         old_size.y = height;
     }
 
+	int p_expansion_size = expansion_size;
+
+	if(expansion_size_full < minimum_expansion_size) {
+		p_expansion_size += minimum_expansion_size - expansion_size_full;
+	}
+
 	if(Engine::get_singleton()->is_editor_hint()) {
         if(old_size.x!=width)
             old_size.x = width;
 
-		double delta_speed = delta*speed*abs(expansion_size)/10;
+		double delta_speed = delta*speed*abs(p_expansion_size)/10;
 
-		if(is_expanded && added_size != expansion_size){
-			if(added_size + delta_speed < expansion_size)
+		if(is_expanded && added_size != p_expansion_size){
+			if(added_size + delta_speed < p_expansion_size)
 				added_size += delta_speed;
-			else if(added_size - delta_speed > expansion_size)
+			else if(added_size - delta_speed > p_expansion_size)
 				added_size -= delta_speed;
-			else added_size = expansion_size;
+			else added_size = p_expansion_size;
 			emit_signal("minimum_size_changed");
 			update_minimum_size();
         }
@@ -479,9 +515,9 @@ void ExpandableButton::_process(double delta) {
         if(old_size.x!=width)//-siz.x)
             old_size.x = width;//-siz.x;
 
-		double delta_speed = delta*speed*expansion_size/10;
+		double delta_speed = delta*speed*p_expansion_size/10;
 
-        if(is_expanded && added_size < expansion_size){
+        if(is_expanded && added_size < p_expansion_size){
 			emit_signal("minimum_size_changed");
 			update_minimum_size();
 			added_size += delta_speed;
@@ -584,13 +620,35 @@ void ExpandableButton::_process(double delta) {
 Vector2 ExpandableButton::_get_minimum_size() const {
 	//UtilityFunctions::print("ExpandableButton::_get_minimum_size()");
     Ref<Texture2D> texture = get_icon();
+	Ref<StyleBox> style = theme_cache.normal;
+	Vector2 style_min = style->get_minimum_size();
 	//Check if texture exist
+	Vector2 icon_size = Vector2(0,0);
+	if(texture.is_valid())
+		icon_size = texture->get_size();
 	if(!texture.is_valid())
         texture = memnew(Ref<Texture2D>);
     Vector2 _min = base_minimum_size;//get_minimum_size_for_text_and_icon("", texture);
+	if(expansion_info && !shrink_icon) {
+		icon_size += 2*style_min;
+		if(icon_size.x > _min.x)
+			_min.x = icon_size.x;
+		if(icon_size.y > _min.y)
+			_min.y = icon_size.y;
+	} else if(!expansion_info && !shrink_icon) {
+		icon_size.y += 2*style_min.y;
+		if(icon_size.y > _min.y)
+			_min.y = icon_size.y;
+	}
 	if(!Engine::get_singleton()->is_editor_hint())
     	_min.x += added_size;
 	return _min;
+}
+
+void ExpandableButton::_update_minimum_size(Vector2 texture_size) {
+    if(!expansion_info && !shrink_icon) {
+		minimum_expansion_size = texture_size.x + expansion_indentation + info_margin;
+	} else minimum_expansion_size = 0;
 }
 
 void ExpandableButton::set_base_minimum_size(Vector2 p_size) {
@@ -612,6 +670,14 @@ void ExpandableButton::set_expansion_size(int p_size) {
 
 int ExpandableButton::get_expansion_size() {
     return expansion_size_full;
+}
+
+int ExpandableButton::get_minimum_expansion_size() {
+    return minimum_expansion_size;
+}
+
+void ExpandableButton::set_minimum_expansion_size(int p_size) {
+    return;
 }
 
 void ExpandableButton::set_expansion_info(int p_int) {

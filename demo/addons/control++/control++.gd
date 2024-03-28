@@ -7,16 +7,19 @@ var project = ProjectSettings
 var my_theme:Theme
 var Loader = ResourceLoader
 var Saver = ResourceSaver
+var inspector_plugin
 
 func _enter_tree():
 	D = Documentation.new()
 	print_rich("[color=YELLOW_GREEN]● Control++:  Loading...\n	  «»-«»-«»")
 	print_rich("[color=VIOLET]● Control++:  The documentation for GDExtension is not suported![/color]")
-	print_rich("	  «»-«»-«»\n● Control++:  Loaded![color=SNOW]")
+	inspector_plugin = preload("res://addons/control++/inspector_plugin.gd").new()
+	add_inspector_plugin(inspector_plugin)
 	Edited_Node = ExpandableButton.new()
 	my_theme = Loader.load("res://addons/control++/_ExpandableButton_hidden.theme","Theme")
 	print(my_theme)
 	var project_theme_path = project.get_setting("gui/theme/custom")
+	print_rich("	  «»-«»-«»\n● Control++:  Loaded![color=SNOW]")
 
 func _process(delta):
 	if D.pass_time(delta,2):
@@ -53,5 +56,6 @@ func _edit(object: Object):
 
 
 func _exit_tree():
+	remove_inspector_plugin(inspector_plugin)
 	project.save()
 	pass
