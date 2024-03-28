@@ -5,6 +5,7 @@
 #include "documentation.h"
 #include "better_scroll.h"
 #include "expandable_button.h"
+#include "animatedbar.h"
 
 #include <gdextension_interface.h>
 #include <godot_cpp/core/defs.hpp>
@@ -23,6 +24,7 @@ void initialize_control_module(ModuleInitializationLevel p_level) {
 	ClassDB::register_class<Documentation>();
 	ClassDB::register_class<AutoScroll>();
 	ClassDB::register_class<ExpandableButton>();
+	ClassDB::register_class<AnimatedBar>();
 }
 
 void uninitialize_control_module(ModuleInitializationLevel p_level) {

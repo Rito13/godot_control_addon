@@ -82,7 +82,7 @@ visible = false
 position = Vector2(800, 150)
 
 [node name="GDExample" type="GDExample" parent="Node2D"]
-position = Vector2(5.99425, 14.5849)
+position = Vector2(2.30549, 16.1192)
 texture = ExtResource("1_6elc7")
 
 [node name="ExpandableButton 2" type="ExpandableButton" parent="."]
@@ -262,6 +262,7 @@ alignment_order = 1
 horizontal_text_alignment = 0
 vertical_text_alignment = 1
 vertical_icon_alignment = 2
+visible = false
 offset_left = 514.0
 offset_top = 324.0
 offset_right = 904.0
@@ -300,7 +301,6 @@ offset_bottom = 439.0
 
 [node name="ExpandableButton2" type="ExpandableButton" parent="RevisedButton2"]
 expansion_size = 356
-expansion_minimum_size = 356
 expansion_indentation = 100
 text = "W గedną drogą szli razem i człowiek, i zdrowie.Na początku biegł człowiek; towarzysz mu powie:Zdrowie, Choroba,Młodość, Starość,«Nie spiesz się, bo ustaniesz».[color=#d4556677] Biegł గeszcze tym barǳieగ. UmiarkowanieWiǳąc zdrowie, że గego towarzystwem garǳi,Szło za nim, ale z wolna. Przyszli na pół drogi:[/color]Aż człowiek, że z początku nadwerężył nogi,Zelżył²⁰ kroku na środku. Za గego rozkazemPrzybliżyło się zdrowie i odtąd szli razem.Coraz człowiek ustawał, maగąc w pogotowiuZbliżył się: «Iść nie mogę, prowadź mnie» — rzekł zdrowiu.«Było mnie zrazu słuchać» — natenczas mu rzekło;Chciał człowiek odpowieǳieć… lecz zdrowie uciekło.
 "
@@ -358,6 +358,12 @@ item_4/checkable = 2
 item_4/checked = true
 item_4/id = 4
 item_4/disabled = true
+
+[node name="AnimatedBar" type="AnimatedBar" parent="."]
+offset_left = 508.0
+offset_top = 313.0
+offset_right = 1006.0
+offset_bottom = 571.0
 
 [connection signal="button_down" from="GridContainer/ExpandableButton" to="." method="_on_expandable_button_button_down"]
 [connection signal="minimum_size_changed" from="GridContainer/ExpandableButton" to="." method="_on_expandable_button_minimum_size_changed"]

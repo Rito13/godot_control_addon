@@ -28,6 +28,7 @@ RevisedButton = "res://addons/control++/icons/RevisedButton.svg"
 Documentation = "res://addons/control++/icons/Documentation.svg"
 AutoScroll = "res://addons/control++/icons/AutoScroll.old.svg"
 ExpandableButton = "res://addons/control++/icons/ExpandableButton.svg"
+AnimatedBar = "res://addons/control++/icons/AnimatedBar.svg"
 
 [doc]
 
