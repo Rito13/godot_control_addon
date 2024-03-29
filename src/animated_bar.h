@@ -15,12 +15,19 @@ class AnimatedBar : public Container {
 
 private:
 	double spacing;
+	double spacing2;
+	double speed = 1;
 	BaseButton *left;
 	BaseButton *right;
+	BaseButton *custom_left = nullptr;
+	BaseButton *custom_right = nullptr;
 	bool focus = false;
+	bool lr_visibility = true;
+	bool custom_lr = false;
 	Control *first_child = nullptr;
 	int first_child_id = 0;
-	int subtracted_value = 0;
+	double subtracted_value = 0.0;
+	int to_subtract_value = 0;
 
 protected:
 	static void _bind_methods();
@@ -36,6 +43,28 @@ public:
 	void on_right_pressed();
 	void on_left_pressed();
 
+	double get_spacing();
+	void set_spacing(double p_spacing);
+
+	double get_spacing2();
+	void set_spacing2(double p_spacing);
+
+	double get_speed();
+	void set_speed(double p_speed);
+
+	bool get_lr_visibility();
+	void set_lr_visibility(bool is_enabled);
+
+	bool get_custom_lr();
+	void set_custom_lr(bool is_enabled);
+
+	NodePath get_custom_left();
+	void set_custom_left(NodePath p_path);
+
+	NodePath get_custom_right();
+	void set_custom_right(NodePath p_path);
+
+	virtual Vector2 _get_minimum_size() const override;
 	PackedStringArray _get_configuration_warnings() const override;
 };
 

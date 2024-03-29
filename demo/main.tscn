@@ -82,7 +82,7 @@ visible = false
 position = Vector2(800, 150)
 
 [node name="GDExample" type="GDExample" parent="Node2D"]
-position = Vector2(17.6463, 11.3216)
+position = Vector2(0.93379, 0.0217761)
 texture = ExtResource("1_6elc7")
 
 [node name="ExpandableButton 2" type="ExpandableButton" parent="."]
@@ -360,13 +360,20 @@ item_4/id = 4
 item_4/disabled = true
 
 [node name="AnimatedBar" type="AnimatedBar" parent="."]
+speed = 5.0
+spacing = 6.0
+navigation_buttons_spacing = 3.0
+navigation_buttons_use_custom = true
+navigation_buttons_custom_left = NodePath("/root/@EditorNode@17649/@Control@709/@Panel@710/@VBoxContainer@718/@HSplitContainer@721/@HSplitContainer@729/@HSplitContainer@737/@VBoxContainer@738/@VSplitContainer@740/@VSplitContainer@766/@VBoxContainer@767/@PanelContainer@812/MainScreen/@CanvasItemEditor@10102/@VSplitContainer@9927/@HSplitContainer@9929/@HSplitContainer@9931/@Control@9932/@SubViewportContainer@9933/@SubViewport@9934/Main/AnimatedBar/RevisedButton")
+navigation_buttons_custom_right = NodePath("/root/@EditorNode@17649/@Control@709/@Panel@710/@VBoxContainer@718/@HSplitContainer@721/@HSplitContainer@729/@HSplitContainer@737/@VBoxContainer@738/@VSplitContainer@740/@VSplitContainer@766/@VBoxContainer@767/@PanelContainer@812/MainScreen/@CanvasItemEditor@10102/@VSplitContainer@9927/@HSplitContainer@9929/@HSplitContainer@9931/@Control@9932/@SubViewportContainer@9933/@SubViewport@9934/Main/AnimatedBar/Button")
 offset_left = 506.0
 offset_top = 319.0
-offset_right = 794.0
-offset_bottom = 416.0
+offset_right = 875.0
+offset_bottom = 379.0
 
 [node name="RevisedButton" type="RevisedButton" parent="AnimatedBar"]
 text = "Text 2"
+top_level = true
 custom_minimum_size = Vector2(40, 60)
 layout_mode = 2
 toggle_mode = true
@@ -381,13 +388,6 @@ toggle_mode = true
 layout_mode = 2
 text = "Lubię Placki"
 
-[node name="Button" type="Button" parent="AnimatedBar"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-toggle_mode = true
-text = "Text"
-
 [node name="RevisedButton3" type="RevisedButton" parent="AnimatedBar"]
 text = "Text 4"
 custom_minimum_size = Vector2(40, 40)
@@ -396,12 +396,6 @@ toggle_mode = true
 
 [node name="RevisedButton4" type="RevisedButton" parent="AnimatedBar"]
 text = "Text 5"
-custom_minimum_size = Vector2(40, 40)
-layout_mode = 2
-toggle_mode = true
-
-[node name="RevisedButton5" type="RevisedButton" parent="AnimatedBar"]
-text = "Text 6"
 custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
 toggle_mode = true
@@ -424,11 +418,19 @@ custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
 toggle_mode = true
 
+[node name="Label2" type="Label" parent="AnimatedBar"]
+layout_mode = 2
+text = "Lubię Placki 2"
+
 [node name="RevisedButton9" type="RevisedButton" parent="AnimatedBar"]
 text = "Text 10"
 custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
 toggle_mode = true
+
+[node name="Label3" type="Label" parent="AnimatedBar"]
+layout_mode = 2
+text = "Lubię Placki 3"
 
 [node name="RevisedButton10" type="RevisedButton" parent="AnimatedBar"]
 text = "Text 11"
@@ -441,6 +443,82 @@ text = "Text 12"
 custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
 toggle_mode = true
+
+[node name="Label4" type="Label" parent="AnimatedBar"]
+layout_mode = 2
+text = "Lubię Placki 4"
+
+[node name="Button2" type="Button" parent="AnimatedBar"]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+toggle_mode = true
+text = "Text 13
+"
+
+[node name="Button4" type="Button" parent="AnimatedBar"]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+toggle_mode = true
+text = "Text 15
+
+"
+
+[node name="Button5" type="Button" parent="AnimatedBar"]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+toggle_mode = true
+text = "Text 16
+"
+
+[node name="Button6" type="Button" parent="AnimatedBar"]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+toggle_mode = true
+text = "Text 17"
+
+[node name="Button7" type="Button" parent="AnimatedBar"]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+toggle_mode = true
+text = "Text 18"
+
+[node name="Button8" type="Button" parent="AnimatedBar"]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+toggle_mode = true
+text = "Text 19"
+
+[node name="Button9" type="Button" parent="AnimatedBar"]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+toggle_mode = true
+text = "Text 20"
+
+[node name="RevisedButton5" type="RevisedButton" parent="AnimatedBar"]
+text = "Text 6"
+layout_mode = 2
+
+[node name="Button" type="Button" parent="AnimatedBar"]
+top_level = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+toggle_mode = true
+text = "Text"
 
 [connection signal="button_down" from="GridContainer/ExpandableButton" to="." method="_on_expandable_button_button_down"]
 [connection signal="minimum_size_changed" from="GridContainer/ExpandableButton" to="." method="_on_expandable_button_minimum_size_changed"]

@@ -6,6 +6,7 @@ extends Node
 @export var p3 = false 
 @export var p4 = false 
 @export var p5 = false 
+@export var p6 = false 
 var p52 = false 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -34,6 +35,10 @@ func _process(delta):
 		p5 = false
 		$RevisedButton/Button.set_pressed_no_signal(p52)
 		p52 = !p52
+	if p6:
+		p6 = false
+		var c = Button.new()
+		add_child(c)
 
 
 func _on_revised_button_2_pressed():
