@@ -30,10 +30,10 @@ script = ExtResource("4_hhe6y")
 script = ExtResource("1_74n6x")
 
 [node name="GridContainer" type="GridContainer" parent="."]
-offset_left = 260.0
-offset_top = 116.0
-offset_right = 1048.0
-offset_bottom = 802.0
+offset_left = 265.0
+offset_top = 50.0
+offset_right = 1053.0
+offset_bottom = 736.0
 columns = 2
 
 [node name="ExpandableButton" type="ExpandableButton" parent="GridContainer"]
@@ -82,7 +82,7 @@ visible = false
 position = Vector2(800, 150)
 
 [node name="GDExample" type="GDExample" parent="Node2D"]
-position = Vector2(13.9215, 5.3541)
+position = Vector2(0.51546, 0.113552)
 texture = ExtResource("1_6elc7")
 
 [node name="ExpandableButton 2" type="ExpandableButton" parent="."]
@@ -359,97 +359,104 @@ item_4/checked = true
 item_4/id = 4
 item_4/disabled = true
 
-[node name="AnimatedBar" type="AnimatedBar" parent="."]
+[node name="AnimatedTabContainer" type="AnimatedTabContainer" parent="."]
+offset_left = 530.0
+offset_top = 310.0
+offset_right = 987.0
+offset_bottom = 501.0
+
+[node name="AnimatedBar" type="AnimatedBar" parent="AnimatedTabContainer"]
 speed = 5.0
 spacing = 6.0
 navigation_buttons_spacing = 3.0
-navigation_buttons_visibility = true
 navigation_buttons_use_custom = true
-navigation_buttons_custom_left = NodePath("./RevisedButton")
-navigation_buttons_custom_right = NodePath("./Button")
-offset_left = 506.0
-offset_top = 319.0
-offset_right = 875.0
-offset_bottom = 379.0
+navigation_buttons_custom_left = NodePath("./Left")
+navigation_buttons_custom_right = NodePath("./Right")
+layout_mode = 2
 
-[node name="RevisedButton" type="RevisedButton" parent="AnimatedBar"]
-text = "Text 2"
+[node name="Left" type="RevisedButton" parent="AnimatedTabContainer/AnimatedBar"]
+text = " Left"
+horizontal_text_alignment = 2
+vertical_text_alignment = 1
+icon_alignment = 0
+vertical_icon_alignment = 2
+expand_icon = true
 top_level = true
 custom_minimum_size = Vector2(40, 60)
 layout_mode = 2
 toggle_mode = true
 
-[node name="RevisedButton2" type="RevisedButton" parent="AnimatedBar"]
+[node name="RevisedButton2" type="RevisedButton" parent="AnimatedTabContainer/AnimatedBar"]
 text = "Text 3"
 custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
 toggle_mode = true
 
-[node name="Label" type="Label" parent="AnimatedBar"]
+[node name="Label" type="Label" parent="AnimatedTabContainer/AnimatedBar"]
 layout_mode = 2
 text = "Lubię Placki"
 
-[node name="RevisedButton3" type="RevisedButton" parent="AnimatedBar"]
+[node name="RevisedButton3" type="RevisedButton" parent="AnimatedTabContainer/AnimatedBar"]
 text = "Text 4"
 custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
 toggle_mode = true
 
-[node name="RevisedButton4" type="RevisedButton" parent="AnimatedBar"]
+[node name="RevisedButton4" type="RevisedButton" parent="AnimatedTabContainer/AnimatedBar"]
 text = "Text 5"
 custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
 toggle_mode = true
 
-[node name="RevisedButton6" type="RevisedButton" parent="AnimatedBar"]
+[node name="RevisedButton6" type="RevisedButton" parent="AnimatedTabContainer/AnimatedBar"]
 text = "Text 7"
 custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
 toggle_mode = true
 
-[node name="RevisedButton7" type="RevisedButton" parent="AnimatedBar"]
+[node name="RevisedButton7" type="RevisedButton" parent="AnimatedTabContainer/AnimatedBar"]
 text = "Text 8"
 custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
 toggle_mode = true
 
-[node name="RevisedButton8" type="RevisedButton" parent="AnimatedBar"]
+[node name="RevisedButton8" type="RevisedButton" parent="AnimatedTabContainer/AnimatedBar"]
 text = "Text 9"
 custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
 toggle_mode = true
 
-[node name="Label2" type="Label" parent="AnimatedBar"]
+[node name="Label2" type="Label" parent="AnimatedTabContainer/AnimatedBar"]
 layout_mode = 2
 text = "Lubię Placki 2"
 
-[node name="RevisedButton9" type="RevisedButton" parent="AnimatedBar"]
+[node name="RevisedButton9" type="RevisedButton" parent="AnimatedTabContainer/AnimatedBar"]
 text = "Text 10"
 custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
 toggle_mode = true
 
-[node name="Label3" type="Label" parent="AnimatedBar"]
+[node name="Label3" type="Label" parent="AnimatedTabContainer/AnimatedBar"]
 layout_mode = 2
 text = "Lubię Placki 3"
 
-[node name="RevisedButton10" type="RevisedButton" parent="AnimatedBar"]
+[node name="RevisedButton10" type="RevisedButton" parent="AnimatedTabContainer/AnimatedBar"]
 text = "Text 11"
 custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
 toggle_mode = true
 
-[node name="RevisedButton11" type="RevisedButton" parent="AnimatedBar"]
+[node name="RevisedButton11" type="RevisedButton" parent="AnimatedTabContainer/AnimatedBar"]
 text = "Text 12"
 custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
 toggle_mode = true
 
-[node name="Label4" type="Label" parent="AnimatedBar"]
+[node name="Label4" type="Label" parent="AnimatedTabContainer/AnimatedBar"]
 layout_mode = 2
 text = "Lubię Placki 4"
 
-[node name="Button2" type="Button" parent="AnimatedBar"]
+[node name="Button2" type="Button" parent="AnimatedTabContainer/AnimatedBar"]
 custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -458,7 +465,7 @@ toggle_mode = true
 text = "Text 13
 "
 
-[node name="Button4" type="Button" parent="AnimatedBar"]
+[node name="Button4" type="Button" parent="AnimatedTabContainer/AnimatedBar"]
 custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -468,7 +475,7 @@ text = "Text 15
 
 "
 
-[node name="Button5" type="Button" parent="AnimatedBar"]
+[node name="Button5" type="Button" parent="AnimatedTabContainer/AnimatedBar"]
 custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -477,7 +484,7 @@ toggle_mode = true
 text = "Text 16
 "
 
-[node name="Button6" type="Button" parent="AnimatedBar"]
+[node name="Button6" type="Button" parent="AnimatedTabContainer/AnimatedBar"]
 custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -485,7 +492,7 @@ size_flags_vertical = 3
 toggle_mode = true
 text = "Text 17"
 
-[node name="Button7" type="Button" parent="AnimatedBar"]
+[node name="Button7" type="Button" parent="AnimatedTabContainer/AnimatedBar"]
 custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -493,7 +500,7 @@ size_flags_vertical = 3
 toggle_mode = true
 text = "Text 18"
 
-[node name="Button8" type="Button" parent="AnimatedBar"]
+[node name="Button8" type="Button" parent="AnimatedTabContainer/AnimatedBar"]
 custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -501,7 +508,7 @@ size_flags_vertical = 3
 toggle_mode = true
 text = "Text 19"
 
-[node name="Button9" type="Button" parent="AnimatedBar"]
+[node name="Button9" type="Button" parent="AnimatedTabContainer/AnimatedBar"]
 custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -509,19 +516,26 @@ size_flags_vertical = 3
 toggle_mode = true
 text = "Text 20"
 
-[node name="RevisedButton5" type="RevisedButton" parent="AnimatedBar"]
+[node name="RevisedButton5" type="RevisedButton" parent="AnimatedTabContainer/AnimatedBar"]
 text = " Text 6"
 vertical_text_alignment = 1
 custom_minimum_size = Vector2(55, 0)
 layout_mode = 2
 
-[node name="Button" type="Button" parent="AnimatedBar"]
+[node name="Right" type="Button" parent="AnimatedTabContainer/AnimatedBar"]
 top_level = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 toggle_mode = true
-text = "Text"
+text = "Right
+"
+
+[node name="AnimatedBar2" type="AnimatedBar" parent="AnimatedTabContainer"]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="AnimatedTabContainer"]
+layout_mode = 2
 
 [connection signal="button_down" from="GridContainer/ExpandableButton" to="." method="_on_expandable_button_button_down"]
 [connection signal="minimum_size_changed" from="GridContainer/ExpandableButton" to="." method="_on_expandable_button_minimum_size_changed"]

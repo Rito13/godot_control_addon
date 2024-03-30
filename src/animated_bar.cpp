@@ -14,7 +14,8 @@ void AnimatedBar::_bind_methods() {
 	// Emited Signals
 	ADD_SIGNAL(MethodInfo("focus_changed", PropertyInfo(Variant::INT, "focused_child_id")));
 	ADD_SIGNAL(MethodInfo("focus_activated", PropertyInfo(Variant::INT, "focused_child_id")));
-	ADD_SIGNAL(MethodInfo("focus_deactivated", PropertyInfo(Variant::INT, "focused_child_id")));
+	ADD_SIGNAL(MethodInfo("focus_deactivated"));
+	ADD_SIGNAL(MethodInfo("options_quantity_changed", PropertyInfo(Variant::INT, "new_quantity")));
 	// Speed Property
 	ClassDB::bind_method(D_METHOD("set_speed", "p_speed"), &AnimatedBar::set_speed);
 	ClassDB::bind_method(D_METHOD("get_speed"), &AnimatedBar::get_speed);
@@ -44,6 +45,12 @@ void AnimatedBar::_bind_methods() {
 	ClassDB::bind_method(D_METHOD("set_custom_right_navigation_button", "p_button"), &AnimatedBar::set_custom_right);
 	ClassDB::bind_method(D_METHOD("get_custom_right_navigation_button"), &AnimatedBar::get_custom_right);
 	ClassDB::add_property("AnimatedBar", PropertyInfo(Variant::NODE_PATH, "navigation_buttons_custom_right",PROPERTY_HINT_INT_IS_POINTER), "set_custom_right_navigation_button", "get_custom_right_navigation_button");
+	// Other Functions
+	ClassDB::bind_method(D_METHOD("get_options_quantity"), &AnimatedBar::get_options_quantity);
+	ClassDB::bind_method(D_METHOD("get_navigation_buttons_size"), &AnimatedBar::get_lr_size);
+	ClassDB::bind_method(D_METHOD("get_left_navigation_button_size"), &AnimatedBar::get_left_size);
+	ClassDB::bind_method(D_METHOD("get_right_navigation_button_size"), &AnimatedBar::get_right_size);
+	ClassDB::bind_method(D_METHOD("deactivate_focus"), &AnimatedBar::deactivate_focus);
 }
 
 AnimatedBar::AnimatedBar() {
@@ -88,6 +95,10 @@ void AnimatedBar::_notification(int p_what) {
 	switch (p_what) {
 		case NOTIFICATION_SORT_CHILDREN: {
 			int n = get_child_count();
+			if(n-2 != number_of_children) {
+				number_of_children = n-2;
+				emit_signal("options_quantity_changed",number_of_children);
+			}
 			if(n<2) {
 				UtilityFunctions::print_rich("[color=VIOLET]",String(L"●")," Control++:  "+String(get_name())+" have no children. Please add some.","[color=SNOW]");
 			}
@@ -98,9 +109,10 @@ void AnimatedBar::_notification(int p_what) {
 			double height = 0;
 			move_child(left,0);
 			move_child(right,n-1);
-			Vector2 _pos = get_position();
+			Vector2 _pos = get_global_position();
 			Vector2 ms = left->get_combined_minimum_size();
 			left->set_position(Vector2(_pos.x-ms.x-spacing2,y+_pos.y));
+			if(height<ms.y) height = ms.y;
 			children[0] = left;
 			children[n-1] = right;
 			button_children[0] = left;
@@ -115,6 +127,8 @@ void AnimatedBar::_notification(int p_what) {
 				if(height<ms.y) height = ms.y;
 			}
 			right->set_position(Vector2(get_size().x+_pos.x+spacing2,y+_pos.y));
+			ms = right->get_combined_minimum_size();
+			if(height<ms.y) height = ms.y;
 			for(int i=0;i<n;i++) {
 				if(children[i] == nullptr) continue;
 				ms = children[i]->get_combined_minimum_size();
@@ -122,7 +136,8 @@ void AnimatedBar::_notification(int p_what) {
 				if(button_children[i] == nullptr) continue;
 				if(i!=0 && i!=n-1 && !Engine::get_singleton()->is_editor_hint()) {
 					button_children[i]->set_toggle_mode(true);
-					button_children[i]->disconnect("pressed",Callable(this, "on_button_pressed"));
+					if(button_children[i]->is_connected("pressed",Callable(this, "on_button_pressed")))
+						button_children[i]->disconnect("pressed",Callable(this, "on_button_pressed"));
 					Array a;
 					a.append(i);
 					a.append(button_children[i]);
@@ -175,6 +190,15 @@ Vector2 AnimatedBar::_get_minimum_size() const {
 	return _min;
 }
 
+void AnimatedBar::deactivate_focus() {
+	focus = false;
+	for(int i = 1;i<get_child_count()-1;i++) {
+			BaseButton *child = Object::cast_to<BaseButton>(get_child(i));
+			if (child == nullptr) continue;
+			child->set_pressed_no_signal(false);
+	}
+}
+
 void AnimatedBar::on_button_pressed(int id,BaseButton *button) {
 	if(button->is_pressed()) {
 		if(focus) emit_signal("focus_changed",id);
@@ -186,7 +210,10 @@ void AnimatedBar::on_button_pressed(int id,BaseButton *button) {
 		}
 		button->set_pressed_no_signal(true);
 		focus = true;
-	} else emit_signal("focus_deactivated",id);
+		return;
+	} 
+	emit_signal("focus_deactivated");
+	focus = false;
 	//UtilityFunctions::print(button->get_name(),"   ",id);
 }
 
@@ -310,7 +337,7 @@ double AnimatedBar::get_spacing2() {
 
 void AnimatedBar::set_spacing2(double p_spacing) {
 	spacing2 = p_spacing;
-	Vector2 _pos = get_position();
+	Vector2 _pos = get_global_position();
 	Vector2 ms = left->get_combined_minimum_size();
 	int y = 0;
 	left->set_position(Vector2(_pos.x-ms.x-spacing2,y+_pos.y));
@@ -402,6 +429,29 @@ void AnimatedBar::set_custom_lr(bool is_enabled) {
 		left->set_as_top_level(true);
 		right->set_as_top_level(true);
 	}
+}
+
+int AnimatedBar::get_options_quantity() const {
+	return number_of_children;
+}
+
+Vector2 AnimatedBar::get_lr_size() const {
+	Vector2 _siz = Vector2(spacing2*2,0);
+	_siz += left->get_size();
+	_siz.x += right->get_size().x;
+	return _siz;
+}
+
+Vector2 AnimatedBar::get_left_size() const {
+	Vector2 _siz = Vector2(spacing2,0);
+	_siz += left->get_size();
+	return _siz;
+}
+
+Vector2 AnimatedBar::get_right_size() const {
+	Vector2 _siz = Vector2(spacing2,0);
+	_siz += right->get_size();
+	return _siz;
 }
 
 NodePath AnimatedBar::get_custom_left() {

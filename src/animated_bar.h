@@ -16,11 +16,12 @@ class AnimatedBar : public Container {
 private:
 	double spacing;
 	double spacing2;
-	double speed = 1;
+	double speed = 4;
 	BaseButton *left;
 	BaseButton *right;
 	BaseButton *custom_left = nullptr;
 	BaseButton *custom_right = nullptr;
+	int number_of_children = 0;
 	bool focus = false;
 	bool lr_visibility = true;
 	bool custom_lr = false;
@@ -47,6 +48,12 @@ public:
 	void _notification(int p_what);
 	void _process(double delta);
 	void _ready();
+
+	int get_options_quantity() const;
+	Vector2 get_lr_size() const;
+	Vector2 get_right_size() const;
+	Vector2 get_left_size() const;
+	void deactivate_focus();
 
 	void on_button_pressed(int id,BaseButton *status);
 	void on_right_pressed();
