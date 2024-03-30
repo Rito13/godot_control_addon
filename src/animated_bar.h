@@ -28,6 +28,14 @@ private:
 	int first_child_id = 0;
 	double subtracted_value = 0.0;
 	int to_subtract_value = 0;
+	bool after_ready = false;
+
+	struct ForReady {
+		NodePath left_path;
+		NodePath right_path;
+		bool custom_lr = false;
+		bool lr_visibility = true;
+	} for_ready;
 
 protected:
 	static void _bind_methods();
@@ -38,6 +46,7 @@ public:
 
 	void _notification(int p_what);
 	void _process(double delta);
+	void _ready();
 
 	void on_button_pressed(int id,BaseButton *status);
 	void on_right_pressed();

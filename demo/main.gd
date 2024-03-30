@@ -10,8 +10,8 @@ extends Node
 var p52 = false 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	p4 = true
-
+	#p4 = true
+	pass
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -37,8 +37,7 @@ func _process(delta):
 		p52 = !p52
 	if p6:
 		p6 = false
-		var c = Button.new()
-		add_child(c)
+		print(get_node_or_null(NodePath("./AnimatedBar/RevisedButton")),"   ",$AnimatedBar/RevisedButton)
 
 
 func _on_revised_button_2_pressed():

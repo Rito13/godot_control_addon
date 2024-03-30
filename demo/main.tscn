@@ -82,7 +82,7 @@ visible = false
 position = Vector2(800, 150)
 
 [node name="GDExample" type="GDExample" parent="Node2D"]
-position = Vector2(0.93379, 0.0217761)
+position = Vector2(13.9215, 5.3541)
 texture = ExtResource("1_6elc7")
 
 [node name="ExpandableButton 2" type="ExpandableButton" parent="."]
@@ -363,9 +363,10 @@ item_4/disabled = true
 speed = 5.0
 spacing = 6.0
 navigation_buttons_spacing = 3.0
+navigation_buttons_visibility = true
 navigation_buttons_use_custom = true
-navigation_buttons_custom_left = NodePath("/root/@EditorNode@17649/@Control@709/@Panel@710/@VBoxContainer@718/@HSplitContainer@721/@HSplitContainer@729/@HSplitContainer@737/@VBoxContainer@738/@VSplitContainer@740/@VSplitContainer@766/@VBoxContainer@767/@PanelContainer@812/MainScreen/@CanvasItemEditor@10102/@VSplitContainer@9927/@HSplitContainer@9929/@HSplitContainer@9931/@Control@9932/@SubViewportContainer@9933/@SubViewport@9934/Main/AnimatedBar/RevisedButton")
-navigation_buttons_custom_right = NodePath("/root/@EditorNode@17649/@Control@709/@Panel@710/@VBoxContainer@718/@HSplitContainer@721/@HSplitContainer@729/@HSplitContainer@737/@VBoxContainer@738/@VSplitContainer@740/@VSplitContainer@766/@VBoxContainer@767/@PanelContainer@812/MainScreen/@CanvasItemEditor@10102/@VSplitContainer@9927/@HSplitContainer@9929/@HSplitContainer@9931/@Control@9932/@SubViewportContainer@9933/@SubViewport@9934/Main/AnimatedBar/Button")
+navigation_buttons_custom_left = NodePath("./RevisedButton")
+navigation_buttons_custom_right = NodePath("./Button")
 offset_left = 506.0
 offset_top = 319.0
 offset_right = 875.0
@@ -509,7 +510,9 @@ toggle_mode = true
 text = "Text 20"
 
 [node name="RevisedButton5" type="RevisedButton" parent="AnimatedBar"]
-text = "Text 6"
+text = " Text 6"
+vertical_text_alignment = 1
+custom_minimum_size = Vector2(55, 0)
 layout_mode = 2
 
 [node name="Button" type="Button" parent="AnimatedBar"]

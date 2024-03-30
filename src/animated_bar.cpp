@@ -71,6 +71,19 @@ AnimatedBar::~AnimatedBar() {
 	right->queue_free();
 }
 
+void AnimatedBar::_ready() {
+	after_ready = true;
+	UtilityFunctions::print_rich("after_ready = ",after_ready);
+	set_custom_right(for_ready.right_path);
+	set_custom_left(for_ready.left_path);
+	set_custom_lr(for_ready.custom_lr);
+	set_lr_visibility(for_ready.lr_visibility);
+	int n = get_child_count();
+	if(n<=2) return;
+	first_child_id = 1;
+	first_child = Object::cast_to<Control>(get_child(1));
+}
+
 void AnimatedBar::_notification(int p_what) {
 	switch (p_what) {
 		case NOTIFICATION_SORT_CHILDREN: {
@@ -313,20 +326,30 @@ void AnimatedBar::set_speed(double p_speed) {
 }
 
 bool AnimatedBar::get_lr_visibility() {
+	if(!after_ready) return for_ready.lr_visibility;
 	return lr_visibility;
 }
 
 void AnimatedBar::set_lr_visibility(bool is_enabled) {
+	if(!after_ready) {
+		for_ready.lr_visibility = is_enabled;
+		return;
+	}
 	lr_visibility = is_enabled;
 	left->set_visible(lr_visibility);
 	right->set_visible(lr_visibility);
 }
 
 bool AnimatedBar::get_custom_lr() {
+	if(!after_ready) return for_ready.custom_lr;
 	return custom_lr;
 }
 
 void AnimatedBar::set_custom_lr(bool is_enabled) {
+	if(!after_ready) {
+		for_ready.custom_lr = is_enabled;
+		return;
+	}
 	custom_lr = is_enabled;
 	queue_sort();
 	UtilityFunctions::print(custom_left,"   ",custom_right,"   ",custom_left == nullptr,"   ",custom_right == nullptr);
@@ -382,31 +405,44 @@ void AnimatedBar::set_custom_lr(bool is_enabled) {
 }
 
 NodePath AnimatedBar::get_custom_left() {
+	if(!after_ready) return for_ready.left_path;
 	if(custom_left == nullptr) return NodePath("");
-	return custom_left->get_path();
+	String path = "./";
+	path += custom_left->get_name();
+	return NodePath(path);
 }
 
 NodePath AnimatedBar::get_custom_right() {
+	if(!after_ready) return for_ready.right_path;
 	if(custom_right == nullptr) return NodePath("");
-	return custom_right->get_path();
+	String path = "./";
+	path += custom_right->get_name();
+	return NodePath(path);
 }
 
 void AnimatedBar::set_custom_left(NodePath p_path) {
+	if(!after_ready) {
+		for_ready.left_path = p_path;
+		return;
+	}
 	custom_left = Object::cast_to<BaseButton>(get_node_or_null(p_path));
+	UtilityFunctions::print(this,"   ",get_node_or_null(NodePath(".")));
 	if(custom_left == nullptr) {
 		UtilityFunctions::print_rich("[color=VIOLET]",String(L"●")," Control++:  Custom left node path have to refer to node inheriting from the BaseButton class.","[color=SNOW]");
 		return;
 	}
 	Node *par = custom_left->get_parent();
-	if(Engine::get_singleton()->is_editor_hint() && (par != this)) {
-		UtilityFunctions::print_rich("[color=VIOLET]",String(L"●")," Control++:  Custom left node path have to refer to ",get_name(),"'s child.","[color=SNOW]");
-		custom_left = nullptr;
-		return;
+	if(par != this) {
+		if(Engine::get_singleton()->is_editor_hint()) {
+			UtilityFunctions::print_rich("[color=VIOLET]",String(L"●")," Control++:  Custom left node path have to refer to ",get_name(),"'s child.","[color=SNOW]");
+			custom_left = nullptr;
+			return;
+		}
+		custom_left->reparent(this);
 	}
 	if(custom_lr) {
 		left->set_as_top_level(false);
 		left->disconnect("pressed",Callable(this, "on_left_pressed"));
-		if(par != this) custom_left->reparent(this);
 		left = custom_left;
 		Error err1 = left->connect("pressed",Callable(this, "on_left_pressed"));
 		left->set_as_top_level(true);
@@ -415,21 +451,28 @@ void AnimatedBar::set_custom_left(NodePath p_path) {
 }
 
 void AnimatedBar::set_custom_right(NodePath p_path) {
+	if(!after_ready) {
+		for_ready.right_path = p_path;
+		return;
+	}
 	custom_right = Object::cast_to<BaseButton>(get_node_or_null(p_path));
+	UtilityFunctions::print(custom_right,"   ",custom_right == nullptr,"   ",p_path);
 	if(custom_right == nullptr) {
 		UtilityFunctions::print_rich("[color=VIOLET]",String(L"●")," Control++:  Custom right node path have to refer to node inheriting from the BaseButton class.","[color=SNOW]");
 		return;
 	}
 	Node *par = custom_right->get_parent();
-	if(Engine::get_singleton()->is_editor_hint() && (par != this)) {
-		UtilityFunctions::print_rich("[color=VIOLET]",String(L"●")," Control++:  Custom right node path have to refer to ",get_name(),"'s child.","[color=SNOW]");
-		custom_right = nullptr;
-		return;
+	if(par != this) {
+		if(Engine::get_singleton()->is_editor_hint()) {
+			UtilityFunctions::print_rich("[color=VIOLET]",String(L"●")," Control++:  Custom right node path have to refer to ",get_name(),"'s child.","[color=SNOW]");
+			custom_right = nullptr;
+			return;
+		}
+		custom_right->reparent(this);
 	}
 	if(custom_lr) {
 		right->set_as_top_level(false);
 		right->disconnect("pressed",Callable(this, "on_right_pressed"));
-		if(par != this) custom_right->reparent(this);
 		right = custom_right;
 		Error err1 = right->connect("pressed",Callable(this, "on_right_pressed"));
 		right->set_as_top_level(true);
