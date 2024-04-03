@@ -30,12 +30,14 @@ private:
 	double subtracted_value = 0.0;
 	int to_subtract_value = 0;
 	bool after_ready = false;
+	bool lr_auto_visibility = true;
+	bool do_expand = true;
 
 	struct ForReady {
 		NodePath left_path;
 		NodePath right_path;
 		bool custom_lr = false;
-		bool lr_visibility = true;
+		int lr_visibility = 3;
 	} for_ready;
 
 protected:
@@ -69,10 +71,14 @@ public:
 	void set_speed(double p_speed);
 
 	bool get_lr_visibility();
-	void set_lr_visibility(bool is_enabled);
+	int get_lr_visibility_v2();
+	void set_lr_visibility(int p_state);
 
 	bool get_custom_lr();
 	void set_custom_lr(bool is_enabled);
+
+	bool is_remaining_space_filled();
+	void set_fill_remaining_space(bool is_enabled);
 
 	NodePath get_custom_left();
 	void set_custom_left(NodePath p_path);

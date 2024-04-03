@@ -29,7 +29,61 @@ script = ExtResource("4_hhe6y")
 [node name="Main" type="Node"]
 script = ExtResource("1_74n6x")
 
+[node name="AnimatedTabContainer2" type="AnimatedTabContainer" parent="."]
+speed = 8.0
+offset_left = 514.0
+offset_top = 409.0
+offset_right = 1126.0
+offset_bottom = 736.0
+
+[node name="ColorRect" type="ColorRect" parent="AnimatedTabContainer2"]
+layout_mode = 2
+color = Color(0.945098, 0.882353, 0.431373, 1)
+
+[node name="ColorRect2" type="ColorRect" parent="AnimatedTabContainer2"]
+layout_mode = 2
+color = Color(0.6, 0.419608, 0.937255, 1)
+
+[node name="ColorRect3" type="ColorRect" parent="AnimatedTabContainer2"]
+layout_mode = 2
+color = Color(0.298039, 0.588235, 0.427451, 1)
+
+[node name="AnimatedBar" type="AnimatedBar" parent="AnimatedTabContainer2"]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="AnimatedTabContainer2/AnimatedBar"]
+layout_mode = 2
+text = "wwwww"
+
+[node name="Button2" type="Button" parent="AnimatedTabContainer2/AnimatedBar"]
+layout_mode = 2
+text = "ddddddddddddddddddd"
+
+[node name="Button3" type="Button" parent="AnimatedTabContainer2/AnimatedBar"]
+layout_mode = 2
+text = "ddddddddddddddddddd"
+
+[node name="Button4" type="Button" parent="AnimatedTabContainer2/AnimatedBar"]
+layout_mode = 2
+text = "ddddddddddddddddddd"
+
+[node name="AnimatedBar2" type="AnimatedBar" parent="AnimatedTabContainer2"]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="AnimatedTabContainer2/AnimatedBar2"]
+layout_mode = 2
+text = "wwwww"
+
+[node name="Button2" type="Button" parent="AnimatedTabContainer2/AnimatedBar2"]
+layout_mode = 2
+text = "ddddddddddddddddddd"
+
+[node name="Button4" type="Button" parent="AnimatedTabContainer2/AnimatedBar2"]
+layout_mode = 2
+text = "ddddddddddddddddddd"
+
 [node name="GridContainer" type="GridContainer" parent="."]
+visible = false
 offset_left = 265.0
 offset_top = 50.0
 offset_right = 1053.0
@@ -82,7 +136,7 @@ visible = false
 position = Vector2(800, 150)
 
 [node name="GDExample" type="GDExample" parent="Node2D"]
-position = Vector2(0.51546, 0.113552)
+position = Vector2(13.9209, 7.02404)
 texture = ExtResource("1_6elc7")
 
 [node name="ExpandableButton 2" type="ExpandableButton" parent="."]
@@ -360,10 +414,53 @@ item_4/id = 4
 item_4/disabled = true
 
 [node name="AnimatedTabContainer" type="AnimatedTabContainer" parent="."]
+visible = false
 offset_left = 530.0
 offset_top = 310.0
 offset_right = 987.0
-offset_bottom = 501.0
+offset_bottom = 539.0
+
+[node name="Button" type="Button" parent="AnimatedTabContainer"]
+layout_mode = 2
+text = "Tab 1"
+
+[node name="Button2" type="Button" parent="AnimatedTabContainer"]
+layout_mode = 2
+text = "Tab 2"
+
+[node name="AnimatedBar2" type="AnimatedBar" parent="AnimatedTabContainer"]
+navigation_buttons_custom_left = NodePath("./Button8")
+layout_mode = 2
+
+[node name="Button8" type="Button" parent="AnimatedTabContainer/AnimatedBar2"]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+toggle_mode = true
+text = "Text 19"
+
+[node name="RevisedButton6" type="RevisedButton" parent="AnimatedTabContainer/AnimatedBar2"]
+text = " Text 6"
+vertical_text_alignment = 1
+custom_minimum_size = Vector2(55, 0)
+layout_mode = 2
+
+[node name="Button7" type="Button" parent="AnimatedTabContainer/AnimatedBar2"]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+toggle_mode = true
+text = "Text 18"
+
+[node name="Button9" type="Button" parent="AnimatedTabContainer/AnimatedBar2"]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+toggle_mode = true
+text = "Text 20"
 
 [node name="AnimatedBar" type="AnimatedBar" parent="AnimatedTabContainer"]
 speed = 5.0
@@ -484,44 +581,6 @@ toggle_mode = true
 text = "Text 16
 "
 
-[node name="Button6" type="Button" parent="AnimatedTabContainer/AnimatedBar"]
-custom_minimum_size = Vector2(80, 0)
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-toggle_mode = true
-text = "Text 17"
-
-[node name="Button7" type="Button" parent="AnimatedTabContainer/AnimatedBar"]
-custom_minimum_size = Vector2(80, 0)
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-toggle_mode = true
-text = "Text 18"
-
-[node name="Button8" type="Button" parent="AnimatedTabContainer/AnimatedBar"]
-custom_minimum_size = Vector2(80, 0)
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-toggle_mode = true
-text = "Text 19"
-
-[node name="Button9" type="Button" parent="AnimatedTabContainer/AnimatedBar"]
-custom_minimum_size = Vector2(80, 0)
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-toggle_mode = true
-text = "Text 20"
-
-[node name="RevisedButton5" type="RevisedButton" parent="AnimatedTabContainer/AnimatedBar"]
-text = " Text 6"
-vertical_text_alignment = 1
-custom_minimum_size = Vector2(55, 0)
-layout_mode = 2
-
 [node name="Right" type="Button" parent="AnimatedTabContainer/AnimatedBar"]
 top_level = true
 layout_mode = 2
@@ -530,12 +589,6 @@ size_flags_vertical = 3
 toggle_mode = true
 text = "Right
 "
-
-[node name="AnimatedBar2" type="AnimatedBar" parent="AnimatedTabContainer"]
-layout_mode = 2
-
-[node name="Button" type="Button" parent="AnimatedTabContainer"]
-layout_mode = 2
 
 [connection signal="button_down" from="GridContainer/ExpandableButton" to="." method="_on_expandable_button_button_down"]
 [connection signal="minimum_size_changed" from="GridContainer/ExpandableButton" to="." method="_on_expandable_button_minimum_size_changed"]

@@ -32,8 +32,9 @@ void AnimatedBar::_bind_methods() {
 	ClassDB::add_property("AnimatedBar", PropertyInfo(Variant::FLOAT, "navigation_buttons_spacing"), "set_navigation_buttons_spacing", "get_navigation_buttons_spacing");
 	// Navigation Buttons Visibility Property
 	ClassDB::bind_method(D_METHOD("set_navigation_buttons_visibility", "is_enabled"), &AnimatedBar::set_lr_visibility);
+	ClassDB::bind_method(D_METHOD("get_navigation_buttons_visibility"), &AnimatedBar::get_lr_visibility_v2);
 	ClassDB::bind_method(D_METHOD("are_navigation_buttons_visible"), &AnimatedBar::get_lr_visibility);
-	ClassDB::add_property("AnimatedBar", PropertyInfo(Variant::BOOL, "navigation_buttons_visibility"), "set_navigation_buttons_visibility", "are_navigation_buttons_visible");
+	ClassDB::add_property("AnimatedBar", PropertyInfo(Variant::INT, "navigation_buttons_visibility",PROPERTY_HINT_ENUM, "OFF:0,ON:1,AUTO:3"), "set_navigation_buttons_visibility", "get_navigation_buttons_visibility");
 	// Use Custom Navigation Buttons Property
 	ClassDB::bind_method(D_METHOD("use_custom_navigation_buttons", "is_enabled"), &AnimatedBar::set_custom_lr);
 	ClassDB::bind_method(D_METHOD("are_custom_navigation_buttons_used"), &AnimatedBar::get_custom_lr);
@@ -45,6 +46,10 @@ void AnimatedBar::_bind_methods() {
 	ClassDB::bind_method(D_METHOD("set_custom_right_navigation_button", "p_button"), &AnimatedBar::set_custom_right);
 	ClassDB::bind_method(D_METHOD("get_custom_right_navigation_button"), &AnimatedBar::get_custom_right);
 	ClassDB::add_property("AnimatedBar", PropertyInfo(Variant::NODE_PATH, "navigation_buttons_custom_right",PROPERTY_HINT_INT_IS_POINTER), "set_custom_right_navigation_button", "get_custom_right_navigation_button");
+	// Fill Remaining Space Property
+	ClassDB::bind_method(D_METHOD("set_fill_remaining_space", "is_enabled"), &AnimatedBar::set_fill_remaining_space);
+	ClassDB::bind_method(D_METHOD("is_remaining_space_filled"), &AnimatedBar::is_remaining_space_filled);
+	ClassDB::add_property("AnimatedBar", PropertyInfo(Variant::BOOL, "fill_remaining_space"), "set_fill_remaining_space", "is_remaining_space_filled");
 	// Other Functions
 	ClassDB::bind_method(D_METHOD("get_options_quantity"), &AnimatedBar::get_options_quantity);
 	ClassDB::bind_method(D_METHOD("get_navigation_buttons_size"), &AnimatedBar::get_lr_size);
@@ -80,7 +85,7 @@ AnimatedBar::~AnimatedBar() {
 
 void AnimatedBar::_ready() {
 	after_ready = true;
-	UtilityFunctions::print_rich("after_ready = ",after_ready);
+	//UtilityFunctions::print_rich("after_ready = ",after_ready);
 	set_custom_right(for_ready.right_path);
 	set_custom_left(for_ready.left_path);
 	set_custom_lr(for_ready.custom_lr);
@@ -117,6 +122,9 @@ void AnimatedBar::_notification(int p_what) {
 			children[n-1] = right;
 			button_children[0] = left;
 			button_children[n-1] = right;
+			double expand_value = get_size().x;
+			if(!lr_auto_visibility && lr_visibility); //expand_value -= left and right xs 
+			bool need_expand = true;
 			for(int i=1;i<n-1;i++) {
 				children[i] = Object::cast_to<Control>(get_child(i));
 				button_children[i] = Object::cast_to<BaseButton>(get_child(i));
@@ -124,6 +132,7 @@ void AnimatedBar::_notification(int p_what) {
 				children[i]->set_position(Vector2(x,y));
 				ms = children[i]->get_combined_minimum_size();
 				x += ms.x + spacing;
+				if(x-spacing>expand_value-subtracted_value) need_expand = false;
 				if(height<ms.y) height = ms.y;
 			}
 			right->set_position(Vector2(get_size().x+_pos.x+spacing2,y+_pos.y));
@@ -143,6 +152,30 @@ void AnimatedBar::_notification(int p_what) {
 					a.append(button_children[i]);
 					Error err1 = button_children[i]->connect("pressed",Callable(this, "on_button_pressed").bindv(a));
 					//UtilityFunctions::print(err1);
+				}
+			}
+			if(lr_auto_visibility) {
+				bool tmp = lr_visibility;
+				if(need_expand) lr_visibility = false;
+				else lr_visibility = true;
+				if(tmp != lr_visibility) emit_signal("minimum_size_changed");;
+				//UtilityFunctions::print("lr_visibility = ",lr_visibility,"   need_expand = ",need_expand);
+				left->set_visible(lr_visibility);
+				right->set_visible(lr_visibility);
+			}
+			if(need_expand && do_expand) {
+				double space_left = expand_value - (x-spacing);
+				double space_for_each = space_left/(n-2);
+				for(int i=1;i<n-1;i++) {
+					if(children[i] == nullptr) continue;
+					//size
+					Vector2 tmp = children[i]->get_size();
+					tmp.x += space_for_each;
+					children[i]->set_size(tmp);
+					//position
+					tmp = children[i]->get_position();
+					tmp.x += space_for_each*(i-1);
+					children[i]->set_position(tmp);
 				}
 			}
 		} break;
@@ -201,8 +234,8 @@ void AnimatedBar::deactivate_focus() {
 
 void AnimatedBar::on_button_pressed(int id,BaseButton *button) {
 	if(button->is_pressed()) {
-		if(focus) emit_signal("focus_changed",id);
-		else emit_signal("focus_activated",id);
+		if(focus) call_deferred("emit_signal","focus_changed",id);
+		else call_deferred("emit_signal","focus_activated",id);
 		for(int i = 1;i<get_child_count()-1;i++) {
 			BaseButton *child = Object::cast_to<BaseButton>(get_child(i));
 			if (child == nullptr) continue;
@@ -246,7 +279,7 @@ void AnimatedBar::on_left_pressed() {
 		break;
 	}
 	to_subtract_value -= size;
-	UtilityFunctions::print(first_child->get_name(),"   ",first_child_id,"   ",size);
+	//UtilityFunctions::print(first_child->get_name(),"   ",first_child_id,"   ",size);
 	queue_sort();
 }
 
@@ -293,12 +326,12 @@ void AnimatedBar::on_right_pressed() {
 			continue;
 		}
 		to_subtract_value += size;
-		UtilityFunctions::print(first_child->get_name(),"   ",first_child_id,"   ",size);
+		//UtilityFunctions::print(first_child->get_name(),"   ",first_child_id,"   ",size);
 		queue_sort();
 		return;
 	}
 	to_subtract_value += _s_;
-	UtilityFunctions::print("   ",first_child_id,"   ",_s_);
+	//UtilityFunctions::print("   ",first_child_id,"   ",_s_);
 	i = _i_;
 	_size = get_size().x;
 	while (i>0) {
@@ -318,7 +351,7 @@ void AnimatedBar::on_right_pressed() {
 		break;
 	}
 	to_subtract_value -= size;
-	UtilityFunctions::print(first_child->get_name(),"   ",first_child_id,"   ",size,"   ",_size);
+	//UtilityFunctions::print(first_child->get_name(),"   ",first_child_id,"   ",size,"   ",_size);
 	queue_sort();
 }
 
@@ -353,16 +386,34 @@ void AnimatedBar::set_speed(double p_speed) {
 }
 
 bool AnimatedBar::get_lr_visibility() {
-	if(!after_ready) return for_ready.lr_visibility;
+	if(!after_ready) return bool(for_ready.lr_visibility);
 	return lr_visibility;
 }
 
-void AnimatedBar::set_lr_visibility(bool is_enabled) {
+int AnimatedBar::get_lr_visibility_v2() {
+	if(!after_ready) return for_ready.lr_visibility;
+	if(lr_auto_visibility == true) return 3;
+	return int(lr_visibility);
+}
+
+void AnimatedBar::set_lr_visibility(int p_state) {
 	if(!after_ready) {
-		for_ready.lr_visibility = is_enabled;
+		for_ready.lr_visibility = p_state;
 		return;
 	}
-	lr_visibility = is_enabled;
+	if(p_state == 0) {
+		lr_visibility = false;
+		lr_auto_visibility = false;
+	} else if(p_state == 1) {
+		lr_visibility = true;
+		lr_auto_visibility = false;
+	} else {
+		lr_auto_visibility = true;
+		queue_sort();
+		//UtilityFunctions::print("lr_auto_visibility = ",lr_auto_visibility);
+		return;
+	}
+	emit_signal("minimum_size_changed");
 	left->set_visible(lr_visibility);
 	right->set_visible(lr_visibility);
 }
@@ -379,17 +430,29 @@ void AnimatedBar::set_custom_lr(bool is_enabled) {
 	}
 	custom_lr = is_enabled;
 	queue_sort();
-	UtilityFunctions::print(custom_left,"   ",custom_right,"   ",custom_left == nullptr,"   ",custom_right == nullptr);
+	//UtilityFunctions::print(custom_left,"   ",custom_right,"   ",custom_left == nullptr,"   ",custom_right == nullptr);
 	if(!custom_lr) {
 		left->set_as_top_level(false);
 		right->set_as_top_level(false);
 		left->disconnect("pressed",Callable(this, "on_left_pressed"));
 		right->disconnect("pressed",Callable(this, "on_right_pressed"));
+		Button *l = Object::cast_to<Button>(left);
+		if(l != nullptr)
+			if(l->get_text() == "<-") {
+				remove_child(l);
+				l->queue_free();
+			}
+		Button *r = Object::cast_to<Button>(right);
+		if(r != nullptr)
+			if(r->get_text() == "->") {
+				remove_child(l);
+				r->queue_free();
+			}
 		left = memnew(Button);
 		right = memnew(Button);
-		Button *l = Object::cast_to<Button>(left);
+		l = Object::cast_to<Button>(left);
 		l->set_text("<-");
-		Button *r = Object::cast_to<Button>(right);
+		r = Object::cast_to<Button>(right);
 		r->set_text("->");
 		add_child(right);
 		add_child(left);
@@ -436,6 +499,7 @@ int AnimatedBar::get_options_quantity() const {
 }
 
 Vector2 AnimatedBar::get_lr_size() const {
+	if(!lr_visibility) return Vector2(0,0);
 	Vector2 _siz = Vector2(spacing2*2,0);
 	_siz += left->get_size();
 	_siz.x += right->get_size().x;
@@ -443,12 +507,14 @@ Vector2 AnimatedBar::get_lr_size() const {
 }
 
 Vector2 AnimatedBar::get_left_size() const {
+	if(!lr_visibility) return Vector2(0,0);
 	Vector2 _siz = Vector2(spacing2,0);
 	_siz += left->get_size();
 	return _siz;
 }
 
 Vector2 AnimatedBar::get_right_size() const {
+	if(!lr_visibility) return Vector2(0,0);
 	Vector2 _siz = Vector2(spacing2,0);
 	_siz += right->get_size();
 	return _siz;
@@ -475,21 +541,22 @@ void AnimatedBar::set_custom_left(NodePath p_path) {
 		for_ready.left_path = p_path;
 		return;
 	}
-	custom_left = Object::cast_to<BaseButton>(get_node_or_null(p_path));
-	UtilityFunctions::print(this,"   ",get_node_or_null(NodePath(".")));
-	if(custom_left == nullptr) {
+	BaseButton *_custom_left = Object::cast_to<BaseButton>(get_node_or_null(p_path));
+	//UtilityFunctions::print(this,"   ",get_node_or_null(NodePath(".")));
+	if(_custom_left == nullptr) {
 		UtilityFunctions::print_rich("[color=VIOLET]",String(L"●")," Control++:  Custom left node path have to refer to node inheriting from the BaseButton class.","[color=SNOW]");
 		return;
 	}
-	Node *par = custom_left->get_parent();
+	Node *par = _custom_left->get_parent();
 	if(par != this) {
 		if(Engine::get_singleton()->is_editor_hint()) {
 			UtilityFunctions::print_rich("[color=VIOLET]",String(L"●")," Control++:  Custom left node path have to refer to ",get_name(),"'s child.","[color=SNOW]");
-			custom_left = nullptr;
+			_custom_left = nullptr;
 			return;
 		}
-		custom_left->reparent(this);
+		_custom_left->reparent(this);
 	}
+	custom_left = _custom_left;
 	if(custom_lr) {
 		left->set_as_top_level(false);
 		left->disconnect("pressed",Callable(this, "on_left_pressed"));
@@ -505,21 +572,22 @@ void AnimatedBar::set_custom_right(NodePath p_path) {
 		for_ready.right_path = p_path;
 		return;
 	}
-	custom_right = Object::cast_to<BaseButton>(get_node_or_null(p_path));
-	UtilityFunctions::print(custom_right,"   ",custom_right == nullptr,"   ",p_path);
-	if(custom_right == nullptr) {
+	BaseButton *_custom_right = Object::cast_to<BaseButton>(get_node_or_null(p_path));
+	//UtilityFunctions::print(custom_right,"   ",custom_right == nullptr,"   ",p_path);
+	if(_custom_right == nullptr) {
 		UtilityFunctions::print_rich("[color=VIOLET]",String(L"●")," Control++:  Custom right node path have to refer to node inheriting from the BaseButton class.","[color=SNOW]");
 		return;
 	}
-	Node *par = custom_right->get_parent();
+	Node *par = _custom_right->get_parent();
 	if(par != this) {
 		if(Engine::get_singleton()->is_editor_hint()) {
 			UtilityFunctions::print_rich("[color=VIOLET]",String(L"●")," Control++:  Custom right node path have to refer to ",get_name(),"'s child.","[color=SNOW]");
-			custom_right = nullptr;
+			_custom_right = nullptr;
 			return;
 		}
-		custom_right->reparent(this);
+		_custom_right->reparent(this);
 	}
+	custom_right = _custom_right;
 	if(custom_lr) {
 		right->set_as_top_level(false);
 		right->disconnect("pressed",Callable(this, "on_right_pressed"));
@@ -530,14 +598,24 @@ void AnimatedBar::set_custom_right(NodePath p_path) {
 	}
 }
 
+bool AnimatedBar::is_remaining_space_filled() {
+	return do_expand;
+}
+
+void AnimatedBar::set_fill_remaining_space(bool is_enabled) {
+	if(do_expand == is_enabled) return;
+	do_expand = is_enabled;
+	queue_sort();
+}
+
 PackedStringArray AnimatedBar::_get_configuration_warnings() const {
 	PackedStringArray warnings;
 	int n = get_child_count();
-	if (n == 0) {
+	if (n <= 2) {
 		warnings.push_back(RTR("AnimatedBar does not have child. Please add some children inheriting from the BaseButton class to allow AnimatedBar to work properly"));
 		return warnings;
 	}
-	for(int i=0;i<n;i++) {
+	for(int i=1;i<n-1;i++) {
 		BaseButton *child = Object::cast_to<BaseButton>(get_child(i));
 		if (child == nullptr) {
 			warnings.push_back(RTR(get_child(i)->get_name()+String(" does not inherit from the BaseButton class. Please remove it if it isn't necessary.")));

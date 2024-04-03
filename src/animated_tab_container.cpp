@@ -7,10 +7,14 @@ using namespace godot;
 
 void AnimatedTabContainer::_bind_methods() {
 	// Signals Conections Functions
-	ClassDB::bind_method(D_METHOD("on_focus_changed","p_id"), &AnimatedTabContainer::on_focus_changed);
-	ClassDB::bind_method(D_METHOD("on_focus_activated","p_id"), &AnimatedTabContainer::on_focus_activated);
-	ClassDB::bind_method(D_METHOD("on_focus_deactivated","p_id"), &AnimatedTabContainer::on_focus_deactivated);
+	ClassDB::bind_method(D_METHOD("on_focus_changed","p_id","p_bar_id"), &AnimatedTabContainer::on_focus_changed);
+	ClassDB::bind_method(D_METHOD("on_focus_activated","p_id","p_bar_id"), &AnimatedTabContainer::on_focus_activated);
+	ClassDB::bind_method(D_METHOD("on_focus_deactivated"), &AnimatedTabContainer::on_focus_deactivated);
 	ClassDB::bind_method(D_METHOD("clip_child","p_child"), &AnimatedTabContainer::clip_child);
+	// Speed Property
+	ClassDB::bind_method(D_METHOD("set_speed", "p_speed"), &AnimatedTabContainer::set_speed);
+	ClassDB::bind_method(D_METHOD("get_speed"), &AnimatedTabContainer::get_speed);
+	ClassDB::add_property("AnimatedTabContainer", PropertyInfo(Variant::FLOAT, "speed"), "set_speed", "get_speed");
 }
 
 AnimatedTabContainer::AnimatedTabContainer() {
@@ -28,17 +32,25 @@ void AnimatedTabContainer::clip_child(Control* child) {
 	RenderingServer::get_singleton()->canvas_item_set_clip(_rid,true);
 }
 
+double AnimatedTabContainer::get_speed() {
+	return speed;
+}
+
+void AnimatedTabContainer::set_speed(double p_speed) {
+	speed = p_speed;
+}
+
 void AnimatedTabContainer::_notification(int p_what) {
 	switch (p_what) {
 		case NOTIFICATION_SORT_CHILDREN: {
 			int n = get_child_count();
 			number_of_animated_bars = 0;
-			double _y = 0;
-			for(int i = 0;i<n;i++) {
+			_y = 0;
+			for(int i = n-1;i>=0;i--) {
 				AnimatedBar *child = Object::cast_to<AnimatedBar>(get_child(i));
 				if(child == nullptr) continue;
-				move_child(child,number_of_animated_bars);
 				number_of_animated_bars++;
+				move_child(child,n-number_of_animated_bars);
 				double _x = child->get_left_size().x;
 				_y += child->get_minimum_size().y;
 				child->set_position(Vector2(_x,get_size().y-_y));
@@ -46,19 +58,22 @@ void AnimatedTabContainer::_notification(int p_what) {
 				new_siz.x = get_size().x-child->get_lr_size().x;
 				child->set_size(new_siz);
 				Array a;
-				a.append(number_of_animated_bars-1);
+				a.append(i);
 				if(child->is_connected("focus_changed",Callable(this, "on_focus_changed"))) continue;
 				Error err1 = child->connect("focus_changed",Callable(this, "on_focus_changed").bindv(a));
 				err1 = child->connect("focus_activated",Callable(this, "on_focus_activated").bindv(a));
 				err1 = child->connect("focus_deactivated",Callable(this, "on_focus_deactivated"));
 			}
 			Vector2 _size = get_size();
-			for(int i = number_of_animated_bars;i<n;i++) {
+			for(int i = 0;i<n-number_of_animated_bars;i++) {
 				Control *child = Object::cast_to<Control>(get_child(i));
 				if(child == nullptr) continue;
 				RID _rid = child->get_canvas_item();
 				child->set_size(Vector2(_size.x,_size.y-_y));
-				if(curent_tab==child) child->set_position(Vector2(0,0));
+				if(curent_tab==child) {
+					child->set_position(Vector2(0,_size.y-_y-focus_status));
+					UtilityFunctions::print(child,"   is on focus   focus_status = ",focus_status);
+				}
 				else child->set_position(Vector2(0,_size.y-_y));
 				RenderingServer::get_singleton()->canvas_item_set_custom_rect(_rid,true,Rect2(-child->get_position(),child->get_size()));
 				RenderingServer::get_singleton()->canvas_item_set_clip(_rid,true);
@@ -90,21 +105,50 @@ void AnimatedTabContainer::_notification(int p_what) {
 }
 
 void AnimatedTabContainer::_process(double delta) {
-	// Do Something
+	if((focus_status == get_size().y-_y || focus_status == 0) && curent_tab == next_tab) return;
+	if(focus_status > get_size().y-_y) {
+		focus_status = get_size().y-_y;
+		queue_sort();
+		UtilityFunctions::print("focus_status > get_size().y-_y");
+		return;
+	}
+	if(focus_status < 0) {
+		focus_status = 0;
+		queue_sort();
+		UtilityFunctions::print("focus_status < 0");
+		return;
+	}
+	double delta_speed = delta*60*speed;
+	if(next_tab == nullptr && focus_status != 0) {
+		focus_status -= delta_speed;
+		curent_tab->set_position(Vector2(0,curent_tab->get_position().y+delta_speed));
+		clip_child(curent_tab);
+		UtilityFunctions::print("next_tab == nullptr && focus_status != 0");
+		return;
+	}
+	if(curent_tab != next_tab) {
+		curent_tab = next_tab;
+		queue_sort();
+	}
+	if(curent_tab == nullptr) return;
+	focus_status += delta_speed;
+	curent_tab->set_position(Vector2(0,curent_tab->get_position().y-delta_speed));
+	clip_child(curent_tab);
+	UtilityFunctions::print("curent_tab == next_tab");
 }
 
 Vector2 AnimatedTabContainer::_get_minimum_size() const {
 	Vector2 _min = Vector2(0,0);
 	int n = get_child_count();
 	if(number_of_animated_bars > n) return _min;
-	for(int i = number_of_animated_bars;i<n;i++) {
+	for(int i = 0;i<n-number_of_animated_bars;i++) {
 		Control *child = Object::cast_to<Control>(get_child(i));
 		if(child == nullptr) continue;
 		Vector2 size = child->get_combined_minimum_size();
 		if(size.x > _min.x) _min.x = size.x;
 		if(size.y > _min.y) _min.y = size.y;
 	}
-	for(int i = 0;i<number_of_animated_bars;i++) {
+	for(int i = n-number_of_animated_bars;i<n;i++) {
 		AnimatedBar *child = Object::cast_to<AnimatedBar>(get_child(i));
 		if(child == nullptr) continue;
 		Vector2 size = child->get_combined_minimum_size();
@@ -116,19 +160,44 @@ Vector2 AnimatedTabContainer::_get_minimum_size() const {
 }
 
 void AnimatedTabContainer::on_focus_activated(int p_tab_id,int p_bar_id) {
+	int n = get_child_count();
+	p_tab_id--;
 	if(is_activated) curent_animated_bar->deactivate_focus();
-	curent_tab = Object::cast_to<Control>(get_child(p_tab_id+number_of_animated_bars));
+	if(p_tab_id >= n - number_of_animated_bars) {
+		curent_animated_bar = Object::cast_to<AnimatedBar>(get_child(p_bar_id));
+		curent_animated_bar->deactivate_focus();
+		on_focus_deactivated();
+		return;
+	}
+	UtilityFunctions::print("p_bar_id = ",p_bar_id);
+	next_tab = Object::cast_to<Control>(get_child(p_tab_id));
 	curent_animated_bar = Object::cast_to<AnimatedBar>(get_child(p_bar_id));
+	UtilityFunctions::print(next_tab,"   ",p_tab_id);
+	queue_sort();
+	is_activated = true;
 }
 
 void AnimatedTabContainer::on_focus_changed(int p_tab_id,int p_bar_id) {
-	curent_tab = Object::cast_to<Control>(get_child(p_tab_id+number_of_animated_bars));
+	int n = get_child_count();
+	p_tab_id--;
+	if(p_tab_id >= n - number_of_animated_bars) {
+		curent_animated_bar = Object::cast_to<AnimatedBar>(get_child(p_bar_id));
+		curent_animated_bar->deactivate_focus();
+		on_focus_deactivated();
+		return;
+	}
+	next_tab = Object::cast_to<Control>(get_child(p_tab_id));
+	UtilityFunctions::print(next_tab,"   ",p_tab_id);
+	queue_sort();
 }
 
 void AnimatedTabContainer::on_focus_deactivated() {
+	UtilityFunctions::print(next_tab,"   ",curent_animated_bar);
 	is_activated = false;
-	curent_tab = nullptr;
+	next_tab = nullptr;
 	curent_animated_bar = nullptr;
+	UtilityFunctions::print(next_tab,"   ",curent_animated_bar);
+	queue_sort();
 }
 
 PackedStringArray AnimatedTabContainer::_get_configuration_warnings() const {
