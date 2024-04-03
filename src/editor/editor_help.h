@@ -53,7 +53,7 @@
 namespace godot {
 
 class FindBar : public HBoxContainer {
-	GDCLASS(FindBar, HBoxContainer);
+	GDCLASS(FindBar, HBoxContainer)
 
 	LineEdit *search_text = nullptr;
 	Button *find_prev = nullptr;
@@ -93,7 +93,7 @@ public:
 };
 
 class EditorHelp : public VBoxContainer {
-	GDCLASS(EditorHelp, VBoxContainer);
+	GDCLASS(EditorHelp, VBoxContainer)
 
 	enum MethodType {
 		METHOD_TYPE_METHOD,
@@ -241,7 +241,7 @@ public:
 };
 
 class EditorHelpBit : public MarginContainer {
-	GDCLASS(EditorHelpBit, MarginContainer);
+	GDCLASS(EditorHelpBit, MarginContainer)
 
 	inline static HashMap<StringName, String> doc_class_cache;
 	inline static HashMap<StringName, HashMap<StringName, String>> doc_property_cache;
@@ -273,7 +273,7 @@ public:
 };
 
 class EditorHelpTooltip : public EditorHelpBit {
-	GDCLASS(EditorHelpTooltip, EditorHelpBit);
+	GDCLASS(EditorHelpTooltip, EditorHelpBit)
 
 	String tooltip_text;
 

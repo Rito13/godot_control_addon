@@ -31,6 +31,7 @@ script = ExtResource("1_74n6x")
 
 [node name="AnimatedTabContainer2" type="AnimatedTabContainer" parent="."]
 speed = 8.0
+visible = false
 offset_left = 514.0
 offset_top = 409.0
 offset_right = 1126.0
@@ -136,7 +137,7 @@ visible = false
 position = Vector2(800, 150)
 
 [node name="GDExample" type="GDExample" parent="Node2D"]
-position = Vector2(13.9209, 7.02404)
+position = Vector2(0.0364042, 1.02494)
 texture = ExtResource("1_6elc7")
 
 [node name="ExpandableButton 2" type="ExpandableButton" parent="."]
@@ -414,7 +415,6 @@ item_4/id = 4
 item_4/disabled = true
 
 [node name="AnimatedTabContainer" type="AnimatedTabContainer" parent="."]
-visible = false
 offset_left = 530.0
 offset_top = 310.0
 offset_right = 987.0
@@ -587,7 +587,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 toggle_mode = true
-text = "Right
+text = ".   Right   .
 "
 
 [connection signal="button_down" from="GridContainer/ExpandableButton" to="." method="_on_expandable_button_button_down"]

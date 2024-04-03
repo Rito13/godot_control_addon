@@ -1,8 +1,8 @@
 #include "animated_bar.h"
 #include <godot_cpp/core/class_db.hpp>
-#include <godot_cpp/classes/translation_server.hpp>
 #include <godot_cpp/variant/utility_functions.hpp>
 #include <godot_cpp/classes/engine.hpp>
+#include <godot_cpp/classes/rendering_server.hpp>
 
 using namespace godot;
 
@@ -11,6 +11,7 @@ void AnimatedBar::_bind_methods() {
 	ClassDB::bind_method(D_METHOD("on_button_pressed","p_id","p_status"), &AnimatedBar::on_button_pressed);
 	ClassDB::bind_method(D_METHOD("on_right_pressed"), &AnimatedBar::on_right_pressed);
 	ClassDB::bind_method(D_METHOD("on_left_pressed"), &AnimatedBar::on_left_pressed);
+	ClassDB::bind_method(D_METHOD("clip_child","p_child"), &AnimatedBar::clip_child);
 	// Emited Signals
 	ADD_SIGNAL(MethodInfo("focus_changed", PropertyInfo(Variant::INT, "focused_child_id")));
 	ADD_SIGNAL(MethodInfo("focus_activated", PropertyInfo(Variant::INT, "focused_child_id")));
@@ -96,6 +97,17 @@ void AnimatedBar::_ready() {
 	first_child = Object::cast_to<Control>(get_child(1));
 }
 
+void AnimatedBar::clip_child(Control* child) {
+	RID _rid = child->get_canvas_item();
+	Vector2 _pos = get_left_size();
+	_pos.y = 0;
+	_pos -= child->get_position();
+	Vector2 _size = get_size();
+	_size.x -= get_lr_size().x;
+	RenderingServer::get_singleton()->canvas_item_set_custom_rect(_rid,true,Rect2(_pos,_size));
+	RenderingServer::get_singleton()->canvas_item_set_clip(_rid,true);
+}
+
 void AnimatedBar::_notification(int p_what) {
 	switch (p_what) {
 		case NOTIFICATION_SORT_CHILDREN: {
@@ -109,7 +121,7 @@ void AnimatedBar::_notification(int p_what) {
 			}
 			Control *children[n];
 			BaseButton *button_children[n];
-			double x = -subtracted_value;
+			double x = -subtracted_value+get_left_size().x;
 			double y = 0;
 			double height = 0;
 			move_child(left,0);
@@ -134,6 +146,11 @@ void AnimatedBar::_notification(int p_what) {
 				x += ms.x + spacing;
 				if(x-spacing>expand_value-subtracted_value) need_expand = false;
 				if(height<ms.y) height = ms.y;
+				clip_child(children[i]);
+				if(children[i]->is_connected("draw",Callable(this, "clip_child"))) continue;
+				Array a;
+				a.append(children[i]);
+				Error err1 = children[i]->connect("draw",Callable(this, "clip_child").bindv(a));
 			}
 			right->set_position(Vector2(get_size().x+_pos.x+spacing2,y+_pos.y));
 			ms = right->get_combined_minimum_size();
@@ -262,20 +279,22 @@ void AnimatedBar::on_left_pressed() {
 	size -= first_child->get_position().x;
 	int i = first_child_id-1;
 	int _size = size;
+	double _lx = get_left_size().x;
 	while (i>0) {
 		Control *child = Object::cast_to<Control>(get_child(i));
 		if(child == nullptr) {
 			i--;
 			continue;
 		}
-		if((-1)*(child->get_position().x)<=_size) {
-			size = (-1)*(child->get_position().x);
+		double _x = child->get_position().x-_lx;
+		if((-1)*(_x)<=_size) {
+			size = (-1)*(_x);
 			first_child = child;
 			first_child_id = i;
 			i--;
 			continue;
 		} 
-		if((-1)*(child->get_position().x+child->get_size().x)<=_size) size = _size;
+		if((-1)*(_x+child->get_size().x)<=_size) size = _size;
 		break;
 	}
 	to_subtract_value -= size;
@@ -292,7 +311,7 @@ void AnimatedBar::on_right_pressed() {
 	}
 	int n = get_child_count();
 	if(first_child_id >= n-2 || first_child == nullptr) return;
-	int size = get_size().x;
+	int size = get_size().x-get_right_size().x;
 	size -= first_child->get_position().x;
 	int i = first_child_id+1;
 	int _size = size;

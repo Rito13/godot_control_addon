@@ -7,7 +7,7 @@
 namespace godot {
 
 class AutoScroll : public Control {
-	GDCLASS(AutoScroll, Control);
+	GDCLASS(AutoScroll, Control)
 
 private:
     double minus_step = 0;

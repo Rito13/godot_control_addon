@@ -61,6 +61,8 @@ public:
 	void on_right_pressed();
 	void on_left_pressed();
 
+	void clip_child(Control* child);
+
 	double get_spacing();
 	void set_spacing(double p_spacing);
 
