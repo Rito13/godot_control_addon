@@ -13,7 +13,7 @@
             "generator": "Unix Makefiles",
             "hidden": true,
             "environment": {
-                "PROJECT_NAME": "MyGodotExtention"
+                "PROJECT_NAME": "Controll++"
             }
         },
         {
@@ -37,7 +37,8 @@
             "cacheVariables": {
                 "CMAKE_C_COMPILER": "cl.exe",
                 "CMAKE_CXX_COMPILER": "cl.exe",
-                "CMAKE_BUILD_TYPE": "Debug"
+                "CMAKE_BUILD_TYPE": "Debug",
+                "CMAKE_INSTALL_PREFIX": "${sourceDir}/demo/addons"
             }
         },
         {
@@ -45,14 +46,15 @@
             "displayName": "64bit Windows Release",
             "inherits": "windows-debug",
             "cacheVariables": {
-                "CMAKE_BUILD_TYPE": "Release"
+                "CMAKE_BUILD_TYPE": "Release",
+                "CMAKE_INSTALL_PREFIX": "${sourceDir}/demo/addons"
             }
         },
         {
             "name": "linux-debug",
             "displayName": "64bit Linux Debug",
             "inherits": "default",
-            "binaryDir": "${sourceDir}/../build_${env:PROJECT_NAME}_Linux-x86_64",
+            "binaryDir": "${sourceDir}/../build_${env:PROJECT_NAME}_linux-x86_64",
             "condition": {
                 "type": "equals",
                 "lhs": "${hostSystemName}",
@@ -61,7 +63,8 @@
             "cacheVariables": {
                 "CMAKE_CXX_COMPILER": "g++",
                 "CMAKE_C_COMPILER": "gcc",
-                "CMAKE_BUILD_TYPE": "Debug"
+                "CMAKE_BUILD_TYPE": "Debug",
+                "CMAKE_INSTALL_PREFIX": "${sourceDir}/demo/addons"
             }
         },
         {
@@ -70,7 +73,7 @@
             "inherits": "linux-debug",
             "cacheVariables": {
                 "CMAKE_BUILD_TYPE": "Release",
-                "CMAKE_INSTALL_PREFIX": "${sourceDir}/demo/install"
+                "CMAKE_INSTALL_PREFIX": "${sourceDir}/demo/addons"
             }
         },
         {
@@ -86,7 +89,8 @@
             "cacheVariables": {
                 "CMAKE_CXX_COMPILER": "clang++",
                 "CMAKE_C_COMPILER": "clang",
-                "CMAKE_BUILD_TYPE": "Debug"
+                "CMAKE_BUILD_TYPE": "Debug",
+                "CMAKE_INSTALL_PREFIX": "${sourceDir}/demo/addons"
             }
         },
         {
@@ -94,7 +98,8 @@
             "displayName": "64bit macOS Release",
             "inherits": "macOS-debug",
             "cacheVariables": {
-                "CMAKE_BUILD_TYPE": "Release"
+                "CMAKE_BUILD_TYPE": "Release",
+                "CMAKE_INSTALL_PREFIX": "${sourceDir}/demo/addons"
             }
         },
         {

@@ -1,0 +1,34 @@
+[configuration]
+
+entry_symbol = "control_library_init"
+compatibility_minimum = "4.1"
+
+[libraries]
+
+macos.debug = "lib/MacOS/libControl++-d.framework"
+windows.debug.x86_32 = "lib/Windows-x86_32/libControl++-d.dll"
+windows.debug.x86_64 = "lib/Windows-x86_64/libControl++-d.dll"
+linux.debug.x86_64 = "lib/Linux-x86_64/libControl++-d.so"
+linux.debug.arm64 = "lib/Linux-arm64/libControl++-d.so"
+linux.debug.rv64 = "lib/Linux-rv64/libControl++-d.so"
+android.debug.x86_64 = "lib/Android-x86_64/libControl++-d.so"
+android.debug.arm64 = "lib/Android-arm64/libControl++-d.so"
+
+macos.release = "lib/MacOS/libControl++.framework"
+windows.release.x86_32 = "lib/Windows-x86_32/libControl++.dll"
+windows.release.x86_64 = "lib/Windows-x86_64/libControl++.dll"
+linux.release.x86_64 = "lib/Linux-x86_64/libControl++.so"
+linux.release.arm64 = "lib/Linux-arm64/libControl++.so"
+linux.release.rv64 = "lib/Linux-rv64/libControl++.so"
+android.release.x86_64 = "lib/Android-x86_64/libControl++.so"
+android.release.arm64 = "lib/Android-arm64/libControl++.so"
+
+[icons]
+
+RevisedButton = "res://addons/Control++/icons/RevisedButton.svg"
+Documentation = "res://addons/Control++/icons/Documentation.svg"
+AutoScroll = "res://addons/Control++/icons/AutoScroll.old.svg"
+ExpandableButton = "res://addons/Control++/icons/ExpandableButton.svg"
+AnimatedBar = "res://addons/Control++/icons/AnimatedBar.svg"
+AnimatedTabContainer = "res://addons/Control++/icons/AnimatedTabContainer.svg"
+

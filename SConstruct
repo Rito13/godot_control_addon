@@ -2,7 +2,7 @@
 import os
 import sys
 
-env = SConscript("godot-cpp/SConstruct")
+env = SConscript("extern/godot-cpp/SConstruct")
 
 # For reference:
 # - CCFLAGS are compilation flags shared between C and C++
@@ -16,16 +16,19 @@ env = SConscript("godot-cpp/SConstruct")
 env.Append(CPPPATH=["src/"])
 sources = Glob("src/*.cpp")
 
+#libgdexample.linux.template_debug.x86_64.so
+#lib/linux-x86_64/libControl++.so
+
 if env["platform"] == "macos":
     library = env.SharedLibrary(
-        "demo/addons/control++/bin/libgdexample.{}.{}.framework/libgdexample.{}.{}".format(
-            env["platform"], env["target"], env["platform"], env["target"]
+        "demo/addons/Control++/lib/{}/libControl++framework/libgdexample.{}.{}".format(
+            "MacOS", env["platform"], env["target"]
         ),
         source=sources,
     )
 else:
     library = env.SharedLibrary(
-        "demo/addons/control++/bin/libgdexample{}{}".format(env["suffix"], env["SHLIBSUFFIX"]),
+        "demo/addons/Control++/lib/{}-{}/libControl++{}".format(env["platform"].title(),env["arch"], env["SHLIBSUFFIX"]),
         source=sources,
     )
 

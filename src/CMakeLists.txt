@@ -1,13 +1,18 @@
 # SPDX-License-Identifier: Unlicense
 
+# Get Sources
+file(GLOB_RECURSE SOURCES CONFIGURE_DEPENDS *.c**)
+file(GLOB_RECURSE HEADERS CONFIGURE_DEPENDS *.h**)
+
 target_sources( ${PROJECT_NAME}
     PRIVATE
-        register_types.cpp
-        register_types.h
+        ${SOURCES}
+        ${HEADERS}
 )
 
 target_include_directories( ${PROJECT_NAME}
     PRIVATE
+        "../extern/godot_cpp/include"
     	"."
         "editor"
         "core"

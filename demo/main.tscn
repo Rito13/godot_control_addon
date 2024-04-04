@@ -4,10 +4,10 @@
 [ext_resource type="Script" path="res://main.gd" id="1_74n6x"]
 [ext_resource type="Theme" uid="uid://d3q45j3egfypp" path="res://theme1.theme" id="3_hl42y"]
 [ext_resource type="Script" path="res://valign.gd" id="4_hhe6y"]
-[ext_resource type="Texture2D" uid="uid://bkfjbqqbshahc" path="res://addons/control++/icons/Documentation.svg" id="5_7ynqh"]
+[ext_resource type="Texture2D" uid="uid://dqetepllyyuhe" path="res://addons/Control++/icons/Documentation.svg" id="5_7ynqh"]
 [ext_resource type="Theme" uid="uid://dkco5byaykfug" path="res://Revised_Button_2.tres" id="5_fhkk6"]
 [ext_resource type="Texture2D" uid="uid://d3v73lp7bhkkm" path="res://double_icon.svg" id="6_4u114"]
-[ext_resource type="Texture2D" uid="uid://cjll4fqy6hd1" path="res://addons/control++/icons/Add.svg" id="6_33f2h"]
+[ext_resource type="Texture2D" uid="uid://up630w0mum4m" path="res://addons/Control++/icons/Add.svg" id="6_33f2h"]
 [ext_resource type="Theme" uid="uid://ca4m2vdg2otj6" path="res://GreenTheme.tres" id="7_6b0mr"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_df58a"]
@@ -137,7 +137,7 @@ visible = false
 position = Vector2(800, 150)
 
 [node name="GDExample" type="GDExample" parent="Node2D"]
-position = Vector2(0.0364042, 1.02494)
+position = Vector2(17.384, 1.87882)
 texture = ExtResource("1_6elc7")
 
 [node name="ExpandableButton 2" type="ExpandableButton" parent="."]
