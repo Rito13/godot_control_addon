@@ -137,7 +137,7 @@ visible = false
 position = Vector2(800, 150)
 
 [node name="GDExample" type="GDExample" parent="Node2D"]
-position = Vector2(17.384, 1.87882)
+position = Vector2(16.0683, 14.6979)
 texture = ExtResource("1_6elc7")
 
 [node name="ExpandableButton 2" type="ExpandableButton" parent="."]
@@ -582,7 +582,6 @@ text = "Text 16
 "
 
 [node name="Right" type="Button" parent="AnimatedTabContainer/AnimatedBar"]
-top_level = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3

@@ -75,7 +75,7 @@ AnimatedBar::AnimatedBar() {
 	Error err1 = right->connect("pressed",Callable(this, "on_right_pressed"));
 	err1 = left->connect("pressed",Callable(this, "on_left_pressed"));
 	left->set_as_top_level(true);
-	right->set_as_top_level(true);
+	//right->set_as_top_level(true);
 }
 
 AnimatedBar::~AnimatedBar() {
@@ -126,9 +126,9 @@ void AnimatedBar::_notification(int p_what) {
 			double height = 0;
 			move_child(left,0);
 			move_child(right,n-1);
-			Vector2 _pos = get_global_position();
 			Vector2 ms = left->get_combined_minimum_size();
-			left->set_position(Vector2(_pos.x-ms.x-spacing2,y+_pos.y));
+			Vector2 _pos = get_global_position();
+			left->set_position(Vector2(0,y)+_pos);
 			if(height<ms.y) height = ms.y;
 			children[0] = left;
 			children[n-1] = right;
@@ -152,8 +152,8 @@ void AnimatedBar::_notification(int p_what) {
 				a.append(children[i]);
 				Error err1 = children[i]->connect("draw",Callable(this, "clip_child").bindv(a));
 			}
-			right->set_position(Vector2(get_size().x+_pos.x+spacing2,y+_pos.y));
 			ms = right->get_combined_minimum_size();
+			right->set_position(Vector2(get_size().x-ms.x,y));
 			if(height<ms.y) height = ms.y;
 			for(int i=0;i<n;i++) {
 				if(children[i] == nullptr) continue;
@@ -390,10 +390,10 @@ double AnimatedBar::get_spacing2() {
 void AnimatedBar::set_spacing2(double p_spacing) {
 	spacing2 = p_spacing;
 	Vector2 _pos = get_global_position();
-	Vector2 ms = left->get_combined_minimum_size();
+	Vector2 ms = right->get_combined_minimum_size();
 	int y = 0;
-	left->set_position(Vector2(_pos.x-ms.x-spacing2,y+_pos.y));
-	right->set_position(Vector2(get_size().x+_pos.x+spacing2,y+_pos.y));
+	left->set_position(Vector2(0,y)+_pos);
+	right->set_position(Vector2(get_size().x-ms.x,y));
 }
 
 double AnimatedBar::get_speed() {
@@ -452,7 +452,7 @@ void AnimatedBar::set_custom_lr(bool is_enabled) {
 	//UtilityFunctions::print(custom_left,"   ",custom_right,"   ",custom_left == nullptr,"   ",custom_right == nullptr);
 	if(!custom_lr) {
 		left->set_as_top_level(false);
-		right->set_as_top_level(false);
+		//right->set_as_top_level(false);
 		left->disconnect("pressed",Callable(this, "on_left_pressed"));
 		right->disconnect("pressed",Callable(this, "on_right_pressed"));
 		Button *l = Object::cast_to<Button>(left);
@@ -478,7 +478,7 @@ void AnimatedBar::set_custom_lr(bool is_enabled) {
 		Error err1 = right->connect("pressed",Callable(this, "on_right_pressed"));
 		err1 = left->connect("pressed",Callable(this, "on_left_pressed"));
 		left->set_as_top_level(true);
-		right->set_as_top_level(true);
+		//right->set_as_top_level(true);
 	} else {
 		left->disconnect("pressed",Callable(this, "on_left_pressed"));
 		right->disconnect("pressed",Callable(this, "on_right_pressed"));
@@ -509,7 +509,7 @@ void AnimatedBar::set_custom_lr(bool is_enabled) {
 		Error err1 = right->connect("pressed",Callable(this, "on_right_pressed"));
 		err1 = left->connect("pressed",Callable(this, "on_left_pressed"));
 		left->set_as_top_level(true);
-		right->set_as_top_level(true);
+		//right->set_as_top_level(true);
 	}
 }
 
@@ -608,11 +608,11 @@ void AnimatedBar::set_custom_right(NodePath p_path) {
 	}
 	custom_right = _custom_right;
 	if(custom_lr) {
-		right->set_as_top_level(false);
+		//right->set_as_top_level(false);
 		right->disconnect("pressed",Callable(this, "on_right_pressed"));
 		right = custom_right;
 		Error err1 = right->connect("pressed",Callable(this, "on_right_pressed"));
-		right->set_as_top_level(true);
+		//right->set_as_top_level(true);
 		queue_sort();
 	}
 }
