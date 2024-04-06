@@ -30,6 +30,7 @@ private:
 protected:
 	static void _bind_methods();
 	void update_base_size();
+	void notify_about_minimum_size();
 
 public:
 	ExpandableButton();

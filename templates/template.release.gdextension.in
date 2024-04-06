@@ -31,4 +31,6 @@ AutoScroll = "res://addons/Control++/icons/AutoScroll.old.svg"
 ExpandableButton = "res://addons/Control++/icons/ExpandableButton.svg"
 AnimatedBar = "res://addons/Control++/icons/AnimatedBar.svg"
 AnimatedTabContainer = "res://addons/Control++/icons/AnimatedTabContainer.svg"
+IrregularGridContainer = "res://addons/Control++/icons/IrregularGridContainer.svg"
+GDExample = "res://addons/Control++/icons/Example.svg"
 

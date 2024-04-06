@@ -7,6 +7,7 @@
 #include "expandable_button.h"
 #include "animated_bar.h"
 #include "animated_tab_container.h"
+#include "irregular_grid.h"
 
 #include <gdextension_interface.h>
 #include <godot_cpp/core/defs.hpp>
@@ -27,6 +28,7 @@ void initialize_control_module(ModuleInitializationLevel p_level) {
 	ClassDB::register_class<ExpandableButton>();
 	ClassDB::register_class<AnimatedBar>();
 	ClassDB::register_class<AnimatedTabContainer>();
+	ClassDB::register_class<IrregularGridContainer>();
 }
 
 void uninitialize_control_module(ModuleInitializationLevel p_level) {

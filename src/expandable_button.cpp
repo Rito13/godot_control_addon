@@ -1,7 +1,8 @@
 #include "expandable_button.h"
 #include <godot_cpp/core/class_db.hpp>
 #include <godot_cpp/classes/engine.hpp>
-//#include <godot_cpp/variant/utility_functions.hpp>
+#include <godot_cpp/variant/utility_functions.hpp>
+#include "irregular_grid.h"
 
 using namespace godot;
 
@@ -82,7 +83,9 @@ ExpandableButton::ExpandableButton() {
 	// err = connect("button_up", Callable(this, "_on_self_up"));
 	// err = connect("toggled", Callable(this, "_on_self_toggled"));
 	Error err = connect("mouse_entered", Callable(this, "expand"));
+	if(err != OK) UtilityFunctions::print_rich("[color=VIOLET]",String(L"●")," Control++:  Error ",err," while connecting mouse_entered signall to expand() function [color=SNOW]");
 	err = connect("mouse_exited", Callable(this, "reduce"));
+	if(err != OK) UtilityFunctions::print_rich("[color=VIOLET]",String(L"●")," Control++:  Error ",err," while connecting mouse_exited signall to reduce() function [color=SNOW]");
 }
 
 ExpandableButton::~ExpandableButton() {
@@ -90,6 +93,16 @@ ExpandableButton::~ExpandableButton() {
 	// expansion->queue_free();
 	//idle_time_timer->queue_free();
 	// base->queue_free();
+}
+
+void ExpandableButton::notify_about_minimum_size() {
+	//IrregularGridContainer *parent = Object::cast_to<IrregularGridContainer>(get_parent());
+	//if(parent == nullptr) {
+		emit_signal("minimum_size_changed");
+		update_minimum_size();
+		return;
+	//}
+	//parent->rearrange(true);
 }
 
 void ExpandableButton::on_timer_out2() {
@@ -501,13 +514,11 @@ void ExpandableButton::_process(double delta) {
 			else if(added_size - delta_speed > p_expansion_size)
 				added_size -= delta_speed;
 			else added_size = p_expansion_size;
-			emit_signal("minimum_size_changed");
-			update_minimum_size();
+			notify_about_minimum_size();
         }
         if(!is_expanded && added_size > 0){
 			added_size -= delta_speed;
-			emit_signal("minimum_size_changed");
-			update_minimum_size();
+			notify_about_minimum_size();
         }
 		queue_redraw();
 
@@ -518,14 +529,12 @@ void ExpandableButton::_process(double delta) {
 		double delta_speed = delta*speed*p_expansion_size/10;
 
         if(is_expanded && added_size < p_expansion_size){
-			emit_signal("minimum_size_changed");
-			update_minimum_size();
+			notify_about_minimum_size();
 			added_size += delta_speed;
 			width += delta_speed;
         }
         if(!is_expanded && added_size > 0){
-			emit_signal("minimum_size_changed");
-			update_minimum_size();
+			notify_about_minimum_size();
 			added_size -= delta_speed;
 			width -= delta_speed;
         }
@@ -559,6 +568,7 @@ Vector2 ExpandableButton::_get_minimum_size() const {
 	}
 	if(!Engine::get_singleton()->is_editor_hint())
     	_min.x += added_size;
+		//UtilityFunctions::print(added_size);
 	return _min;
 }
 
