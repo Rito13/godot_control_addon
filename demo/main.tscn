@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://b8v40ha70irn5"]
+[gd_scene load_steps=15 format=3 uid="uid://b8v40ha70irn5"]
 
 [ext_resource type="Texture2D" uid="uid://bpp4jjt84srtg" path="res://icon.svg" id="1_6elc7"]
 [ext_resource type="Script" path="res://main.gd" id="1_74n6x"]
@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://d3v73lp7bhkkm" path="res://double_icon.svg" id="6_4u114"]
 [ext_resource type="Texture2D" uid="uid://up630w0mum4m" path="res://addons/Control++/icons/Add.svg" id="6_33f2h"]
 [ext_resource type="Theme" uid="uid://ca4m2vdg2otj6" path="res://GreenTheme.tres" id="7_6b0mr"]
+[ext_resource type="Script" path="res://AnimatedBar.gd" id="10_svuf2"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_df58a"]
 line_spacing = 0.0
@@ -49,7 +50,7 @@ color = Color(0.6, 0.419608, 0.937255, 1)
 layout_mode = 2
 color = Color(0.298039, 0.588235, 0.427451, 1)
 
-[node name="AnimatedBar" type="AnimatedBar" parent="AnimatedTabContainer2"]
+[node name="AnimatedBar" type="HAnimatedBar" parent="AnimatedTabContainer2"]
 layout_mode = 2
 
 [node name="Button" type="Button" parent="AnimatedTabContainer2/AnimatedBar"]
@@ -68,7 +69,7 @@ text = "ddddddddddddddddddd"
 layout_mode = 2
 text = "ddddddddddddddddddd"
 
-[node name="AnimatedBar2" type="AnimatedBar" parent="AnimatedTabContainer2"]
+[node name="AnimatedBar2" type="HAnimatedBar" parent="AnimatedTabContainer2"]
 layout_mode = 2
 
 [node name="Button" type="Button" parent="AnimatedTabContainer2/AnimatedBar2"]
@@ -137,7 +138,7 @@ visible = false
 position = Vector2(800, 150)
 
 [node name="GDExample" type="GDExample" parent="Node2D"]
-position = Vector2(0.512431, 1.94239)
+position = Vector2(16.3515, 7.33991)
 texture = ExtResource("1_6elc7")
 
 [node name="ExpandableButton 2" type="ExpandableButton" parent="."]
@@ -414,12 +415,87 @@ item_4/checked = true
 item_4/id = 4
 item_4/disabled = true
 
+[node name="AnimatedBar3" type="VAnimatedBar" parent="."]
+navigation_buttons_use_custom = true
+navigation_buttons_custom_left = NodePath("./Top")
+navigation_buttons_custom_right = NodePath("./Botom")
+offset_left = 85.0
+offset_top = 59.0
+offset_right = 165.0
+offset_bottom = 294.0
+
+[node name="Top" type="Button" parent="AnimatedBar3"]
+top_level = true
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+toggle_mode = true
+text = "↑"
+
+[node name="Button8" type="Button" parent="AnimatedBar3"]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+toggle_mode = true
+text = "Text 1"
+
+[node name="Button7" type="Button" parent="AnimatedBar3"]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+toggle_mode = true
+text = "Text 2"
+
+[node name="RevisedButton6" type="RevisedButton" parent="AnimatedBar3"]
+text = " Text 3"
+custom_minimum_size = Vector2(55, 30)
+layout_mode = 2
+
+[node name="Button9" type="Button" parent="AnimatedBar3"]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+toggle_mode = true
+text = "Text 4"
+
+[node name="Button10" type="Button" parent="AnimatedBar3"]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+toggle_mode = true
+text = "Text 5"
+
+[node name="RevisedButton7" type="RevisedButton" parent="AnimatedBar3"]
+text = " Text 6"
+custom_minimum_size = Vector2(55, 30)
+layout_mode = 2
+
+[node name="Button11" type="Button" parent="AnimatedBar3"]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+toggle_mode = true
+text = "Text 7"
+
+[node name="Botom" type="Button" parent="AnimatedBar3"]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+toggle_mode = true
+text = "↓"
+
 [node name="AnimatedTabContainer" type="AnimatedTabContainer" parent="."]
-visible = false
 offset_left = 530.0
 offset_top = 310.0
-offset_right = 987.0
-offset_bottom = 539.0
+offset_right = 983.0
+offset_bottom = 596.0
 
 [node name="Button" type="Button" parent="AnimatedTabContainer"]
 layout_mode = 2
@@ -429,11 +505,74 @@ text = "Tab 1"
 layout_mode = 2
 text = "Tab 2"
 
-[node name="AnimatedBar2" type="AnimatedBar" parent="AnimatedTabContainer"]
-navigation_buttons_custom_left = NodePath("./Button8")
+[node name="Button3" type="Button" parent="AnimatedTabContainer"]
+layout_mode = 2
+text = "Tab 3"
+
+[node name="Button4" type="Button" parent="AnimatedTabContainer"]
+layout_mode = 2
+text = "Tab 4"
+
+[node name="Button5" type="Button" parent="AnimatedTabContainer"]
+layout_mode = 2
+text = "Tab 5"
+
+[node name="Button6" type="Button" parent="AnimatedTabContainer"]
+layout_mode = 2
+text = "Tab 6"
+
+[node name="Button7" type="Button" parent="AnimatedTabContainer"]
+layout_mode = 2
+text = "Tab 7"
+
+[node name="Button8" type="Button" parent="AnimatedTabContainer"]
+layout_mode = 2
+text = "Tab 8"
+
+[node name="Button9" type="Button" parent="AnimatedTabContainer"]
+layout_mode = 2
+text = "Tab 9"
+
+[node name="Button10" type="Button" parent="AnimatedTabContainer"]
+layout_mode = 2
+text = "Tab 10"
+
+[node name="Button11" type="Button" parent="AnimatedTabContainer"]
+layout_mode = 2
+text = "Tab 11"
+
+[node name="Button12" type="Button" parent="AnimatedTabContainer"]
+layout_mode = 2
+text = "Tab 12"
+
+[node name="Button13" type="Button" parent="AnimatedTabContainer"]
+layout_mode = 2
+text = "Tab 13"
+
+[node name="Button14" type="Button" parent="AnimatedTabContainer"]
+layout_mode = 2
+text = "Tab 14"
+
+[node name="Button15" type="Button" parent="AnimatedTabContainer"]
+layout_mode = 2
+text = "Tab 15"
+
+[node name="Button16" type="Button" parent="AnimatedTabContainer"]
+layout_mode = 2
+text = "Tab 16"
+
+[node name="Button17" type="Button" parent="AnimatedTabContainer"]
+layout_mode = 2
+text = "Tab 17"
+
+[node name="Button18" type="Button" parent="AnimatedTabContainer"]
+layout_mode = 2
+text = "Tab 18"
+
+[node name="HAnimatedBar" type="HAnimatedBar" parent="AnimatedTabContainer"]
 layout_mode = 2
 
-[node name="Button8" type="Button" parent="AnimatedTabContainer/AnimatedBar2"]
+[node name="Button8" type="Button" parent="AnimatedTabContainer/HAnimatedBar"]
 custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -441,13 +580,13 @@ size_flags_vertical = 3
 toggle_mode = true
 text = "Text 19"
 
-[node name="RevisedButton6" type="RevisedButton" parent="AnimatedTabContainer/AnimatedBar2"]
+[node name="RevisedButton6" type="RevisedButton" parent="AnimatedTabContainer/HAnimatedBar"]
 text = " Text 6"
 vertical_text_alignment = 1
 custom_minimum_size = Vector2(55, 0)
 layout_mode = 2
 
-[node name="Button7" type="Button" parent="AnimatedTabContainer/AnimatedBar2"]
+[node name="Button7" type="Button" parent="AnimatedTabContainer/HAnimatedBar"]
 custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -455,7 +594,7 @@ size_flags_vertical = 3
 toggle_mode = true
 text = "Text 18"
 
-[node name="Button9" type="Button" parent="AnimatedTabContainer/AnimatedBar2"]
+[node name="Button9" type="Button" parent="AnimatedTabContainer/HAnimatedBar"]
 custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -463,7 +602,15 @@ size_flags_vertical = 3
 toggle_mode = true
 text = "Text 20"
 
-[node name="AnimatedBar" type="AnimatedBar" parent="AnimatedTabContainer"]
+[node name="Button10" type="Button" parent="AnimatedTabContainer/HAnimatedBar"]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+toggle_mode = true
+text = "Text 21"
+
+[node name="AnimatedBar" type="HAnimatedBar" parent="AnimatedTabContainer"]
 speed = 5.0
 spacing = 6.0
 navigation_buttons_spacing = 3.0
@@ -471,6 +618,7 @@ navigation_buttons_use_custom = true
 navigation_buttons_custom_left = NodePath("./Left")
 navigation_buttons_custom_right = NodePath("./Right")
 layout_mode = 2
+script = ExtResource("10_svuf2")
 
 [node name="Left" type="RevisedButton" parent="AnimatedTabContainer/AnimatedBar"]
 text = " Left"
@@ -592,6 +740,7 @@ text = ".   Right   .
 
 [node name="IrregularGridContainer" type="IrregularGridContainer" parent="."]
 spacing = 5.0
+visible = false
 offset_left = 352.0
 offset_top = 366.0
 offset_right = 1227.0

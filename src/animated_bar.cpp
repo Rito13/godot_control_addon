@@ -9,9 +9,6 @@ using namespace godot;
 void AnimatedBar::_bind_methods() {
 	// Signals Conections Functions
 	ClassDB::bind_method(D_METHOD("on_button_pressed","p_id","p_status"), &AnimatedBar::on_button_pressed);
-	ClassDB::bind_method(D_METHOD("on_right_pressed"), &AnimatedBar::on_right_pressed);
-	ClassDB::bind_method(D_METHOD("on_left_pressed"), &AnimatedBar::on_left_pressed);
-	ClassDB::bind_method(D_METHOD("clip_child","p_child"), &AnimatedBar::clip_child);
 	// Emited Signals
 	ADD_SIGNAL(MethodInfo("focus_changed", PropertyInfo(Variant::INT, "focused_child_id")));
 	ADD_SIGNAL(MethodInfo("focus_activated", PropertyInfo(Variant::INT, "focused_child_id")));
@@ -51,12 +48,38 @@ void AnimatedBar::_bind_methods() {
 	ClassDB::bind_method(D_METHOD("set_fill_remaining_space", "is_enabled"), &AnimatedBar::set_fill_remaining_space);
 	ClassDB::bind_method(D_METHOD("is_remaining_space_filled"), &AnimatedBar::is_remaining_space_filled);
 	ClassDB::add_property("AnimatedBar", PropertyInfo(Variant::BOOL, "fill_remaining_space"), "set_fill_remaining_space", "is_remaining_space_filled");
+	/* // Deactivate Process when Iddle Property
+	ClassDB::bind_method(D_METHOD("set_deactivate_process_when_iddle", "is_enabled"), &AnimatedBar::set_deactivate_process);
+	ClassDB::bind_method(D_METHOD("get_deactivate_process_when_iddle"), &AnimatedBar::get_deactivate_process);
+	ClassDB::add_property("AnimatedBar", PropertyInfo(Variant::BOOL, "deactivate_process_when_iddle"), "set_deactivate_process_when_iddle", "get_deactivate_process_when_iddle");
+	*/ 
 	// Other Functions
 	ClassDB::bind_method(D_METHOD("get_options_quantity"), &AnimatedBar::get_options_quantity);
-	ClassDB::bind_method(D_METHOD("get_navigation_buttons_size"), &AnimatedBar::get_lr_size);
-	ClassDB::bind_method(D_METHOD("get_left_navigation_button_size"), &AnimatedBar::get_left_size);
-	ClassDB::bind_method(D_METHOD("get_right_navigation_button_size"), &AnimatedBar::get_right_size);
 	ClassDB::bind_method(D_METHOD("deactivate_focus"), &AnimatedBar::deactivate_focus);
+	//ClassDB::bind_method(D_METHOD("_ready"), &AnimatedBar::_ready);
+	//ClassDB::bind_method(D_METHOD("_process","delta"), &AnimatedBar::_process);
+}
+
+void HAnimatedBar::_bind_methods() {
+	// Signals Conections Functions
+	ClassDB::bind_method(D_METHOD("on_right_pressed"), &HAnimatedBar::on_right_pressed);
+	ClassDB::bind_method(D_METHOD("on_left_pressed"), &HAnimatedBar::on_left_pressed);
+	ClassDB::bind_method(D_METHOD("clip_child","p_child"), &HAnimatedBar::clip_child);
+	// Other Functions
+	ClassDB::bind_method(D_METHOD("get_navigation_buttons_size"), &HAnimatedBar::get_lr_size);
+	ClassDB::bind_method(D_METHOD("get_left_navigation_button_size"), &HAnimatedBar::get_left_size);
+	ClassDB::bind_method(D_METHOD("get_right_navigation_button_size"), &HAnimatedBar::get_right_size);
+}
+
+void VAnimatedBar::_bind_methods() {
+	// Signals Conections Functions
+	ClassDB::bind_method(D_METHOD("on_right_pressed"), &VAnimatedBar::on_right_pressed);
+	ClassDB::bind_method(D_METHOD("on_left_pressed"), &VAnimatedBar::on_left_pressed);
+	ClassDB::bind_method(D_METHOD("clip_child","p_child"), &VAnimatedBar::clip_child);
+	// Other Functions
+	ClassDB::bind_method(D_METHOD("get_navigation_buttons_size"), &VAnimatedBar::get_lr_size);
+	ClassDB::bind_method(D_METHOD("get_left_navigation_button_size"), &VAnimatedBar::get_left_size);
+	ClassDB::bind_method(D_METHOD("get_right_navigation_button_size"), &VAnimatedBar::get_right_size);
 }
 
 AnimatedBar::AnimatedBar() {
@@ -66,14 +89,16 @@ AnimatedBar::AnimatedBar() {
 	set_clip_contents(true);
 	left = memnew(Button);
 	right = memnew(Button);
-	Button *l = Object::cast_to<Button>(left);
-	l->set_text("<-");
-	Button *r = Object::cast_to<Button>(right);
-	r->set_text("->");
+	left->set_name("__DefaultLeft__");
+	right->set_name("__DefaultRight__");
 	add_child(right);
 	add_child(left);
-	Error err1 = right->connect("pressed",Callable(this, "on_right_pressed"));
-	err1 = left->connect("pressed",Callable(this, "on_left_pressed"));
+	Button *l = Object::cast_to<Button>(left);
+	l->set_text(_labels.left);
+	Button *r = Object::cast_to<Button>(right);
+	r->set_text(_labels.right);
+	right->connect("pressed",Callable(this, "on_right_pressed"));
+	left->connect("pressed",Callable(this, "on_left_pressed"));
 	left->set_as_top_level(true);
 	//right->set_as_top_level(true);
 }
@@ -84,7 +109,7 @@ AnimatedBar::~AnimatedBar() {
 	right->queue_free();
 }
 
-void AnimatedBar::_ready() {
+void AnimatedBar::ready() {
 	after_ready = true;
 	//UtilityFunctions::print_rich("after_ready = ",after_ready);
 	set_custom_right(for_ready.right_path);
@@ -97,7 +122,7 @@ void AnimatedBar::_ready() {
 	first_child = Object::cast_to<Control>(get_child(1));
 }
 
-void AnimatedBar::clip_child(Control* child) {
+void HAnimatedBar::clip_child(Control* child) {
 	RID _rid = child->get_canvas_item();
 	Vector2 _pos = get_left_size();
 	_pos.y = 0;
@@ -108,7 +133,18 @@ void AnimatedBar::clip_child(Control* child) {
 	RenderingServer::get_singleton()->canvas_item_set_clip(_rid,true);
 }
 
-void AnimatedBar::_notification(int p_what) {
+void VAnimatedBar::clip_child(Control* child) {
+	RID _rid = child->get_canvas_item();
+	Vector2 _pos = get_left_size();
+	_pos.x = 0;
+	_pos -= child->get_position();
+	Vector2 _size = get_size();
+	_size.y -= get_lr_size().y;
+	RenderingServer::get_singleton()->canvas_item_set_custom_rect(_rid,true,Rect2(_pos,_size));
+	RenderingServer::get_singleton()->canvas_item_set_clip(_rid,true);
+}
+
+void HAnimatedBar::_notification(int p_what) {
 	switch (p_what) {
 		case NOTIFICATION_SORT_CHILDREN: {
 			int n = get_child_count();
@@ -119,8 +155,8 @@ void AnimatedBar::_notification(int p_what) {
 			if(n<2) {
 				UtilityFunctions::print_rich("[color=VIOLET]",String(L"●")," Control++:  "+String(get_name())+" have no children. Please add some.","[color=SNOW]");
 			}
-			Control *children[n];
-			BaseButton *button_children[n];
+			Control** children = new Control*[n];
+			BaseButton** button_children = new BaseButton*[n];
 			double x = -subtracted_value+get_left_size().x;
 			double y = 0;
 			double height = 0;
@@ -129,13 +165,13 @@ void AnimatedBar::_notification(int p_what) {
 			Vector2 ms = left->get_combined_minimum_size();
 			Vector2 _pos = get_global_position();
 			left->set_position(Vector2(0,y)+_pos);
-			if(height<ms.y) height = ms.y;
+			height = ms.y;
 			children[0] = left;
 			children[n-1] = right;
 			button_children[0] = left;
 			button_children[n-1] = right;
 			double expand_value = get_size().x;
-			if(!lr_auto_visibility && lr_visibility); //expand_value -= left and right xs 
+			//if(!lr_auto_visibility && lr_visibility); //expand_value -= left and right xs 
 			bool need_expand = true;
 			for(int i=1;i<n-1;i++) {
 				children[i] = Object::cast_to<Control>(get_child(i));
@@ -150,7 +186,7 @@ void AnimatedBar::_notification(int p_what) {
 				if(children[i]->is_connected("draw",Callable(this, "clip_child"))) continue;
 				Array a;
 				a.append(children[i]);
-				Error err1 = children[i]->connect("draw",Callable(this, "clip_child").bindv(a));
+				children[i]->connect("draw",Callable(this, "clip_child").bindv(a));
 			}
 			ms = right->get_combined_minimum_size();
 			right->set_position(Vector2(get_size().x-ms.x,y));
@@ -167,7 +203,7 @@ void AnimatedBar::_notification(int p_what) {
 					Array a;
 					a.append(i);
 					a.append(button_children[i]);
-					Error err1 = button_children[i]->connect("pressed",Callable(this, "on_button_pressed").bindv(a));
+					button_children[i]->connect("pressed",Callable(this, "on_button_pressed").bindv(a));
 					//UtilityFunctions::print(err1);
 				}
 			}
@@ -195,6 +231,8 @@ void AnimatedBar::_notification(int p_what) {
 					children[i]->set_position(tmp);
 				}
 			}
+			delete[] children;
+			delete[] button_children;
 		} break;
 
 		case NOTIFICATION_THEME_CHANGED: {
@@ -205,14 +243,149 @@ void AnimatedBar::_notification(int p_what) {
 		case NOTIFICATION_LAYOUT_DIRECTION_CHANGED: {
 			queue_sort();
 		} break;
+
+		default: {
+			AnimatedBar::_notification(p_what);
+		} break;
 	}
 }
 
-void AnimatedBar::_process(double delta) {
+void VAnimatedBar::_notification(int p_what) {
+	switch (p_what) {
+		case NOTIFICATION_SORT_CHILDREN: {
+			int n = get_child_count();
+			if(n-2 != number_of_children) {
+				number_of_children = n-2;
+				emit_signal("options_quantity_changed",number_of_children);
+			}
+			if(n<2) {
+				UtilityFunctions::print_rich("[color=VIOLET]",String(L"●")," Control++:  "+String(get_name())+" have no children. Please add some.","[color=SNOW]");
+			}
+			Control** children = new Control*[n];
+			BaseButton** button_children = new BaseButton*[n];
+			double y = -subtracted_value+get_left_size().y;
+			double x = 0;
+			double width = 0;
+			move_child(left,0);
+			move_child(right,n-1);
+			Vector2 ms = left->get_combined_minimum_size();
+			Vector2 _pos = get_global_position();
+			left->set_position(Vector2(x,0)+_pos);
+			width = ms.x;
+			children[0] = left;
+			children[n-1] = right;
+			button_children[0] = left;
+			button_children[n-1] = right;
+			double expand_value = get_size().y;
+			//if(!lr_auto_visibility && lr_visibility); //expand_value -= left and right xs 
+			bool need_expand = true;
+			for(int i=1;i<n-1;i++) {
+				children[i] = Object::cast_to<Control>(get_child(i));
+				button_children[i] = Object::cast_to<BaseButton>(get_child(i));
+				if(children[i] == nullptr) continue;
+				children[i]->set_position(Vector2(x,y));
+				ms = children[i]->get_combined_minimum_size();
+				y += ms.y + spacing;
+				if(y-spacing>expand_value-subtracted_value) need_expand = false;
+				if(width<ms.x) width = ms.x;
+				clip_child(children[i]);
+				if(children[i]->is_connected("draw",Callable(this, "clip_child"))) continue;
+				Array a;
+				a.append(children[i]);
+				children[i]->connect("draw",Callable(this, "clip_child").bindv(a));
+			}
+			ms = right->get_combined_minimum_size();
+			right->set_position(Vector2(x,get_size().y-ms.y));
+			if(width<ms.x) width = ms.x;
+			for(int i=0;i<n;i++) {
+				if(children[i] == nullptr) continue;
+				ms = children[i]->get_combined_minimum_size();
+				children[i]->set_size(Vector2(width,ms.y));
+				if(button_children[i] == nullptr) continue;
+				if(i!=0 && i!=n-1 && !Engine::get_singleton()->is_editor_hint()) {
+					button_children[i]->set_toggle_mode(true);
+					if(button_children[i]->is_connected("pressed",Callable(this, "on_button_pressed")))
+						button_children[i]->disconnect("pressed",Callable(this, "on_button_pressed"));
+					Array a;
+					a.append(i);
+					a.append(button_children[i]);
+					button_children[i]->connect("pressed",Callable(this, "on_button_pressed").bindv(a));
+					//UtilityFunctions::print(err1);
+				}
+			}
+			if(lr_auto_visibility) {
+				bool tmp = lr_visibility;
+				if(need_expand) lr_visibility = false;
+				else lr_visibility = true;
+				if(tmp != lr_visibility) emit_signal("minimum_size_changed");;
+				//UtilityFunctions::print("lr_visibility = ",lr_visibility,"   need_expand = ",need_expand);
+				left->set_visible(lr_visibility);
+				right->set_visible(lr_visibility);
+			}
+			if(need_expand && do_expand) {
+				double space_left = expand_value - (y-spacing);
+				double space_for_each = space_left/(n-2);
+				for(int i=1;i<n-1;i++) {
+					if(children[i] == nullptr) continue;
+					//size
+					Vector2 tmp = children[i]->get_size();
+					tmp.y += space_for_each;
+					children[i]->set_size(tmp);
+					//position
+					tmp = children[i]->get_position();
+					tmp.y += space_for_each*(i-1);
+					children[i]->set_position(tmp);
+				}
+			}
+			delete[] children;
+			delete[] button_children;
+		} break;
+
+		case NOTIFICATION_THEME_CHANGED: {
+			update_minimum_size();
+		} break;
+
+		case NOTIFICATION_TRANSLATION_CHANGED:
+		case NOTIFICATION_LAYOUT_DIRECTION_CHANGED: {
+			queue_sort();
+		} break;
+
+		default: {
+			AnimatedBar::_notification(p_what);
+		} break;
+	}
+}
+
+void AnimatedBar::_notification(int p_what) {
+	switch (p_what) {
+		case NOTIFICATION_INTERNAL_PROCESS: {
+			process(get_process_delta_time());
+		} break;
+
+		case NOTIFICATION_READY: {
+			ready();
+		} break;
+
+		default: {
+			Container::_notification(p_what);
+		} break;
+	}
+}
+
+void AnimatedBar::set_to_subtract_value(int p_value) {
+	to_subtract_value = p_value;
+	set_process_internal(true);
+	is_process = true;
+}
+
+void AnimatedBar::process(double delta) {
+	//UtilityFunctions::print("_process");
 	double _delta_speed = delta*60*speed;
 	if(abs(subtracted_value-to_subtract_value)<_delta_speed) {
 		subtracted_value = to_subtract_value;
 		queue_sort();
+		set_process_internal(!deactivate_process);
+		is_process = false;
 		return;
 	}
 	if(subtracted_value<to_subtract_value) {
@@ -227,7 +400,7 @@ void AnimatedBar::_process(double delta) {
 	}
 }
 
-Vector2 AnimatedBar::_get_minimum_size() const {
+Vector2 HAnimatedBar::_get_minimum_size() const {
 	Vector2 _min = Vector2(0,0);
 	for(int i = 0;i<get_child_count();i++) {
 		Control *child = Object::cast_to<Control>(get_child(i));
@@ -237,6 +410,19 @@ Vector2 AnimatedBar::_get_minimum_size() const {
 		if(size.y > _min.y) _min.y = size.y;
 	}
 	_min.x += spacing + 1;
+	return _min;
+}
+
+Vector2 VAnimatedBar::_get_minimum_size() const {
+	Vector2 _min = Vector2(0,0);
+	for(int i = 0;i<get_child_count();i++) {
+		Control *child = Object::cast_to<Control>(get_child(i));
+		if(child == nullptr) continue;
+		Vector2 size = child->get_combined_minimum_size();
+		if(size.x > _min.x) _min.x = size.x;
+		if(size.y > _min.y) _min.y = size.y;
+	}
+	_min.y += spacing + 1;
 	return _min;
 }
 
@@ -267,7 +453,8 @@ void AnimatedBar::on_button_pressed(int id,BaseButton *button) {
 	//UtilityFunctions::print(button->get_name(),"   ",id);
 }
 
-void AnimatedBar::on_left_pressed() {
+void HAnimatedBar::on_left_pressed() {
+	if(is_process) return; 
 	if(get_child(first_child_id) != first_child) {
 		first_child_id = 1;
 		first_child = Object::cast_to<Control>(get_child(1));
@@ -297,12 +484,13 @@ void AnimatedBar::on_left_pressed() {
 		if((-1)*(_x+child->get_size().x)<=_size) size = _size;
 		break;
 	}
-	to_subtract_value -= size;
+	set_to_subtract_value(to_subtract_value-size);
 	//UtilityFunctions::print(first_child->get_name(),"   ",first_child_id,"   ",size);
 	queue_sort();
 }
 
-void AnimatedBar::on_right_pressed() {
+void HAnimatedBar::on_right_pressed() {
+	if(is_process) return;
 	if(get_child(first_child_id) != first_child) {
 		first_child_id = 1;
 		first_child = Object::cast_to<Control>(get_child(1));
@@ -344,7 +532,7 @@ void AnimatedBar::on_right_pressed() {
 			i++;
 			continue;
 		}
-		to_subtract_value += size;
+		set_to_subtract_value(to_subtract_value+size);
 		//UtilityFunctions::print(first_child->get_name(),"   ",first_child_id,"   ",size);
 		queue_sort();
 		return;
@@ -352,7 +540,7 @@ void AnimatedBar::on_right_pressed() {
 	to_subtract_value += _s_;
 	//UtilityFunctions::print("   ",first_child_id,"   ",_s_);
 	i = _i_;
-	_size = get_size().x;
+	_size = get_size().x-get_right_size().x;
 	while (i>0) {
 		Control *child = Object::cast_to<Control>(get_child(i));
 		if(child == nullptr) {
@@ -369,7 +557,116 @@ void AnimatedBar::on_right_pressed() {
 		size = _size;
 		break;
 	}
-	to_subtract_value -= size;
+	set_to_subtract_value(to_subtract_value-size);
+	//UtilityFunctions::print(first_child->get_name(),"   ",first_child_id,"   ",size,"   ",_size);
+	queue_sort();
+}
+
+void VAnimatedBar::on_left_pressed() {
+	if(is_process) return;
+	if(get_child(first_child_id) != first_child) {
+		first_child_id = 1;
+		first_child = Object::cast_to<Control>(get_child(1));
+		queue_sort();
+		return;
+	}
+	if(first_child_id <= 1 || first_child == nullptr) return;
+	int size = get_size().y;
+	size -= first_child->get_position().y;
+	int i = first_child_id-1;
+	int _size = size;
+	double _ly = get_left_size().y;
+	while (i>0) {
+		Control *child = Object::cast_to<Control>(get_child(i));
+		if(child == nullptr) {
+			i--;
+			continue;
+		}
+		double _y = child->get_position().y-_ly;
+		if((-1)*(_y)<=_size) {
+			size = (-1)*(_y);
+			first_child = child;
+			first_child_id = i;
+			i--;
+			continue;
+		} 
+		if((-1)*(_y+child->get_size().y)<=_size) size = _size;
+		break;
+	}
+	set_to_subtract_value(to_subtract_value-size);
+	//UtilityFunctions::print(first_child->get_name(),"   ",first_child_id,"   ",size);
+	queue_sort();
+}
+
+void VAnimatedBar::on_right_pressed() {
+	if(is_process) return;
+	if(get_child(first_child_id) != first_child) {
+		first_child_id = 1;
+		first_child = Object::cast_to<Control>(get_child(1));
+		queue_sort();
+		return;
+	}
+	int n = get_child_count();
+	if(first_child_id >= n-2 || first_child == nullptr) return;
+	int size = get_size().y-get_right_size().y;
+	size -= first_child->get_position().y;
+	int i = first_child_id+1;
+	int _size = size;
+	while (i<n-1) {
+		Control *child = Object::cast_to<Control>(get_child(i));
+		if(child == nullptr) {
+			i++;
+			continue;
+		}
+		if((child->get_position().y)<=_size) {
+			size = (child->get_position().y);
+			first_child = child;
+			first_child_id = i;
+			i++;
+			continue;
+		} break;
+	}
+	i = first_child_id;
+	int _s_, _i_;
+	while (i<n-1) {
+		Control *child = Object::cast_to<Control>(get_child(i));
+		if(child == nullptr) {
+			i++;
+			continue;
+		}
+		int y = (child->get_position().y+child->get_size().y);
+		if((y)<=_size+size) {
+			_s_ = y;
+			_i_ = i;
+			i++;
+			continue;
+		}
+		set_to_subtract_value(to_subtract_value+size);
+		//UtilityFunctions::print(first_child->get_name(),"   ",first_child_id,"   ",size);
+		queue_sort();
+		return;
+	}
+	to_subtract_value += _s_;
+	//UtilityFunctions::print("   ",first_child_id,"   ",_s_);
+	i = _i_;
+	_size = get_size().y-get_right_size().y;
+	while (i>0) {
+		Control *child = Object::cast_to<Control>(get_child(i));
+		if(child == nullptr) {
+			i--;
+			continue;
+		}
+		if((-1)*(child->get_position().y-_s_)<=_size) {
+			size = (-1)*(child->get_position().y-_s_);
+			first_child = child;
+			first_child_id = i;
+			i--;
+			continue;
+		} 
+		size = _size;
+		break;
+	}
+	set_to_subtract_value(to_subtract_value-size);
 	//UtilityFunctions::print(first_child->get_name(),"   ",first_child_id,"   ",size,"   ",_size);
 	queue_sort();
 }
@@ -389,11 +686,8 @@ double AnimatedBar::get_spacing2() {
 
 void AnimatedBar::set_spacing2(double p_spacing) {
 	spacing2 = p_spacing;
-	Vector2 _pos = get_global_position();
-	Vector2 ms = right->get_combined_minimum_size();
-	int y = 0;
-	left->set_position(Vector2(0,y)+_pos);
-	right->set_position(Vector2(get_size().x-ms.x,y));
+	//Vector2 ms = right->get_combined_minimum_size();
+	queue_sort();
 }
 
 double AnimatedBar::get_speed() {
@@ -455,28 +749,26 @@ void AnimatedBar::set_custom_lr(bool is_enabled) {
 		//right->set_as_top_level(false);
 		left->disconnect("pressed",Callable(this, "on_left_pressed"));
 		right->disconnect("pressed",Callable(this, "on_right_pressed"));
-		Button *l = Object::cast_to<Button>(left);
-		if(l != nullptr)
-			if(l->get_text() == "<-") {
-				remove_child(l);
-				l->queue_free();
-			}
-		Button *r = Object::cast_to<Button>(right);
-		if(r != nullptr)
-			if(r->get_text() == "->") {
-				remove_child(l);
-				r->queue_free();
-			}
+		if(left->get_name() == StringName("__DefaultLeft__")) {
+			remove_child(left);
+			left->queue_free();
+		}
+		if(right->get_name() == StringName("__DefaultRight__")) {
+			remove_child(right);
+			right->queue_free();
+		}
 		left = memnew(Button);
 		right = memnew(Button);
-		l = Object::cast_to<Button>(left);
-		l->set_text("<-");
-		r = Object::cast_to<Button>(right);
-		r->set_text("->");
+		left->set_name("__DefaultLeft__");
+		right->set_name("__DefaultRight__");
+		Button *l = Object::cast_to<Button>(left);
+		l->set_text(_labels.left);
+		Button *r = Object::cast_to<Button>(right);
+		r->set_text(_labels.right);
 		add_child(right);
 		add_child(left);
-		Error err1 = right->connect("pressed",Callable(this, "on_right_pressed"));
-		err1 = left->connect("pressed",Callable(this, "on_left_pressed"));
+		right->connect("pressed",Callable(this, "on_right_pressed"));
+		left->connect("pressed",Callable(this, "on_left_pressed"));
 		left->set_as_top_level(true);
 		//right->set_as_top_level(true);
 	} else {
@@ -488,8 +780,9 @@ void AnimatedBar::set_custom_lr(bool is_enabled) {
 		right -> queue_free();
 		if(custom_left == nullptr) {
 			left = memnew(Button);
+			left->set_name("__DefaultLeft__");
 			Button *l = Object::cast_to<Button>(left);
-			l->set_text("<-");
+			l->set_text(_labels.left);
 			add_child(left);
 		} else {
 			Node *par = custom_left->get_parent();
@@ -498,16 +791,17 @@ void AnimatedBar::set_custom_lr(bool is_enabled) {
 		}
 		if(custom_right == nullptr) {
 			right = memnew(Button);
+			right->set_name("__DefaultRight__");
 			Button *r = Object::cast_to<Button>(right);
-			r->set_text("->");
+			r->set_text(_labels.right);
 			add_child(right);
 		} else {
 			Node *par = custom_right->get_parent();
 			if(par != this) custom_right->reparent(this);
 			right = custom_right;
 		}
-		Error err1 = right->connect("pressed",Callable(this, "on_right_pressed"));
-		err1 = left->connect("pressed",Callable(this, "on_left_pressed"));
+		right->connect("pressed",Callable(this, "on_right_pressed"));
+		left->connect("pressed",Callable(this, "on_left_pressed"));
 		left->set_as_top_level(true);
 		//right->set_as_top_level(true);
 	}
@@ -517,7 +811,7 @@ int AnimatedBar::get_options_quantity() const {
 	return number_of_children;
 }
 
-Vector2 AnimatedBar::get_lr_size() const {
+Vector2 HAnimatedBar::get_lr_size() const {
 	if(!lr_visibility) return Vector2(0,0);
 	Vector2 _siz = Vector2(spacing2*2,0);
 	_siz += left->get_size();
@@ -525,18 +819,57 @@ Vector2 AnimatedBar::get_lr_size() const {
 	return _siz;
 }
 
-Vector2 AnimatedBar::get_left_size() const {
+Vector2 HAnimatedBar::get_left_size() const {
 	if(!lr_visibility) return Vector2(0,0);
 	Vector2 _siz = Vector2(spacing2,0);
 	_siz += left->get_size();
 	return _siz;
 }
 
-Vector2 AnimatedBar::get_right_size() const {
+Vector2 HAnimatedBar::get_right_size() const {
 	if(!lr_visibility) return Vector2(0,0);
 	Vector2 _siz = Vector2(spacing2,0);
 	_siz += right->get_size();
 	return _siz;
+}
+
+Vector2 VAnimatedBar::get_lr_size() const {
+	if(!lr_visibility) return Vector2(0,0);
+	Vector2 _siz = Vector2(0,spacing2*2);
+	_siz += left->get_size();
+	_siz.y += right->get_size().y;
+	return _siz;
+}
+
+Vector2 VAnimatedBar::get_left_size() const {
+	if(!lr_visibility) return Vector2(0,0);
+	Vector2 _siz = Vector2(0,spacing2);
+	_siz += left->get_size();
+	return _siz;
+}
+
+Vector2 VAnimatedBar::get_right_size() const {
+	if(!lr_visibility) return Vector2(0,0);
+	Vector2 _siz = Vector2(0,spacing2);
+	_siz += right->get_size();
+	return _siz;
+}
+
+Vector2 AnimatedBar::get_lr_size() const {
+	if(!lr_visibility) return Vector2(0,0);
+	Vector2 _siz = left->get_size();
+	_siz += right->get_size();
+	return _siz;
+}
+
+Vector2 AnimatedBar::get_left_size() const {
+	if(!lr_visibility) return Vector2(0,0);
+	return left->get_size();
+}
+
+Vector2 AnimatedBar::get_right_size() const {
+	if(!lr_visibility) return Vector2(0,0);
+	return right->get_size();
 }
 
 NodePath AnimatedBar::get_custom_left() {
@@ -579,8 +912,12 @@ void AnimatedBar::set_custom_left(NodePath p_path) {
 	if(custom_lr) {
 		left->set_as_top_level(false);
 		left->disconnect("pressed",Callable(this, "on_left_pressed"));
+		if(left->get_name() == StringName("__DefaultLeft__")) {
+			remove_child(left);
+			left->queue_free();
+		}
 		left = custom_left;
-		Error err1 = left->connect("pressed",Callable(this, "on_left_pressed"));
+		left->connect("pressed",Callable(this, "on_left_pressed"));
 		left->set_as_top_level(true);
 		queue_sort();
 	}
@@ -610,8 +947,12 @@ void AnimatedBar::set_custom_right(NodePath p_path) {
 	if(custom_lr) {
 		//right->set_as_top_level(false);
 		right->disconnect("pressed",Callable(this, "on_right_pressed"));
+		if(right->get_name() == StringName("__DefaultRight__")) {
+			remove_child(right);
+			right->queue_free();
+		}
 		right = custom_right;
-		Error err1 = right->connect("pressed",Callable(this, "on_right_pressed"));
+		right->connect("pressed",Callable(this, "on_right_pressed"));
 		//right->set_as_top_level(true);
 		queue_sort();
 	}
@@ -625,6 +966,14 @@ void AnimatedBar::set_fill_remaining_space(bool is_enabled) {
 	if(do_expand == is_enabled) return;
 	do_expand = is_enabled;
 	queue_sort();
+}
+
+bool AnimatedBar::get_deactivate_process() {
+	return deactivate_process;
+}
+
+void AnimatedBar::set_deactivate_process(bool is_enabled) {
+	deactivate_process = is_enabled;
 }
 
 PackedStringArray AnimatedBar::_get_configuration_warnings() const {
@@ -642,3 +991,24 @@ PackedStringArray AnimatedBar::_get_configuration_warnings() const {
 	}
 	return warnings;
 }
+
+HAnimatedBar::HAnimatedBar() {
+	Button *l = Object::cast_to<Button>(left);
+	l->set_text(L"←");
+	Button *r = Object::cast_to<Button>(right);
+	r->set_text(L"→");
+	_labels.left = L"←";
+	_labels.right = L"→";
+}
+
+VAnimatedBar::VAnimatedBar() {
+	Button *l = Object::cast_to<Button>(left);
+	l->set_text("↑");
+	Button *r = Object::cast_to<Button>(right);
+	r->set_text("↓");
+	_labels.left = "↑";
+	_labels.right = "↓";
+}
+
+HAnimatedBar::~HAnimatedBar(){}
+VAnimatedBar::~VAnimatedBar(){}

@@ -20,6 +20,7 @@ void AnimatedTabContainer::_bind_methods() {
 AnimatedTabContainer::AnimatedTabContainer() {
 	// Initialize any variables here.
 	number_of_animated_bars = 0;
+	set_clip_contents(true);
 }
 
 AnimatedTabContainer::~AnimatedTabContainer() {
@@ -164,6 +165,11 @@ void AnimatedTabContainer::on_focus_activated(int p_tab_id,int p_bar_id) {
 	int n = get_child_count();
 	p_tab_id--;
 	if(is_activated) curent_animated_bar->deactivate_focus();
+	for(int i=p_bar_id+1;i<n;i++) {
+		AnimatedBar *tmp = Object::cast_to<AnimatedBar>(get_child(i));
+		p_tab_id += tmp->get_options_quantity();
+		UtilityFunctions::print(tmp,"   ",i," - 1 = ",p_bar_id);
+	}
 	if(p_tab_id >= n - number_of_animated_bars) {
 		curent_animated_bar = Object::cast_to<AnimatedBar>(get_child(p_bar_id));
 		curent_animated_bar->deactivate_focus();
@@ -181,6 +187,11 @@ void AnimatedTabContainer::on_focus_activated(int p_tab_id,int p_bar_id) {
 void AnimatedTabContainer::on_focus_changed(int p_tab_id,int p_bar_id) {
 	int n = get_child_count();
 	p_tab_id--;
+	for(int i=p_bar_id+1;i<n;i++) {
+		AnimatedBar *tmp = Object::cast_to<AnimatedBar>(get_child(i));
+		p_tab_id += tmp->get_options_quantity();
+		UtilityFunctions::print(tmp,"   ",i," - 1 = ",p_bar_id);
+	}
 	if(p_tab_id >= n - number_of_animated_bars) {
 		curent_animated_bar = Object::cast_to<AnimatedBar>(get_child(p_bar_id));
 		curent_animated_bar->deactivate_focus();

@@ -21,14 +21,16 @@ void initialize_control_module(ModuleInitializationLevel p_level) {
 		return;
 	}
 
-	ClassDB::register_class<GDExample>();
-	ClassDB::register_class<RevisedButton>();
-	ClassDB::register_class<Documentation>();
-	ClassDB::register_class<AutoScroll>();
-	ClassDB::register_class<ExpandableButton>();
-	ClassDB::register_class<AnimatedBar>();
-	ClassDB::register_class<AnimatedTabContainer>();
-	ClassDB::register_class<IrregularGridContainer>();
+	GDREGISTER_CLASS(GDExample)
+	GDREGISTER_CLASS(RevisedButton)
+	GDREGISTER_CLASS(Documentation)
+	GDREGISTER_CLASS(AutoScroll)
+	GDREGISTER_CLASS(ExpandableButton)
+	GDREGISTER_VIRTUAL_CLASS(AnimatedBar)
+	GDREGISTER_CLASS(HAnimatedBar)
+	GDREGISTER_CLASS(VAnimatedBar)
+	GDREGISTER_CLASS(AnimatedTabContainer)
+	GDREGISTER_CLASS(IrregularGridContainer)
 }
 
 void uninitialize_control_module(ModuleInitializationLevel p_level) {

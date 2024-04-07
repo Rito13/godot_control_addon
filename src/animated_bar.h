@@ -12,8 +12,8 @@ namespace godot {
 
 class AnimatedBar : public Container {
 	GDCLASS(AnimatedBar, Container)
-
-private:
+	
+protected:
 	double spacing;
 	double spacing2;
 	double speed = 4;
@@ -32,6 +32,13 @@ private:
 	bool after_ready = false;
 	bool lr_auto_visibility = true;
 	bool do_expand = true;
+	bool is_process = false;
+	bool deactivate_process = true;
+
+	struct Labels {
+		String left = "L";
+		String right = "R";
+	} _labels;
 
 	struct ForReady {
 		NodePath left_path;
@@ -42,26 +49,27 @@ private:
 
 protected:
 	static void _bind_methods();
+	void set_to_subtract_value(int p_value);
+	void process(double delta);
+	void ready();
 
 public:
 	AnimatedBar();
 	~AnimatedBar();
 
 	void _notification(int p_what);
-	void _process(double delta);
-	void _ready();
 
 	int get_options_quantity() const;
-	Vector2 get_lr_size() const;
-	Vector2 get_right_size() const;
-	Vector2 get_left_size() const;
+	virtual Vector2 get_lr_size() const;
+	virtual Vector2 get_right_size() const;
+	virtual Vector2 get_left_size() const;
 	void deactivate_focus();
 
 	void on_button_pressed(int id,BaseButton *status);
-	void on_right_pressed();
-	void on_left_pressed();
+	//void on_right_pressed();
+	//void on_left_pressed();
 
-	void clip_child(Control* child);
+	//void clip_child(Control* child);
 
 	double get_spacing();
 	void set_spacing(double p_spacing);
@@ -82,14 +90,65 @@ public:
 	bool is_remaining_space_filled();
 	void set_fill_remaining_space(bool is_enabled);
 
+	bool get_deactivate_process();
+	void set_deactivate_process(bool is_enabled);
+
 	NodePath get_custom_left();
 	void set_custom_left(NodePath p_path);
 
 	NodePath get_custom_right();
 	void set_custom_right(NodePath p_path);
 
-	virtual Vector2 _get_minimum_size() const override;
+	//virtual Vector2 _get_minimum_size() const override;
 	PackedStringArray _get_configuration_warnings() const override;
+};
+
+class HAnimatedBar : public AnimatedBar {
+	GDCLASS(HAnimatedBar, AnimatedBar)
+
+protected:
+	static void _bind_methods();
+
+public:
+	HAnimatedBar();
+	~HAnimatedBar();
+
+	void _notification(int p_what);
+
+	virtual Vector2 get_lr_size() const;
+	virtual Vector2 get_right_size() const;
+	virtual Vector2 get_left_size() const;
+
+	void on_right_pressed();
+	void on_left_pressed();
+
+	void clip_child(Control* child);
+
+	virtual Vector2 _get_minimum_size() const override;
+};
+
+class VAnimatedBar : public AnimatedBar {
+	GDCLASS(VAnimatedBar, AnimatedBar)
+
+protected:
+	static void _bind_methods();
+
+public:
+	VAnimatedBar();
+	~VAnimatedBar();
+
+	void _notification(int p_what);
+
+	virtual Vector2 get_lr_size() const;
+	virtual Vector2 get_right_size() const;
+	virtual Vector2 get_left_size() const;
+
+	void on_right_pressed();
+	void on_left_pressed();
+
+	void clip_child(Control* child);
+
+	virtual Vector2 _get_minimum_size() const override;
 };
 
 }

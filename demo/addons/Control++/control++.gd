@@ -17,7 +17,6 @@ func _enter_tree():
 	add_inspector_plugin(inspector_plugin)
 	Edited_Node = ExpandableButton.new()
 	my_theme = Loader.load("res://addons/Control++/_ExpandableButton_hidden.theme","Theme")
-	print(my_theme)
 	var project_theme_path = project.get_setting("gui/theme/custom")
 	print_rich("	  «»-«»-«»\n● Control++:  Loaded![color=SNOW]")
 
