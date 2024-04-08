@@ -138,7 +138,7 @@ visible = false
 position = Vector2(800, 150)
 
 [node name="GDExample" type="GDExample" parent="Node2D"]
-position = Vector2(16.3515, 7.33991)
+position = Vector2(5.09113, 6.24598)
 texture = ExtResource("1_6elc7")
 
 [node name="ExpandableButton 2" type="ExpandableButton" parent="."]
@@ -492,6 +492,7 @@ toggle_mode = true
 text = "↓"
 
 [node name="AnimatedTabContainer" type="AnimatedTabContainer" parent="."]
+visible = false
 offset_left = 530.0
 offset_top = 310.0
 offset_right = 983.0
@@ -740,7 +741,6 @@ text = ".   Right   .
 
 [node name="IrregularGridContainer" type="IrregularGridContainer" parent="."]
 spacing = 5.0
-visible = false
 offset_left = 352.0
 offset_top = 366.0
 offset_right = 1227.0
@@ -831,7 +831,6 @@ layout_mode = 2
 [node name="ExpandableButton12" type="ExpandableButton" parent="IrregularGridContainer"]
 base_minimum_size = Vector2(50, 50)
 expansion_size = 80
-custom_minimum_size = Vector2(60, 40)
 layout_mode = 2
 
 [node name="ExpandableButton13" type="ExpandableButton" parent="IrregularGridContainer"]

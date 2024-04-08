@@ -21,13 +21,13 @@ private:
 
 protected:
 	static void _bind_methods();
+	void process(double delta);
 
 public:
 	AnimatedTabContainer();
 	~AnimatedTabContainer();
 
 	void _notification(int p_what);
-	void _process(double delta);
 	void clip_child(Control* child);
 
 	void on_focus_activated(int p_tab_id,int p_bar_id);

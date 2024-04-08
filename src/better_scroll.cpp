@@ -112,10 +112,26 @@ void AutoScroll::scroll_to(double p_value) {
     }
     end_value = p_value;
     scrolling = true;
+    set_process_internal(true);
 }
 
-void AutoScroll::_process(double delta) {
-    if(!scrolling) return;
+void AutoScroll::_notification(int p_what) {
+	switch (p_what) {
+        case NOTIFICATION_INTERNAL_PROCESS: {
+			process(get_process_delta_time());
+		} break;
+
+		default: {
+			Control::_notification(p_what);
+		} break;
+	}
+}
+
+void AutoScroll::process(double delta) {
+    if(!scrolling) {
+        set_process_internal(false);
+        return;
+    }
     Range *range_object = Object::cast_to<Range>(get_parent());
     if (range_object == nullptr) return;
     if (custom_min_to_reset) set_auto_min_value(custom_min);

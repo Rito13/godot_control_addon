@@ -31,6 +31,7 @@ protected:
 	static void _bind_methods();
 	void update_base_size();
 	void notify_about_minimum_size();
+	void process(double delta);
 
 public:
 	ExpandableButton();
@@ -40,7 +41,6 @@ public:
 
 	void _update_minimum_size(Vector2 texture_size);
 
-	void _process(double delta);
 	void _notification(int p_what);
 	void on_timer_out2();
 	void on_self_down();

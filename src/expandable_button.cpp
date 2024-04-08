@@ -468,19 +468,24 @@ void ExpandableButton::_notification(int p_what) {
 				text_clip -= _internal_margin[SIDE_RIGHT] + theme_cache.h_separation;
 			}
 		} break;
+
+		case NOTIFICATION_INTERNAL_PROCESS: {
+			process(get_process_delta_time());
+		} break;
+
         default: {
             RevisedButton::_notification(p_what);
         } break;
 	}
 }
 
-void ExpandableButton::_process(double delta) {
+void ExpandableButton::process(double delta) {
 	Vector2 text_size = text_container->get_size();
 	Vector2 text_pos = text_container->get_position();
 	Vector2 text_parent_size = text_parent->get_size();
 	Vector2 text_parent_pos = text_parent->get_position();
 
-    RevisedButton::_process(delta);
+    RevisedButton::process(delta);
 	
 	text_container->set_size(text_size);
 	text_parent->set_size(text_parent_size);

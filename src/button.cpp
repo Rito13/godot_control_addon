@@ -68,6 +68,7 @@ RevisedButton::RevisedButton() {
 	time_passed = 0.0;
 	amplitude = 31;
 	get_theme(true);
+	set_process_internal(true);
 
 	// Initialize internal childs
 	text_parent = memnew(Control);
@@ -87,7 +88,7 @@ RevisedButton::RevisedButton() {
 	idle_time_timer->set_one_shot(true);
 	text_parent->set_clip_contents(true);
     text_parent->set_mouse_filter(Control::MouseFilter::MOUSE_FILTER_IGNORE);
-	Error err1 = idle_time_timer->connect("timeout", Callable(this, "on_timer_out"));
+	idle_time_timer->connect("timeout", Callable(this, "on_timer_out"));
 	//idle_time_timer->start();
 
 	// Setup RichTextLabel (text_container)
@@ -346,7 +347,7 @@ Vector2 RevisedButton::_get_minimum_size() const {
 	return theme_cache.normal->get_minimum_size() + minsize;
 }
 
-void RevisedButton::_process(double delta) {
+void RevisedButton::process(double delta) {
     // Update internal variables
 	time_passed += delta;
 	if(time_passed < 0.016) return;
@@ -455,6 +456,11 @@ void RevisedButton::_notification(int p_what) {
             get_theme(true);
 			update_minimum_size();
 			queue_redraw();
+		} break;
+
+		case NOTIFICATION_INTERNAL_PROCESS: {
+			//UtilityFunctions::print(true);
+			process(get_process_delta_time());
 		} break;
 
 		case NOTIFICATION_DRAW: {
@@ -763,6 +769,10 @@ void RevisedButton::_notification(int p_what) {
 				text_buf->draw_outline(ci, text_ofs, outline_size, font_outline_color);
 			}
 			text_buf->draw(ci, text_ofs, color);*/
+		} break;
+
+		default: {
+			BaseButton::_notification(p_what);
 		} break;
 	}
 }

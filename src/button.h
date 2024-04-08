@@ -43,6 +43,8 @@ protected:
 	static void _bind_methods();
 	String better_text = "Text";
 
+	void process(double delta);
+
 	Vector2 _fit_icon_size(const Vector2 &p_size) const;
 	//bool has_theme_something(bool (&what)(const StringName&, const StringName&)const,const StringName &name);
 	bool has_theme(uint8_t what,const StringName &name) const;
@@ -116,7 +118,6 @@ public:
 	RevisedButton();
 	~RevisedButton();
 
-	void _process(double delta);
 	void on_timer_out();
 	void _notification(int p_what);
 	virtual Vector2 _get_minimum_size() const override;

@@ -103,11 +103,18 @@ void AnimatedTabContainer::_notification(int p_what) {
 		case NOTIFICATION_LAYOUT_DIRECTION_CHANGED: {
 			queue_sort();
 		} break;
+
+		case NOTIFICATION_INTERNAL_PROCESS: {
+			process(get_process_delta_time());
+		} break;
 	}
 }
 
-void AnimatedTabContainer::_process(double delta) {
-	if((focus_status == get_size().y-_y || focus_status == 0) && curent_tab == next_tab) return;
+void AnimatedTabContainer::process(double delta) {
+	if((focus_status == get_size().y-_y || focus_status == 0) && curent_tab == next_tab) {
+		set_process_internal(false);
+		return;
+	}
 	if(focus_status > get_size().y-_y) {
 		focus_status = get_size().y-_y;
 		queue_sort();
@@ -168,7 +175,7 @@ void AnimatedTabContainer::on_focus_activated(int p_tab_id,int p_bar_id) {
 	for(int i=p_bar_id+1;i<n;i++) {
 		AnimatedBar *tmp = Object::cast_to<AnimatedBar>(get_child(i));
 		p_tab_id += tmp->get_options_quantity();
-		UtilityFunctions::print(tmp,"   ",i," - 1 = ",p_bar_id);
+		//UtilityFunctions::print(tmp,"   ",i," - 1 = ",p_bar_id);
 	}
 	if(p_tab_id >= n - number_of_animated_bars) {
 		curent_animated_bar = Object::cast_to<AnimatedBar>(get_child(p_bar_id));
@@ -178,6 +185,7 @@ void AnimatedTabContainer::on_focus_activated(int p_tab_id,int p_bar_id) {
 	}
 	//UtilityFunctions::print("p_bar_id = ",p_bar_id);
 	next_tab = Object::cast_to<Control>(get_child(p_tab_id));
+	set_process_internal(true);
 	curent_animated_bar = Object::cast_to<AnimatedBar>(get_child(p_bar_id));
 	//UtilityFunctions::print(next_tab,"   ",p_tab_id);
 	queue_sort();
@@ -190,7 +198,7 @@ void AnimatedTabContainer::on_focus_changed(int p_tab_id,int p_bar_id) {
 	for(int i=p_bar_id+1;i<n;i++) {
 		AnimatedBar *tmp = Object::cast_to<AnimatedBar>(get_child(i));
 		p_tab_id += tmp->get_options_quantity();
-		UtilityFunctions::print(tmp,"   ",i," - 1 = ",p_bar_id);
+		//UtilityFunctions::print(tmp,"   ",i," - 1 = ",p_bar_id);
 	}
 	if(p_tab_id >= n - number_of_animated_bars) {
 		curent_animated_bar = Object::cast_to<AnimatedBar>(get_child(p_bar_id));
@@ -199,6 +207,7 @@ void AnimatedTabContainer::on_focus_changed(int p_tab_id,int p_bar_id) {
 		return;
 	}
 	next_tab = Object::cast_to<Control>(get_child(p_tab_id));
+	set_process_internal(true);
 	//UtilityFunctions::print(next_tab,"   ",p_tab_id);
 	queue_sort();
 }
@@ -207,6 +216,7 @@ void AnimatedTabContainer::on_focus_deactivated() {
 	//UtilityFunctions::print(next_tab,"   ",curent_animated_bar);
 	is_activated = false;
 	next_tab = nullptr;
+	set_process_internal(true);
 	curent_animated_bar = nullptr;
 	//UtilityFunctions::print(next_tab,"   ",curent_animated_bar);
 	queue_sort();

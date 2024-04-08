@@ -21,6 +21,7 @@ private:
 
 protected:
 	static void _bind_methods();
+    void process(double delta);
 
 public:
 	AutoScroll();
@@ -30,9 +31,9 @@ public:
     double get_auto_min_value();
     void set_speed(double p_speed);
     double get_speed();
-    void _process(double delta);
     PackedStringArray _get_configuration_warnings() const override;
     bool is_scrolling();
+    void _notification(int p_what);
     //String get_configuration_warnings_as_string() const;
 };
 

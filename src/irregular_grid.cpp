@@ -45,6 +45,7 @@ void IrregularGrid::Add(Control *child) {
 }
 
 void IrregularGrid::Add_ExpandableButton(ExpandableButton *child) {
+	int test = 1;
 	int j = GRID.size()-1;
 	// Notice we use Vector2 as 2 difrend variables not nodes size
 	// X - childs base width
@@ -60,23 +61,23 @@ void IrregularGrid::Add_ExpandableButton(ExpandableButton *child) {
 		irregular_grid_element a;
 		a.x = ms.x + ms.y;
 		a.count = 1;
-		a.aditional = ms.y + 1;
+		a.aditional = ms.y + test;
 		GRID.push_back(a);
 		return;
 	}
 	float tmp = 0.0;
-	if(GRID[j].aditional < ms.y + 1) {
-		tmp = ms.y - GRID[j].aditional;
+	if(GRID[j].aditional < ms.y + test) {
+		tmp = ms.y + test - GRID[j].aditional;
 	}
-	if(GRID[j].x + ms.x + tmp + spacing < get_size().x) {
+	if(GRID[j].x + ms.x + tmp + spacing - 1 < get_size().x) {
 		GRID[j].x += ms.x + spacing + tmp;
-		GRID[j].aditional = ms.y + 1;
+		GRID[j].aditional += tmp;
 		GRID[j].count++;
 	} else {
 		irregular_grid_element a;
 		a.x = ms.x + ms.y;
 		a.count = 1;
-		a.aditional = ms.y + 1;
+		a.aditional = ms.y + test;
 		GRID.push_back(a);
 	}
 }
@@ -142,7 +143,7 @@ void IrregularGrid::rearrange(bool from_exp_button) {
 }
 
 void IrregularGrid::rearrange_with_b() {
-	UtilityFunctions::print("rearrange_with_b");
+	//UtilityFunctions::print("rearrange_with_b");
 	int error_handler = get_child_count();
 	int n = GRID.size();
 	int i = 0;
@@ -175,7 +176,7 @@ void IrregularGrid::rearrange_with_b() {
 			if(exp_b != nullptr) ms = ms.max(exp_b->_get_minimum_size());
 			ms.x += free_for_one;
 			ms.y = height;
-			if(exp_b != nullptr) UtilityFunctions::print(exp_b->get_combined_minimum_size()," + ",exp_b->_get_minimum_size()," = ",ms);
+			//if(exp_b != nullptr) UtilityFunctions::print(exp_b->get_combined_minimum_size()," + ",exp_b->_get_minimum_size()," = ",ms);
 			child->set_size(ms);
 			child->set_position(Vector2(used,_y));
 			//UtilityFunctions::print(ms," = ",child->get_size(),"      ",Vector2(used,_y)," = ",child->get_position());
