@@ -105,8 +105,8 @@ AnimatedBar::AnimatedBar() {
 
 AnimatedBar::~AnimatedBar() {
 	// Add your cleanup here.
-	left->queue_free();
-	right->queue_free();
+	//left->queue_free();
+	//right->queue_free();
 }
 
 void AnimatedBar::ready() {

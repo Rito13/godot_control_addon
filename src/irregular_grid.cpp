@@ -53,10 +53,10 @@ void IrregularGrid::Add_ExpandableButton(ExpandableButton *child) {
 	Vector2 ms = child->get_base_minimum_size();
 	ms = ms.max(child->get_custom_minimum_size());
 	ms.y = child->get_expansion_size() - child->get_expansion_indentation();
-	if(ms.x + ms.y < child->get_combined_minimum_size().x) {
-		Add(child);
-		return;
-	}
+	//if(ms.x + ms.y < child->get_combined_minimum_size().x) {
+	//	Add(child);
+	//	return;
+	//}
 	if(j < 0) {
 		irregular_grid_element a;
 		a.x = ms.x + ms.y;

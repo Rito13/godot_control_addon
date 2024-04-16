@@ -109,11 +109,11 @@ RevisedButton::~RevisedButton() {
         text_parent->remove_child(text_container);
         text_parent->remove_child(idle_time_timer);
     }*/
-    text_container->queue_free();
-	scroll->queue_free();
-	idle_time_timer->queue_free();
-	remove_child(text_parent);
-	text_parent->queue_free();
+    //text_container->queue_free();
+	//scroll->queue_free();
+	//idle_time_timer->queue_free();
+	//remove_child(text_parent);
+	//text_parent->queue_free();
 }
 
 void RevisedButton::on_timer_out() {

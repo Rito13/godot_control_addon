@@ -54,7 +54,7 @@
             "name": "linux-debug",
             "displayName": "64bit Linux Debug",
             "inherits": "default",
-            "binaryDir": "${sourceDir}/../build_${env:PROJECT_NAME}_linux-x86_64",
+            "binaryDir": "${sourceDir}/../debug_build_${env:PROJECT_NAME}_linux-x86_64",
             "condition": {
                 "type": "equals",
                 "lhs": "${hostSystemName}",
@@ -71,8 +71,10 @@
             "name": "linux-release",
             "displayName": "64bit Linux Release",
             "inherits": "linux-debug",
+            "binaryDir": "${sourceDir}/../build_${env:PROJECT_NAME}_linux-x86_64",
             "cacheVariables": {
                 "CMAKE_BUILD_TYPE": "Release",
+                
                 "CMAKE_INSTALL_PREFIX": "${sourceDir}/demo/addons"
             }
         },
