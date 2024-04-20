@@ -86,7 +86,7 @@ AnimatedBar::AnimatedBar() {
 	// Initialize any variables here.
 	spacing = 10.0;
 	spacing2 = 5.0;
-	set_clip_contents(true);
+	//set_clip_contents(true);
 	left = memnew(Button);
 	right = memnew(Button);
 	left->set_name("__DefaultLeft__");
@@ -459,6 +459,7 @@ void HAnimatedBar::on_left_pressed() {
 		first_child_id = 1;
 		first_child = Object::cast_to<Control>(get_child(1));
 		queue_sort();
+		if(get_child_count() > 2) call_deferred("on_left_pressed");
 		return;
 	}
 	if(first_child_id <= 1 || first_child == nullptr) return;
@@ -495,6 +496,7 @@ void HAnimatedBar::on_right_pressed() {
 		first_child_id = 1;
 		first_child = Object::cast_to<Control>(get_child(1));
 		queue_sort();
+		if(get_child_count() > 2) call_deferred("on_right_pressed");
 		return;
 	}
 	int n = get_child_count();
@@ -568,6 +570,7 @@ void VAnimatedBar::on_left_pressed() {
 		first_child_id = 1;
 		first_child = Object::cast_to<Control>(get_child(1));
 		queue_sort();
+		if(get_child_count() > 2) call_deferred("on_left_pressed");
 		return;
 	}
 	if(first_child_id <= 1 || first_child == nullptr) return;
@@ -604,6 +607,7 @@ void VAnimatedBar::on_right_pressed() {
 		first_child_id = 1;
 		first_child = Object::cast_to<Control>(get_child(1));
 		queue_sort();
+		if(get_child_count() > 2) call_deferred("on_right_pressed");
 		return;
 	}
 	int n = get_child_count();
@@ -741,6 +745,7 @@ void AnimatedBar::set_custom_lr(bool is_enabled) {
 		for_ready.custom_lr = is_enabled;
 		return;
 	}
+	if(custom_lr == is_enabled) return;
 	custom_lr = is_enabled;
 	queue_sort();
 	//UtilityFunctions::print(custom_left,"   ",custom_right,"   ",custom_left == nullptr,"   ",custom_right == nullptr);
@@ -787,6 +792,10 @@ void AnimatedBar::set_custom_lr(bool is_enabled) {
 		} else {
 			Node *par = custom_left->get_parent();
 			if(par != this) custom_left->reparent(this);
+			else {
+				custom_left->disconnect("draw",Callable(this, "clip_child"));
+				custom_left->disconnect("pressed",Callable(this, "on_button_pressed"));
+			}
 			left = custom_left;
 		}
 		if(custom_right == nullptr) {
@@ -798,6 +807,10 @@ void AnimatedBar::set_custom_lr(bool is_enabled) {
 		} else {
 			Node *par = custom_right->get_parent();
 			if(par != this) custom_right->reparent(this);
+			else {
+				custom_right->disconnect("draw",Callable(this, "clip_child"));
+				custom_right->disconnect("pressed",Callable(this, "on_button_pressed"));
+			}
 			right = custom_right;
 		}
 		right->connect("pressed",Callable(this, "on_right_pressed"));

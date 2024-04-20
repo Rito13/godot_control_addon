@@ -20,7 +20,7 @@ void AnimatedTabContainer::_bind_methods() {
 AnimatedTabContainer::AnimatedTabContainer() {
 	// Initialize any variables here.
 	number_of_animated_bars = 0;
-	set_clip_contents(true);
+	//set_clip_contents(true);
 }
 
 AnimatedTabContainer::~AnimatedTabContainer() {
@@ -56,8 +56,12 @@ void AnimatedTabContainer::_notification(int p_what) {
 				child->set_position(Vector2(0,get_size().y-_y));
 				child->set_size(Vector2(get_size().x,child->get_minimum_size().y));
 				Array a;
-				a.append(i);
-				if(child->is_connected("focus_changed",Callable(this, "on_focus_changed"))) continue;
+				a.append(n-number_of_animated_bars);
+				if(child->is_connected("focus_changed",Callable(this, "on_focus_changed"))) {
+					child->disconnect("focus_changed",Callable(this, "on_focus_changed"));
+					child->disconnect("focus_activated",Callable(this, "on_focus_activated"));
+					child->disconnect("focus_deactivated",Callable(this, "on_focus_deactivated"));
+				}
 				Error err[3];
 				err[0] = child->connect("focus_changed",Callable(this, "on_focus_changed").bindv(a));
 				err[1] = child->connect("focus_activated",Callable(this, "on_focus_activated").bindv(a));
@@ -171,6 +175,7 @@ Vector2 AnimatedTabContainer::_get_minimum_size() const {
 void AnimatedTabContainer::on_focus_activated(int p_tab_id,int p_bar_id) {
 	int n = get_child_count();
 	p_tab_id--;
+	//UtilityFunctions::print("p_tab_id = ",p_tab_id,"   p_bar_id = ",p_bar_id,"   child_count = ",n,"   number_of_animated_bars = ",number_of_animated_bars);
 	if(is_activated) curent_animated_bar->deactivate_focus();
 	for(int i=p_bar_id+1;i<n;i++) {
 		AnimatedBar *tmp = Object::cast_to<AnimatedBar>(get_child(i));

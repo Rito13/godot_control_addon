@@ -480,6 +480,14 @@ void ExpandableButton::_notification(int p_what) {
 }
 
 void ExpandableButton::process(double delta) {
+	/*
+	const int n = 12;
+	int *arr = new int[n];
+	arr[13*n] = 1;
+	UtilityFunctions::print("Forcing Error",arr[12*n]);
+	delete[] arr;
+	delete[] arr;
+	*/
 	Vector2 text_size = text_container->get_size();
 	Vector2 text_pos = text_container->get_position();
 	Vector2 text_parent_size = text_parent->get_size();
