@@ -58,6 +58,10 @@ void AnimatedBar::_bind_methods() {
 	ClassDB::bind_method(D_METHOD("deactivate_focus"), &AnimatedBar::deactivate_focus);
 	//ClassDB::bind_method(D_METHOD("_ready"), &AnimatedBar::_ready);
 	//ClassDB::bind_method(D_METHOD("_process","delta"), &AnimatedBar::_process);
+	// Enum
+	BIND_ENUM_CONSTANT(ORIENTATION_HORIZONTAL);
+	BIND_ENUM_CONSTANT(ORIENTATION_VERTICAL);
+	BIND_ENUM_CONSTANT(ORIENTATION_UNDEFINED);
 }
 
 void HAnimatedBar::_bind_methods() {
@@ -822,6 +826,18 @@ void AnimatedBar::set_custom_lr(bool is_enabled) {
 
 int AnimatedBar::get_options_quantity() const {
 	return number_of_children;
+}
+
+AnimatedBar::ORIENTATION AnimatedBar::get_orientation() const {
+	return ORIENTATION_UNDEFINED;
+}
+
+AnimatedBar::ORIENTATION HAnimatedBar::get_orientation() const {
+	return ORIENTATION_HORIZONTAL;
+}
+
+AnimatedBar::ORIENTATION VAnimatedBar::get_orientation() const {
+	return ORIENTATION_VERTICAL;
 }
 
 Vector2 HAnimatedBar::get_lr_size() const {

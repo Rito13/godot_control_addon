@@ -18,6 +18,7 @@ private:
 	bool is_activated = false;
 	AnimatedBar *curent_animated_bar = nullptr;
 	double _y = 0;
+	double _x = 0;
 
 protected:
 	static void _bind_methods();

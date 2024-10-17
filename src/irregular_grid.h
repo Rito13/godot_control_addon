@@ -21,6 +21,7 @@ private:
 
 protected:
 	double spacing;
+	double min_height;
 
 	void Add(godot::Control *child);
 	void Add_ExpandableButton(godot::ExpandableButton *child);
@@ -48,6 +49,8 @@ protected:
 public:
 	IrregularGridContainer();
 	~IrregularGridContainer();
+
+	virtual Vector2 _get_minimum_size() const override;
 
 	void _notification(int p_what);
 

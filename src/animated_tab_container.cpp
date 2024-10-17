@@ -47,14 +47,26 @@ void AnimatedTabContainer::_notification(int p_what) {
 			int n = get_child_count();
 			number_of_animated_bars = 0;
 			_y = 0;
+			_x = 0;
+			AnimatedBar::ORIENTATION _orient;
 			for(int i = n-1;i>=0;i--) {
 				AnimatedBar *child = Object::cast_to<AnimatedBar>(get_child(i));
 				if(child == nullptr) continue;
 				number_of_animated_bars++;
 				move_child(child,n-number_of_animated_bars);
-				_y += child->get_minimum_size().y;
-				child->set_position(Vector2(0,get_size().y-_y));
-				child->set_size(Vector2(get_size().x,child->get_minimum_size().y));
+				_orient = child->get_orientation();
+				switch (_orient) {
+					case AnimatedBar::ORIENTATION_HORIZONTAL: {
+						_y += child->get_minimum_size().y;
+						child->set_position(Vector2(0,get_size().y-_y));
+						child->set_size(Vector2(get_size().x,child->get_minimum_size().y));
+					} break;
+					case AnimatedBar::ORIENTATION_VERTICAL: {
+						_x += child->get_minimum_size().x;
+						child->set_position(Vector2(get_size().x-_x,0));
+						child->set_size(Vector2(child->get_minimum_size().x,get_size().y));
+					} break;
+				}
 				Array a;
 				a.append(n-number_of_animated_bars);
 				if(child->is_connected("focus_changed",Callable(this, "on_focus_changed"))) {
@@ -74,7 +86,7 @@ void AnimatedTabContainer::_notification(int p_what) {
 				Control *child = Object::cast_to<Control>(get_child(i));
 				if(child == nullptr) continue;
 				RID _rid = child->get_canvas_item();
-				child->set_size(Vector2(_size.x,_size.y-_y));
+				child->set_size(Vector2(_size.x-_x,_size.y-_y));
 				if(curent_tab==child) {
 					child->set_position(Vector2(0,_size.y-_y-focus_status));
 					//UtilityFunctions::print(child,"   is on focus   focus_status = ",focus_status);
@@ -165,9 +177,19 @@ Vector2 AnimatedTabContainer::_get_minimum_size() const {
 		AnimatedBar *child = Object::cast_to<AnimatedBar>(get_child(i));
 		if(child == nullptr) continue;
 		Vector2 size = child->get_combined_minimum_size();
-		size.x += child->get_lr_size().x;
-		_min.y += size.y;
-		if(size.x > _min.x) _min.x = size.x;
+		AnimatedBar::ORIENTATION _orient = child->get_orientation();
+		switch (_orient) {
+			case AnimatedBar::ORIENTATION_HORIZONTAL: {
+				size.x += child->get_lr_size().x;
+				_min.y += size.y;
+				if(size.x > _min.x) _min.x = size.x;
+			} break;
+			case AnimatedBar::ORIENTATION_VERTICAL: {
+				size.y += child->get_lr_size().y;
+				_min.x += size.x;
+				if(size.y > _min.y) _min.y = size.y;
+			} break;
+		}
 	}
 	return _min;
 }

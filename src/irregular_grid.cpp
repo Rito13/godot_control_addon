@@ -15,6 +15,7 @@ void IrregularGridContainer::_bind_methods() {
 IrregularGrid::IrregularGrid() {
 	// Initialize any variables here.
 	spacing = 0.0;
+	min_height = 0.0;
 }
 
 IrregularGrid::~IrregularGrid() {
@@ -140,6 +141,7 @@ void IrregularGrid::rearrange(bool from_exp_button) {
 		}
 		_y += height + spacing;
 	}
+	min_height = _y - spacing;
 }
 
 void IrregularGrid::rearrange_with_b() {
@@ -184,6 +186,7 @@ void IrregularGrid::rearrange_with_b() {
 		}
 		_y += height + spacing;
 	}
+	min_height = _y - spacing;
 }
 
 void IrregularGridContainer::set_spacing(double p_spacing) {
@@ -193,6 +196,12 @@ void IrregularGridContainer::set_spacing(double p_spacing) {
 	
 double IrregularGridContainer::get_spacing() {
 	return spacing;
+}
+
+Vector2 IrregularGridContainer::_get_minimum_size() const {
+	//UtilityFunctions::print("IrregularGridContainer::_get_minimum_size()");
+	Vector2 _min = Vector2(0,min_height);
+	return _min;
 }
 
 void IrregularGridContainer::_notification(int p_what) {

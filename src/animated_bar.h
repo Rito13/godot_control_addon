@@ -12,7 +12,7 @@ namespace godot {
 
 class AnimatedBar : public Container {
 	GDCLASS(AnimatedBar, Container)
-	
+
 protected:
 	double spacing;
 	double spacing2;
@@ -57,12 +57,19 @@ public:
 	AnimatedBar();
 	~AnimatedBar();
 
+	enum ORIENTATION {
+		ORIENTATION_UNDEFINED = 0,
+		ORIENTATION_HORIZONTAL = 1,
+		ORIENTATION_VERTICAL = 2,
+	};
+
 	void _notification(int p_what);
 
 	int get_options_quantity() const;
 	virtual Vector2 get_lr_size() const;
 	virtual Vector2 get_right_size() const;
 	virtual Vector2 get_left_size() const;
+	virtual ORIENTATION get_orientation() const;
 	void deactivate_focus();
 
 	void on_button_pressed(int id,BaseButton *status);
@@ -118,6 +125,7 @@ public:
 	virtual Vector2 get_lr_size() const;
 	virtual Vector2 get_right_size() const;
 	virtual Vector2 get_left_size() const;
+	virtual ORIENTATION get_orientation() const;
 
 	void on_right_pressed();
 	void on_left_pressed();
@@ -142,6 +150,7 @@ public:
 	virtual Vector2 get_lr_size() const;
 	virtual Vector2 get_right_size() const;
 	virtual Vector2 get_left_size() const;
+	virtual ORIENTATION get_orientation() const;
 
 	void on_right_pressed();
 	void on_left_pressed();
@@ -152,5 +161,7 @@ public:
 };
 
 }
+
+VARIANT_ENUM_CAST(AnimatedBar::ORIENTATION);
 
 #endif
