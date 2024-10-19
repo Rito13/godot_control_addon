@@ -130,7 +130,7 @@ void IrregularGrid::rearrange(bool from_exp_button) {
 		if(full_stretch_ratio == 0)			// prevents free_for_one from being INF
 			full_stretch_ratio = 0.1;
 		if (j==n-1&&shrink_last_row) {
-			UtilityFunctions::print("shrink_last_row");
+			//UtilityFunctions::print("shrink_last_row");
 			double tmp = (get_size().x-used)/full_stretch_ratio;
 			if(tmp < free_for_one)
 				free_for_one = tmp;
