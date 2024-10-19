@@ -111,19 +111,21 @@ void IrregularGrid::rearrange(bool from_exp_button) {
 	double _y = 0.0;
 	for(int j=0;j<n;j++) {
 		double used = 0.0;
-		int ii = 0;
 		double height = 0.0;
-		for(int tmp=0;tmp<GRID[j].count;tmp++) {
+		double full_stretch_ratio = 0.0;  // sum of stretch_ratio from all children
+		for(int ii=0;ii<GRID[j].count;ii++) {
 			if(i+ii >= error_handler) continue;
 			Control *child = Object::cast_to<Control>(get_child(i+ii));
-			ii++;
 			if(child == nullptr) continue;
 			Vector2 ms = child->get_combined_minimum_size();
 			used += ms.x + spacing;
+			full_stretch_ratio += child->get_stretch_ratio();
 			if(height < ms.y) height = ms.y;
 		}
 		used -= spacing;
-		double free_for_one = (get_size().x-used)/GRID[j].count;
+		if(full_stretch_ratio == 0)			// prevents free_for_one from being INF
+			full_stretch_ratio = 0.1;
+		double free_for_one = (get_size().x-used)/full_stretch_ratio; // for one stretch ratio unit
 		used = 0.0;
 		for(int tmp=0;tmp<GRID[j].count;tmp++) {
 			if(i >= error_handler) continue;
@@ -131,7 +133,7 @@ void IrregularGrid::rearrange(bool from_exp_button) {
 			i++;
 			if(child == nullptr) continue;
 			Vector2 ms = child->get_combined_minimum_size();
-			ms.x += free_for_one;
+			ms.x += free_for_one * child->get_stretch_ratio();
 			ms.y = height;
 			child->set_size(ms);
 			child->set_position(Vector2(used,_y));
@@ -144,6 +146,8 @@ void IrregularGrid::rearrange(bool from_exp_button) {
 	min_height = _y - spacing;
 }
 
+
+// this function is not compatible (does not use child.stretch_ratio) so please do not use it.
 void IrregularGrid::rearrange_with_b() {
 	//UtilityFunctions::print("rearrange_with_b");
 	int error_handler = get_child_count();

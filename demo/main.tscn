@@ -85,6 +85,7 @@ text = "ddddddddddddddddddd"
 navigation_buttons_use_custom = true
 navigation_buttons_custom_left = NodePath("./Top")
 navigation_buttons_custom_right = NodePath("./Botom")
+visible = false
 custom_minimum_size = Vector2(0, 200)
 layout_mode = 2
 
@@ -224,7 +225,7 @@ visible = false
 position = Vector2(800, 150)
 
 [node name="GDExample" type="GDExample" parent="Node2D"]
-position = Vector2(19.8366, 7.45882)
+position = Vector2(19.0454, 10.6228)
 texture = ExtResource("1_6elc7")
 
 [node name="ExpandableButton 2" type="ExpandableButton" parent="."]
@@ -748,7 +749,6 @@ text = ".   Right   .
 
 [node name="IrregularGridContainer" type="IrregularGridContainer" parent="."]
 spacing = 5.0
-visible = false
 offset_left = 352.0
 offset_top = 366.0
 offset_right = 1227.0
@@ -910,71 +910,86 @@ layout_mode = 2
 base_minimum_size = Vector2(50, 50)
 expansion_size = 80
 layout_mode = 2
+size_flags_stretch_ratio = 0.0
 
 [node name="ExpandableButton27" type="ExpandableButton" parent="IrregularGridContainer"]
 base_minimum_size = Vector2(50, 50)
 expansion_size = 80
 layout_mode = 2
+size_flags_stretch_ratio = 0.0
 
 [node name="ExpandableButton28" type="ExpandableButton" parent="IrregularGridContainer"]
 base_minimum_size = Vector2(50, 50)
 expansion_size = 80
 layout_mode = 2
+size_flags_stretch_ratio = 0.0
 
 [node name="ExpandableButton29" type="ExpandableButton" parent="IrregularGridContainer"]
 base_minimum_size = Vector2(50, 50)
 expansion_size = 80
 layout_mode = 2
+size_flags_stretch_ratio = 0.0
 
 [node name="ExpandableButton30" type="ExpandableButton" parent="IrregularGridContainer"]
 base_minimum_size = Vector2(50, 50)
 expansion_size = 80
 layout_mode = 2
+size_flags_stretch_ratio = 0.0
 
 [node name="ExpandableButton31" type="ExpandableButton" parent="IrregularGridContainer"]
 base_minimum_size = Vector2(50, 50)
 expansion_size = 80
 layout_mode = 2
+size_flags_stretch_ratio = 0.0
 
 [node name="ExpandableButton32" type="ExpandableButton" parent="IrregularGridContainer"]
 base_minimum_size = Vector2(50, 50)
 expansion_size = 80
 layout_mode = 2
+size_flags_stretch_ratio = 0.0
 
 [node name="ExpandableButton33" type="ExpandableButton" parent="IrregularGridContainer"]
 base_minimum_size = Vector2(50, 50)
 expansion_size = 80
 layout_mode = 2
+size_flags_stretch_ratio = 0.0
 
 [node name="ExpandableButton34" type="ExpandableButton" parent="IrregularGridContainer"]
 base_minimum_size = Vector2(50, 50)
 expansion_size = 80
 layout_mode = 2
+size_flags_stretch_ratio = 0.0
 
 [node name="ExpandableButton35" type="ExpandableButton" parent="IrregularGridContainer"]
 base_minimum_size = Vector2(50, 50)
 expansion_size = 80
 layout_mode = 2
+size_flags_stretch_ratio = 0.0
 
 [node name="ExpandableButton36" type="ExpandableButton" parent="IrregularGridContainer"]
 base_minimum_size = Vector2(50, 50)
 expansion_size = 80
 layout_mode = 2
+size_flags_stretch_ratio = 0.0
 
 [node name="ExpandableButton37" type="ExpandableButton" parent="IrregularGridContainer"]
 base_minimum_size = Vector2(50, 50)
 expansion_size = 80
 layout_mode = 2
+size_flags_stretch_ratio = 0.0
 
 [node name="ExpandableButton38" type="ExpandableButton" parent="IrregularGridContainer"]
 base_minimum_size = Vector2(50, 50)
 expansion_size = 80
 layout_mode = 2
+size_flags_stretch_ratio = 0.0
 
 [node name="ExpandableButton39" type="ExpandableButton" parent="IrregularGridContainer"]
 base_minimum_size = Vector2(50, 50)
 expansion_size = 80
 layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.0
 
 [node name="ExpandableButton40" type="ExpandableButton" parent="IrregularGridContainer"]
 base_minimum_size = Vector2(50, 50)
