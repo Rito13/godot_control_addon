@@ -66,6 +66,7 @@ void AnimatedTabContainer::_notification(int p_what) {
 						child->set_position(Vector2(get_size().x-_x,0));
 						child->set_size(Vector2(child->get_minimum_size().x,get_size().y));
 					} break;
+					default: {}
 				}
 				Array a;
 				a.append(n-number_of_animated_bars);
@@ -189,6 +190,7 @@ Vector2 AnimatedTabContainer::_get_minimum_size() const {
 				_min.x += size.x;
 				if(size.y > _min.y) _min.y = size.y;
 			} break;
+			default: {}
 		}
 	}
 	return _min;

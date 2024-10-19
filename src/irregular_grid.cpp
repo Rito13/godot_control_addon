@@ -129,7 +129,8 @@ void IrregularGrid::rearrange(bool from_exp_button) {
 		used -= spacing;
 		if(full_stretch_ratio == 0)			// prevents free_for_one from being INF
 			full_stretch_ratio = 0.1;
-		if (j==n) {
+		if (j==n-1&&shrink_last_row) {
+			UtilityFunctions::print("shrink_last_row");
 			double tmp = (get_size().x-used)/full_stretch_ratio;
 			if(tmp < free_for_one)
 				free_for_one = tmp;
@@ -213,6 +214,7 @@ double IrregularGridContainer::get_spacing() {
 
 void IrregularGridContainer::set_shrink_last_row(bool p_value) {
 	shrink_last_row = p_value;
+	queue_sort();
 }
 
 bool IrregularGridContainer::is_last_row_shrinked() {

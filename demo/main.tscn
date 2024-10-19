@@ -225,7 +225,7 @@ visible = false
 position = Vector2(800, 150)
 
 [node name="GDExample" type="GDExample" parent="Node2D"]
-position = Vector2(19.0454, 10.6228)
+position = Vector2(2.10689, 17.7615)
 texture = ExtResource("1_6elc7")
 
 [node name="ExpandableButton 2" type="ExpandableButton" parent="."]
@@ -749,10 +749,11 @@ text = ".   Right   .
 
 [node name="IrregularGridContainer" type="IrregularGridContainer" parent="."]
 spacing = 5.0
+shrink_last_row = true
 offset_left = 352.0
 offset_top = 366.0
-offset_right = 1227.0
-offset_bottom = 641.0
+offset_right = 1237.0
+offset_bottom = 636.0
 
 [node name="Button" type="Button" parent="IrregularGridContainer"]
 layout_mode = 2
@@ -886,6 +887,18 @@ base_minimum_size = Vector2(50, 50)
 expansion_size = 80
 layout_mode = 2
 
+[node name="Button2" type="Button" parent="IrregularGridContainer"]
+custom_minimum_size = Vector2(350, 50)
+layout_mode = 2
+
+[node name="Button4" type="Button" parent="IrregularGridContainer"]
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 2
+
+[node name="Button3" type="Button" parent="IrregularGridContainer"]
+custom_minimum_size = Vector2(250, 50)
+layout_mode = 2
+
 [node name="ExpandableButton22" type="ExpandableButton" parent="IrregularGridContainer"]
 base_minimum_size = Vector2(50, 50)
 expansion_size = 80
@@ -994,18 +1007,6 @@ size_flags_stretch_ratio = 0.0
 [node name="ExpandableButton40" type="ExpandableButton" parent="IrregularGridContainer"]
 base_minimum_size = Vector2(50, 50)
 expansion_size = 80
-layout_mode = 2
-
-[node name="Button2" type="Button" parent="IrregularGridContainer"]
-custom_minimum_size = Vector2(350, 50)
-layout_mode = 2
-
-[node name="Button3" type="Button" parent="IrregularGridContainer"]
-custom_minimum_size = Vector2(250, 50)
-layout_mode = 2
-
-[node name="Button4" type="Button" parent="IrregularGridContainer"]
-custom_minimum_size = Vector2(200, 50)
 layout_mode = 2
 
 [node name="Container" type="Control" parent="."]
