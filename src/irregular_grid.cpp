@@ -10,6 +10,9 @@ void IrregularGridContainer::_bind_methods() {
 	ClassDB::bind_method(D_METHOD("set_spacing", "p_spacing"), &IrregularGridContainer::set_spacing);
 	ClassDB::bind_method(D_METHOD("get_spacing"), &IrregularGridContainer::get_spacing);
 	ClassDB::add_property("IrregularGridContainer", PropertyInfo(Variant::FLOAT, "spacing"), "set_spacing", "get_spacing");
+	ClassDB::bind_method(D_METHOD("set_shrink_last_row", "p_value"), &IrregularGridContainer::set_shrink_last_row);
+	ClassDB::bind_method(D_METHOD("is_last_row_shrinked"), &IrregularGridContainer::is_last_row_shrinked);
+	ClassDB::add_property("IrregularGridContainer", PropertyInfo(Variant::FLOAT, "shrink_last_row"), "set_shrink_last_row", "is_last_row_shrinked");
 }
 
 IrregularGrid::IrregularGrid() {
@@ -109,6 +112,7 @@ void IrregularGrid::rearrange(bool from_exp_button) {
 	int n = GRID.size();
 	int i = 0;
 	double _y = 0.0;
+	double free_for_one = 0.0;  // for one stretch ratio unit
 	for(int j=0;j<n;j++) {
 		double used = 0.0;
 		double height = 0.0;
@@ -125,7 +129,12 @@ void IrregularGrid::rearrange(bool from_exp_button) {
 		used -= spacing;
 		if(full_stretch_ratio == 0)			// prevents free_for_one from being INF
 			full_stretch_ratio = 0.1;
-		double free_for_one = (get_size().x-used)/full_stretch_ratio; // for one stretch ratio unit
+		if (j==n) {
+			double tmp = (get_size().x-used)/full_stretch_ratio;
+			if(tmp < free_for_one)
+				free_for_one = tmp;
+		} else
+			free_for_one = (get_size().x-used)/full_stretch_ratio;
 		used = 0.0;
 		for(int tmp=0;tmp<GRID[j].count;tmp++) {
 			if(i >= error_handler) continue;
@@ -200,6 +209,14 @@ void IrregularGridContainer::set_spacing(double p_spacing) {
 	
 double IrregularGridContainer::get_spacing() {
 	return spacing;
+}
+
+void IrregularGridContainer::set_shrink_last_row(bool p_value) {
+	shrink_last_row = p_value;
+}
+
+bool IrregularGridContainer::is_last_row_shrinked() {
+	return shrink_last_row;
 }
 
 Vector2 IrregularGridContainer::_get_minimum_size() const {

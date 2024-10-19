@@ -21,6 +21,7 @@ private:
 
 protected:
 	double spacing;
+	bool shrink_last_row;
 	double min_height;
 
 	void Add(godot::Control *child);
@@ -56,6 +57,9 @@ public:
 
 	void set_spacing(double p_spacing);
 	double get_spacing();
+
+	void set_shrink_last_row(bool p_value);
+	bool is_last_row_shrinked();
 };
 
 }
