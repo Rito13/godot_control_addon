@@ -12,7 +12,7 @@ void IrregularGridContainer::_bind_methods() {
 	ClassDB::add_property("IrregularGridContainer", PropertyInfo(Variant::FLOAT, "spacing"), "set_spacing", "get_spacing");
 	ClassDB::bind_method(D_METHOD("set_shrink_last_row", "p_value"), &IrregularGridContainer::set_shrink_last_row);
 	ClassDB::bind_method(D_METHOD("is_last_row_shrinked"), &IrregularGridContainer::is_last_row_shrinked);
-	ClassDB::add_property("IrregularGridContainer", PropertyInfo(Variant::FLOAT, "shrink_last_row"), "set_shrink_last_row", "is_last_row_shrinked");
+	ClassDB::add_property("IrregularGridContainer", PropertyInfo(Variant::BOOL, "shrink_last_row"), "set_shrink_last_row", "is_last_row_shrinked");
 }
 
 IrregularGrid::IrregularGrid() {
