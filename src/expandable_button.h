@@ -71,6 +71,8 @@ public:
 	int get_minimum_expansion_size();
 	void set_minimum_expansion_size(int p_size=-100);
 
+	bool get_expansion_status();
+
 	// void set_theme_childs_type_variation(const StringName &p_theme_type);
 	StringName get_theme_childs_type_variation() const;
 };

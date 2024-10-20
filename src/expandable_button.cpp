@@ -266,7 +266,7 @@ void ExpandableButton::_notification(int p_what) {
 
 			focus_vector = Vector2(size);
 
-			int p_expansion_size_full = expansion_size_full;
+			double p_expansion_size_full = expansion_size_full;
 
 			if(expansion_size_full < minimum_expansion_size) {
 				p_expansion_size_full = minimum_expansion_size;
@@ -286,6 +286,7 @@ void ExpandableButton::_notification(int p_what) {
 					expansion_vector = Vector2(tmp,size.y);
 					expansion_point = Vector2(size.x-tmp, 0);
 					base_vector = Vector2(size.x-added_size,size.y);
+					if(added_size < 0) base_vector.x = size.x;
 				}
 			}
 
@@ -546,7 +547,7 @@ void ExpandableButton::process(double delta) {
 			added_size += delta_speed;
 			width += delta_speed;
         }
-        if(!is_expanded && added_size > 0){
+        if(!is_expanded && added_size >= 0){
 			notify_about_minimum_size();
 			added_size -= delta_speed;
 			width -= delta_speed;
@@ -561,12 +562,10 @@ Vector2 ExpandableButton::_get_minimum_size() const {
     Ref<Texture2D> texture = get_icon();
 	Ref<StyleBox> style = theme_cache.normal;
 	Vector2 style_min = style->get_minimum_size();
-	//Check if texture exist
 	Vector2 icon_size = Vector2(0,0);
+	//Check if texture exist
 	if(texture.is_valid())
 		icon_size = texture->get_size();
-	if(!texture.is_valid())
-        texture = memnew(Ref<Texture2D>);
     Vector2 _min = base_minimum_size;//get_minimum_size_for_text_and_icon("", texture);
 	if(expansion_info && !shrink_icon) {
 		icon_size += 2*style_min;
@@ -580,7 +579,7 @@ Vector2 ExpandableButton::_get_minimum_size() const {
 			_min.y = icon_size.y;
 	}
 	if(!Engine::get_singleton()->is_editor_hint())
-    	_min.x += added_size;
+    	_min.x = MAX(_min.x,_min.x+added_size);
 		//UtilityFunctions::print(added_size);
 	return _min;
 }
@@ -658,6 +657,10 @@ void ExpandableButton::set_expansion_speed(double p_speed) {
 
 double ExpandableButton::get_expansion_speed() {
     return speed;
+}
+
+bool ExpandableButton::get_expansion_status() {
+	return is_expanded;
 }
 
 /* void ExpandableButton::set_theme_childs_type_variation(const StringName &p_theme_type) {

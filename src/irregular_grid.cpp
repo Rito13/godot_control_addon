@@ -113,8 +113,10 @@ void IrregularGrid::rearrange(bool from_exp_button) {
 	int i = 0;
 	double _y = 0.0;
 	double free_for_one = 0.0;  // for one stretch ratio unit
+	double previous_free_for_one = 0.0;  // for previous row
 	for(int j=0;j<n;j++) {
 		double used = 0.0;
+		double used2 = 0.0;
 		double height = 0.0;
 		double full_stretch_ratio = 0.0;  // sum of stretch_ratio from all children
 		for(int ii=0;ii<GRID[j].count;ii++) {
@@ -125,17 +127,21 @@ void IrregularGrid::rearrange(bool from_exp_button) {
 			used += ms.x + spacing;
 			full_stretch_ratio += child->get_stretch_ratio();
 			if(height < ms.y) height = ms.y;
+			ExpandableButton *exp_b = Object::cast_to<ExpandableButton>(child);
+			if(exp_b != nullptr) 
+				used2 += MAX(exp_b->get_custom_minimum_size().x,exp_b->get_base_minimum_size().x) + spacing;
+			else
+				used2 += ms.x + spacing;
 		}
 		used -= spacing;
+		used2 -= spacing;
 		if(full_stretch_ratio == 0)			// prevents free_for_one from being INF
 			full_stretch_ratio = 0.1;
+		free_for_one = (get_size().x-used)/full_stretch_ratio;
 		if (j==n-1&&shrink_last_row) {
-			//UtilityFunctions::print("shrink_last_row");
-			double tmp = (get_size().x-used)/full_stretch_ratio;
-			if(tmp < free_for_one)
-				free_for_one = tmp;
-		} else
-			free_for_one = (get_size().x-used)/full_stretch_ratio;
+			if(free_for_one > previous_free_for_one)
+				free_for_one = previous_free_for_one;
+		}
 		used = 0.0;
 		for(int tmp=0;tmp<GRID[j].count;tmp++) {
 			if(i >= error_handler) continue;
@@ -152,6 +158,8 @@ void IrregularGrid::rearrange(bool from_exp_button) {
 			if(exp_b != nullptr) exp_b->queue_redraw();
 		}
 		_y += height + spacing;
+		previous_free_for_one = (get_size().x-used2)/full_stretch_ratio;
+		//if(exbtadd_size != 0.0) UtilityFunctions::print("free_for_one: ",free_for_one,"  previous_free_for_one: ",previous_free_for_one);
 	}
 	min_height = _y - spacing;
 }
