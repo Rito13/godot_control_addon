@@ -1,0 +1,49 @@
+[gd_scene load_steps=2 format=3 uid="uid://enxjklrstl6o"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mk8y7"]
+bg_color = Color(0.372549, 0.372549, 0.372549, 1)
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_mk8y7")
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 50
+theme_override_constants/margin_right = 50
+theme_override_constants/margin_bottom = 50
+
+[node name="HBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="RevisedButton" type="RevisedButton" parent="PanelContainer/MarginContainer/HBoxContainer"]
+text = "Normal"
+custom_minimum_size = Vector2(300, 40)
+layout_mode = 2
+theme_type_variation = &"RevisedButton2"
+
+[node name="RevisedButton2" type="RevisedButton" parent="PanelContainer/MarginContainer/HBoxContainer"]
+text = "Disabled"
+custom_minimum_size = Vector2(200, 40)
+layout_mode = 2
+theme_type_variation = &"RevisedButton2"
+disabled = true
+
+[node name="RevisedButton3" type="RevisedButton" parent="PanelContainer/MarginContainer/HBoxContainer"]
+text = "Pressed"
+custom_minimum_size = Vector2(200, 40)
+layout_mode = 2
+theme_type_variation = &"RevisedButton2"
+toggle_mode = true
+button_pressed = true

@@ -21,14 +21,14 @@ sources = Glob("src/*.cpp")
 
 if env["platform"] == "macos":
     library = env.SharedLibrary(
-        "demo/addons/Control++/lib/{}/libControl++.framework/libgdexample.{}.{}".format(
+        "addons/Control++/lib/{}/libControl++.framework/libgdexample.{}.{}".format(
             "MacOS", env["platform"], env["target"]
         ),
         source=sources,
     )
 else:
     library = env.SharedLibrary(
-        "demo/addons/Control++/lib/{}-{}/libControl++{}".format(env["platform"].title(),env["arch"], env["SHLIBSUFFIX"]),
+        "addons/Control++/lib/{}-{}/libControl++{}".format(env["platform"].title(),env["arch"], env["SHLIBSUFFIX"]),
         source=sources,
     )
 
@@ -36,14 +36,14 @@ Default(library)
 
 if env["platform"] == "macos":
     library = env.SharedLibrary(
-        "demo/addons/Control++/lib/{}/libControl++-d.framework/libgdexample.{}.{}".format(
+        "addons/Control++/lib/{}/libControl++-d.framework/libgdexample.{}.{}".format(
             "MacOS", env["platform"], env["target"]
         ),
         source=sources,
     )
 else:
     library = env.SharedLibrary(
-        "demo/addons/Control++/lib/{}-{}/libControl++-d{}".format(env["platform"].title(),env["arch"], env["SHLIBSUFFIX"]),
+        "addons/Control++/lib/{}-{}/libControl++-d{}".format(env["platform"].title(),env["arch"], env["SHLIBSUFFIX"]),
         source=sources,
     )
 

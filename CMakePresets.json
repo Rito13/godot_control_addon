@@ -38,7 +38,7 @@
                 "CMAKE_C_COMPILER": "cl.exe",
                 "CMAKE_CXX_COMPILER": "cl.exe",
                 "CMAKE_BUILD_TYPE": "Debug",
-                "CMAKE_INSTALL_PREFIX": "${sourceDir}/demo/addons"
+                "CMAKE_INSTALL_PREFIX": "${sourceDir}/addons"
             }
         },
         {
@@ -47,7 +47,7 @@
             "inherits": "windows-debug",
             "cacheVariables": {
                 "CMAKE_BUILD_TYPE": "Release",
-                "CMAKE_INSTALL_PREFIX": "${sourceDir}/demo/addons"
+                "CMAKE_INSTALL_PREFIX": "${sourceDir}/addons"
             }
         },
         {
@@ -64,7 +64,7 @@
                 "CMAKE_CXX_COMPILER": "g++",
                 "CMAKE_C_COMPILER": "gcc",
                 "CMAKE_BUILD_TYPE": "Debug",
-                "CMAKE_INSTALL_PREFIX": "${sourceDir}/demo/addons"
+                "CMAKE_INSTALL_PREFIX": "${sourceDir}/addons"
             }
         },
         {
@@ -75,7 +75,7 @@
             "cacheVariables": {
                 "CMAKE_BUILD_TYPE": "Release",
                 
-                "CMAKE_INSTALL_PREFIX": "${sourceDir}/demo/addons"
+                "CMAKE_INSTALL_PREFIX": "${sourceDir}/addons"
             }
         },
         {
@@ -92,7 +92,7 @@
                 "CMAKE_CXX_COMPILER": "clang++",
                 "CMAKE_C_COMPILER": "clang",
                 "CMAKE_BUILD_TYPE": "Debug",
-                "CMAKE_INSTALL_PREFIX": "${sourceDir}/demo/addons"
+                "CMAKE_INSTALL_PREFIX": "${sourceDir}/addons"
             }
         },
         {
@@ -101,7 +101,7 @@
             "inherits": "macOS-debug",
             "cacheVariables": {
                 "CMAKE_BUILD_TYPE": "Release",
-                "CMAKE_INSTALL_PREFIX": "${sourceDir}/demo/addons"
+                "CMAKE_INSTALL_PREFIX": "${sourceDir}/addons"
             }
         },
         {

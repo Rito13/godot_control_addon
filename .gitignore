@@ -1,0 +1,13 @@
+# Godot 4+ specific ignores
+.godot/
+
+# Versions of Godot
+extern/godot-cpp-4.1.3
+extern/godot-cpp-4.2.0
+extern/godot-cpp-godot-4.2.1-stable
+extern/godot-cpp-godot-4.2.2-stable
+
+# Others
+.git/
+Control++.layout
+.sconsign.dblite

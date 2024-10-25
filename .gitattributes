@@ -1,0 +1,51 @@
+# Sources
+*.c     export-ignore
+*.cc    export-ignore
+*.cxx   export-ignore
+*.cpp   export-ignore
+*.cpi   export-ignore
+*.c++   export-ignore
+*.hpp   export-ignore
+*.h     export-ignore
+*.h++   export-ignore
+*.hh    export-ignore
+
+# Compiled Object files
+*.slo   binary
+*.lo    binary
+*.o     binary
+*.obj   binary
+
+# Precompiled Headers
+*.gch   binary
+*.pch   binary
+
+# Compiled Dynamic libraries
+*.so    binary
+*.dylib binary
+*.dll   binary
+
+# Compiled Static libraries
+*.lai   binary
+*.la    binary
+*.a     binary
+*.lib   binary
+
+# Executables
+*.exe   binary
+*.out   binary
+*.app   binary
+
+# Normalize EOL for all files that Git considers text files.
+* text=auto eol=lf
+
+# Project Files
+.gitignore	export-ignore
+*.cbp		export-ignore
+
+# Make Files
+CMakeLists.txt		export-ignore
+SConstruct		export-ignore
+CMakePresets.json	export-ignore
+templates/**		export-ignore
+support_files/**	export-ignore
