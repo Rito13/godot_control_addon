@@ -12,13 +12,13 @@ var inspector_plugin
 func _enter_tree():
 	D = Documentation.new()
 	print_rich("[color=YELLOW_GREEN]● Control++:  Loading...\n	  «»-«»-«»")
-	print_rich("[color=VIOLET]● Control++:  The documentation for GDExtension is not suported![/color]")
+	#print_rich("[color=VIOLET]● Control++:  The documentation for GDExtension is not suported![/color]")
 	inspector_plugin = preload("res://addons/Control++/inspector_plugin.gd").new()
 	add_inspector_plugin(inspector_plugin)
 	Edited_Node = ExpandableButton.new()
 	my_theme = Loader.load("res://addons/Control++/_ExpandableButton_hidden.theme","Theme")
 	var project_theme_path = project.get_setting("gui/theme/custom")
-	print_rich("	  «»-«»-«»\n● Control++:  Loaded![color=SNOW]")
+	print_rich("[color=YELLOW_GREEN]	  «»-«»-«»\n● Control++:  Loaded![color=SNOW]")
 
 func _process(delta):
 	if D.pass_time(delta,2):
