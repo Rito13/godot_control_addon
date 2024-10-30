@@ -2,6 +2,6 @@ extends HAnimatedBar
 
 
 
-func _process(delta):
+func _process(_delta):
 	#print("_proces")
 	set_process(false)

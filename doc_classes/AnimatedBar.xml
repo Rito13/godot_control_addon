@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<class name="AnimatedBar" inherits="Container" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
+	<brief_description>
+		Class for creating tool bar.
+	</brief_description>
+	<description>
+		Emits custom siglalls when one of button children is pressed.
+		See also [HAnimatedBar] and [VAnimatedBar].
+	</description>
+	<tutorials>
+	</tutorials>
+	<methods>
+		<method name="are_navigation_buttons_visible">
+			<return type="bool" />
+			<description>
+				Returns [code]true[/code] if left and right navigation buttons(by default, those with arrows) are visible.
+			</description>
+		</method>
+		<method name="deactivate_focus">
+			<return type="void" />
+			<description>
+				Does same thing as pressing already chosen butoon(eg. choosing already choosen tool).
+			</description>
+		</method>
+		<method name="get_options_quantity" qualifiers="const">
+			<return type="int" />
+			<description>
+				Return number of [Control] children.
+			</description>
+		</method>
+		<method name="get_orientation" qualifiers="const">
+			<return type="int" enum="AnimatedBar.ORIENTATION" />
+			<description>
+				Returns orientation of this class.
+				[b]Note:[/b] It is C++ virtual const method and subclasses like [HAnimatedBar] may overwrite it.
+			</description>
+		</method>
+	</methods>
+	<members>
+		<member name="fill_remaining_space" type="bool" setter="set_fill_remaining_space" getter="is_remaining_space_filled" default="true">
+			If [code]true[/code] [Control] children are stretched to fill remaining space.
+		</member>
+		<member name="navigation_buttons_custom_left" type="NodePath" setter="set_custom_left_navigation_button" getter="get_custom_left_navigation_button" default="NodePath(&quot;&quot;)">
+			If is not set to null pointer and [member navigation_buttons_use_custom] is set to [code]true[/code] then child found by this path replaces default left navigation button.
+		</member>
+		<member name="navigation_buttons_custom_right" type="NodePath" setter="set_custom_right_navigation_button" getter="get_custom_right_navigation_button" default="NodePath(&quot;&quot;)">
+			If is not set to null pointer and [member navigation_buttons_use_custom] is set to [code]true[/code] then child found by this path replaces default right navigation button.
+		</member>
+		<member name="navigation_buttons_spacing" type="float" setter="set_navigation_buttons_spacing" getter="get_navigation_buttons_spacing" default="5.0">
+			Defines space between navigation buttons and other content.
+		</member>
+		<member name="navigation_buttons_use_custom" type="bool" setter="use_custom_navigation_buttons" getter="are_custom_navigation_buttons_used" default="false">
+			Defines if to use custom navigation buttons.
+		</member>
+		<member name="navigation_buttons_visibility" type="int" setter="set_navigation_buttons_visibility" getter="get_navigation_buttons_visibility" default="3">
+			If set to 0 then navigation buttons are always hidden.[br]If set to 1 then navigation buttons are always visible.[br]If set to other number then navigation buttons whill automatically hide and show up.
+		</member>
+		<member name="spacing" type="float" setter="set_spacing" getter="get_spacing" default="10.0">
+			Defines space between individual [Control] Children.
+		</member>
+		<member name="speed" type="float" setter="set_speed" getter="get_speed" default="4.0">
+			Defines sliding speed of content after pressing one of navigation buttons.
+		</member>
+	</members>
+	<signals>
+		<signal name="focus_activated">
+			<param index="0" name="focused_child_id" type="int" />
+			<description>
+				Emitted when option changes from nothing to something.
+			</description>
+		</signal>
+		<signal name="focus_changed">
+			<param index="0" name="focused_child_id" type="int" />
+			<description>
+				Emitted when one option changes to another.
+			</description>
+		</signal>
+		<signal name="focus_deactivated">
+			<description>
+				Emitted when option changes from something to nothing.
+			</description>
+		</signal>
+		<signal name="options_quantity_changed">
+			<param index="0" name="new_quantity" type="int" />
+			<description>
+				Emitted when quantity of options changes.
+			</description>
+		</signal>
+	</signals>
+	<constants>
+		<constant name="ORIENTATION_HORIZONTAL" value="1" enum="ORIENTATION">
+			Value of [HAnimatedBar].
+		</constant>
+		<constant name="ORIENTATION_VERTICAL" value="2" enum="ORIENTATION">
+			Value of [VAnimatedBar].
+		</constant>
+		<constant name="ORIENTATION_UNDEFINED" value="0" enum="ORIENTATION">
+			Default value.
+		</constant>
+	</constants>
+</class>

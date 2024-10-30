@@ -5,10 +5,10 @@
 [ext_resource type="Theme" uid="uid://d3q45j3egfypp" path="res://gd_themes/theme1.theme" id="3_hl42y"]
 [ext_resource type="Script" path="res://gd_scripts/valign.gd" id="4_hhe6y"]
 [ext_resource type="Texture2D" uid="uid://dqetepllyyuhe" path="res://addons/Control++/icons/Documentation.svg" id="5_7ynqh"]
-[ext_resource type="Theme" path="res://gd_themes/Revised_Button_2.tres" id="5_fhkk6"]
+[ext_resource type="Theme" uid="uid://seoemacove21" path="res://gd_themes/Revised_Button_2.tres" id="5_fhkk6"]
 [ext_resource type="Texture2D" uid="uid://m3byvpefpfqp" path="res://images/double_icon.svg" id="6_4u114"]
 [ext_resource type="Texture2D" uid="uid://up630w0mum4m" path="res://addons/Control++/icons/Add.svg" id="6_33f2h"]
-[ext_resource type="Theme" path="res://gd_themes/GreenTheme.tres" id="7_6b0mr"]
+[ext_resource type="Theme" uid="uid://cs1ky4lh4da0" path="res://gd_themes/GreenTheme.tres" id="7_6b0mr"]
 [ext_resource type="Script" path="res://gd_scripts/AnimatedBar.gd" id="10_svuf2"]
 
 [sub_resource type="Image" id="Image_kpa2x"]
@@ -1851,7 +1851,7 @@ visible = false
 position = Vector2(800, 150)
 
 [node name="GDExample" type="GDExample" parent="Node2D"]
-position = Vector2(4.42453, 19.0322)
+position = Vector2(0.178578, 1.39553)
 texture = ExtResource("1_6elc7")
 
 [node name="ExpandableButton 2" type="ExpandableButton" parent="."]
@@ -2058,7 +2058,6 @@ alignment_order = 1
 horizontal_text_alignment = 0
 vertical_text_alignment = 1
 vertical_icon_alignment = 2
-visible = false
 offset_left = 514.0
 offset_top = 324.0
 offset_right = 904.0
@@ -2097,6 +2096,7 @@ offset_bottom = 439.0
 
 [node name="ExpandableButton2" type="ExpandableButton" parent="RevisedButton2"]
 expansion_size = 356
+expansion_minimum_size = 356
 expansion_indentation = 100
 text = "W గedną drogą szli razem i człowiek, i zdrowie.Na początku biegł człowiek; towarzysz mu powie:Zdrowie, Choroba,Młodość, Starość,«Nie spiesz się, bo ustaniesz».[color=#d4556677] Biegł గeszcze tym barǳieగ. UmiarkowanieWiǳąc zdrowie, że గego towarzystwem garǳi,Szło za nim, ale z wolna. Przyszli na pół drogi:[/color]Aż człowiek, że z początku nadwerężył nogi,Zelżył²⁰ kroku na środku. Za గego rozkazemPrzybliżyło się zdrowie i odtąd szli razem.Coraz człowiek ustawał, maగąc w pogotowiuZbliżył się: «Iść nie mogę, prowadź mnie» — rzekł zdrowiu.«Było mnie zrazu słuchać» — natenczas mu rzekło;Chciał człowiek odpowieǳieć… lecz zdrowie uciekło.
 "
@@ -2405,6 +2405,7 @@ text = ".   Right   .
 [node name="IrregularGridContainer" type="IrregularGridContainer" parent="."]
 spacing = 5.0
 shrink_last_row = true
+visible = false
 offset_left = 352.0
 offset_top = 366.0
 offset_right = 1237.0

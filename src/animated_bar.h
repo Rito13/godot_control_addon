@@ -72,11 +72,11 @@ public:
 	virtual ORIENTATION get_orientation() const;
 	void deactivate_focus();
 
-	void on_button_pressed(int id,BaseButton *status);
-	//void on_right_pressed();
-	//void on_left_pressed();
+	void _on_button_pressed(int id,BaseButton *status);
+	//void _on_right_pressed();
+	//void _on_left_pressed();
 
-	//void clip_child(Control* child);
+	//void _clip_child(Control* child);
 
 	double get_spacing();
 	void set_spacing(double p_spacing);
@@ -127,10 +127,10 @@ public:
 	virtual Vector2 get_left_size() const;
 	virtual ORIENTATION get_orientation() const;
 
-	void on_right_pressed();
-	void on_left_pressed();
+	void _on_right_pressed();
+	void _on_left_pressed();
 
-	void clip_child(Control* child);
+	void _clip_child(Control* child);
 
 	virtual Vector2 _get_minimum_size() const override;
 };
@@ -152,10 +152,10 @@ public:
 	virtual Vector2 get_left_size() const;
 	virtual ORIENTATION get_orientation() const;
 
-	void on_right_pressed();
-	void on_left_pressed();
+	void _on_right_pressed();
+	void _on_left_pressed();
 
-	void clip_child(Control* child);
+	void _clip_child(Control* child);
 
 	virtual Vector2 _get_minimum_size() const override;
 };

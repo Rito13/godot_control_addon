@@ -14,7 +14,7 @@ func _ready():
 	pass
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _process(_delta):
 	$Label.text = String.num($"MarginContainer/ExpandableButton 4".get_combined_minimum_size().x,4)
 	if p1:
 		p1 = false

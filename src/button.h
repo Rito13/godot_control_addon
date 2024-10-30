@@ -26,6 +26,7 @@ private:
 	//Internal children
 	AutoScroll *scroll;
 	Timer *idle_time_timer;
+	void start_timer();
 	//Aligment functions and variables
 	String _h_bbcode = "[center]";
 	String _v_bbcode = "";
@@ -118,7 +119,13 @@ public:
 	RevisedButton();
 	~RevisedButton();
 
-	void on_timer_out();
+	enum ALIGNMENT_ORDER {
+		VARIANT_TYPE = Variant::INT,
+		ALIGNMENT_ORDER_HORIZONTAL_FIRST = 0,
+		ALIGNMENT_ORDER_VERTICAL_FIRST = 1,
+	};
+
+	void _on_timer_out();
 	void _notification(int p_what);
 	virtual Vector2 _get_minimum_size() const override;
 
@@ -164,10 +171,12 @@ public:
     void set_icon_alignment(const HorizontalAlignment p_alignment);
     void set_vertical_icon_alignment(const VerticalAlignment p_alignment);
 	//Order
-	void set_force_vertical_alignment_before_horizontal(const int p_order);
-	int get_force_vertical_alignment_before_horizontal() const;
+	void set_force_vertical_alignment_before_horizontal(const ALIGNMENT_ORDER p_order);
+	ALIGNMENT_ORDER get_force_vertical_alignment_before_horizontal() const;
 };
 
 }
+
+VARIANT_ENUM_CAST(RevisedButton::ALIGNMENT_ORDER)
 
 #endif

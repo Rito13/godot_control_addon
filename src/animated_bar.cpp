@@ -8,7 +8,7 @@ using namespace godot;
 
 void AnimatedBar::_bind_methods() {
 	// Signals Conections Functions
-	ClassDB::bind_method(D_METHOD("on_button_pressed","p_id","p_status"), &AnimatedBar::on_button_pressed);
+	ClassDB::bind_method(D_METHOD("_on_button_pressed","p_id","p_status"), &AnimatedBar::_on_button_pressed);
 	// Emited Signals
 	ADD_SIGNAL(MethodInfo("focus_changed", PropertyInfo(Variant::INT, "focused_child_id")));
 	ADD_SIGNAL(MethodInfo("focus_activated", PropertyInfo(Variant::INT, "focused_child_id")));
@@ -56,6 +56,7 @@ void AnimatedBar::_bind_methods() {
 	// Other Functions
 	ClassDB::bind_method(D_METHOD("get_options_quantity"), &AnimatedBar::get_options_quantity);
 	ClassDB::bind_method(D_METHOD("deactivate_focus"), &AnimatedBar::deactivate_focus);
+	ClassDB::bind_method(D_METHOD("get_orientation"), &AnimatedBar::get_orientation);
 	//ClassDB::bind_method(D_METHOD("_ready"), &AnimatedBar::_ready);
 	//ClassDB::bind_method(D_METHOD("_process","delta"), &AnimatedBar::_process);
 	// Enum
@@ -66,9 +67,9 @@ void AnimatedBar::_bind_methods() {
 
 void HAnimatedBar::_bind_methods() {
 	// Signals Conections Functions
-	ClassDB::bind_method(D_METHOD("on_right_pressed"), &HAnimatedBar::on_right_pressed);
-	ClassDB::bind_method(D_METHOD("on_left_pressed"), &HAnimatedBar::on_left_pressed);
-	ClassDB::bind_method(D_METHOD("clip_child","p_child"), &HAnimatedBar::clip_child);
+	ClassDB::bind_method(D_METHOD("_on_right_pressed"), &HAnimatedBar::_on_right_pressed);
+	ClassDB::bind_method(D_METHOD("_on_left_pressed"), &HAnimatedBar::_on_left_pressed);
+	ClassDB::bind_method(D_METHOD("_clip_child","p_child"), &HAnimatedBar::_clip_child);
 	// Other Functions
 	ClassDB::bind_method(D_METHOD("get_navigation_buttons_size"), &HAnimatedBar::get_lr_size);
 	ClassDB::bind_method(D_METHOD("get_left_navigation_button_size"), &HAnimatedBar::get_left_size);
@@ -77,9 +78,9 @@ void HAnimatedBar::_bind_methods() {
 
 void VAnimatedBar::_bind_methods() {
 	// Signals Conections Functions
-	ClassDB::bind_method(D_METHOD("on_right_pressed"), &VAnimatedBar::on_right_pressed);
-	ClassDB::bind_method(D_METHOD("on_left_pressed"), &VAnimatedBar::on_left_pressed);
-	ClassDB::bind_method(D_METHOD("clip_child","p_child"), &VAnimatedBar::clip_child);
+	ClassDB::bind_method(D_METHOD("_on_right_pressed"), &VAnimatedBar::_on_right_pressed);
+	ClassDB::bind_method(D_METHOD("_on_left_pressed"), &VAnimatedBar::_on_left_pressed);
+	ClassDB::bind_method(D_METHOD("_clip_child","p_child"), &VAnimatedBar::_clip_child);
 	// Other Functions
 	ClassDB::bind_method(D_METHOD("get_navigation_buttons_size"), &VAnimatedBar::get_lr_size);
 	ClassDB::bind_method(D_METHOD("get_left_navigation_button_size"), &VAnimatedBar::get_left_size);
@@ -101,8 +102,8 @@ AnimatedBar::AnimatedBar() {
 	l->set_text(_labels.left);
 	Button *r = Object::cast_to<Button>(right);
 	r->set_text(_labels.right);
-	right->connect("pressed",Callable(this, "on_right_pressed"));
-	left->connect("pressed",Callable(this, "on_left_pressed"));
+	right->connect("pressed",Callable(this, "_on_right_pressed"));
+	left->connect("pressed",Callable(this, "_on_left_pressed"));
 	left->set_as_top_level(true);
 	//right->set_as_top_level(true);
 }
@@ -126,7 +127,7 @@ void AnimatedBar::ready() {
 	first_child = Object::cast_to<Control>(get_child(1));
 }
 
-void HAnimatedBar::clip_child(Control* child) {
+void HAnimatedBar::_clip_child(Control* child) {
 	RID _rid = child->get_canvas_item();
 	Vector2 _pos = get_left_size();
 	_pos.y = 0;
@@ -137,7 +138,7 @@ void HAnimatedBar::clip_child(Control* child) {
 	RenderingServer::get_singleton()->canvas_item_set_clip(_rid,true);
 }
 
-void VAnimatedBar::clip_child(Control* child) {
+void VAnimatedBar::_clip_child(Control* child) {
 	RID _rid = child->get_canvas_item();
 	Vector2 _pos = get_left_size();
 	_pos.x = 0;
@@ -186,11 +187,11 @@ void HAnimatedBar::_notification(int p_what) {
 				x += ms.x + spacing;
 				if(x-spacing>expand_value-subtracted_value) need_expand = false;
 				if(height<ms.y) height = ms.y;
-				clip_child(children[i]);
-				if(children[i]->is_connected("draw",Callable(this, "clip_child"))) continue;
+				_clip_child(children[i]);
+				if(children[i]->is_connected("draw",Callable(this, "_clip_child"))) continue;
 				Array a;
 				a.append(children[i]);
-				children[i]->connect("draw",Callable(this, "clip_child").bindv(a));
+				children[i]->connect("draw",Callable(this, "_clip_child").bindv(a));
 			}
 			ms = right->get_combined_minimum_size();
 			right->set_position(Vector2(get_size().x-ms.x,y));
@@ -202,12 +203,12 @@ void HAnimatedBar::_notification(int p_what) {
 				if(button_children[i] == nullptr) continue;
 				if(i!=0 && i!=n-1 && !Engine::get_singleton()->is_editor_hint()) {
 					button_children[i]->set_toggle_mode(true);
-					if(button_children[i]->is_connected("pressed",Callable(this, "on_button_pressed")))
-						button_children[i]->disconnect("pressed",Callable(this, "on_button_pressed"));
+					if(button_children[i]->is_connected("pressed",Callable(this, "_on_button_pressed")))
+						button_children[i]->disconnect("pressed",Callable(this, "_on_button_pressed"));
 					Array a;
 					a.append(i);
 					a.append(button_children[i]);
-					button_children[i]->connect("pressed",Callable(this, "on_button_pressed").bindv(a));
+					button_children[i]->connect("pressed",Callable(this, "_on_button_pressed").bindv(a));
 					//UtilityFunctions::print(err1);
 				}
 			}
@@ -292,11 +293,11 @@ void VAnimatedBar::_notification(int p_what) {
 				y += ms.y + spacing;
 				if(y-spacing>expand_value-subtracted_value) need_expand = false;
 				if(width<ms.x) width = ms.x;
-				clip_child(children[i]);
-				if(children[i]->is_connected("draw",Callable(this, "clip_child"))) continue;
+				_clip_child(children[i]);
+				if(children[i]->is_connected("draw",Callable(this, "_clip_child"))) continue;
 				Array a;
 				a.append(children[i]);
-				children[i]->connect("draw",Callable(this, "clip_child").bindv(a));
+				children[i]->connect("draw",Callable(this, "_clip_child").bindv(a));
 			}
 			ms = right->get_combined_minimum_size();
 			right->set_position(Vector2(x,get_size().y-ms.y));
@@ -308,12 +309,12 @@ void VAnimatedBar::_notification(int p_what) {
 				if(button_children[i] == nullptr) continue;
 				if(i!=0 && i!=n-1 && !Engine::get_singleton()->is_editor_hint()) {
 					button_children[i]->set_toggle_mode(true);
-					if(button_children[i]->is_connected("pressed",Callable(this, "on_button_pressed")))
-						button_children[i]->disconnect("pressed",Callable(this, "on_button_pressed"));
+					if(button_children[i]->is_connected("pressed",Callable(this, "_on_button_pressed")))
+						button_children[i]->disconnect("pressed",Callable(this, "_on_button_pressed"));
 					Array a;
 					a.append(i);
 					a.append(button_children[i]);
-					button_children[i]->connect("pressed",Callable(this, "on_button_pressed").bindv(a));
+					button_children[i]->connect("pressed",Callable(this, "_on_button_pressed").bindv(a));
 					//UtilityFunctions::print(err1);
 				}
 			}
@@ -439,7 +440,7 @@ void AnimatedBar::deactivate_focus() {
 	}
 }
 
-void AnimatedBar::on_button_pressed(int id,BaseButton *button) {
+void AnimatedBar::_on_button_pressed(int id,BaseButton *button) {
 	if(button->is_pressed()) {
 		if(focus) call_deferred("emit_signal","focus_changed",id);
 		else call_deferred("emit_signal","focus_activated",id);
@@ -457,13 +458,13 @@ void AnimatedBar::on_button_pressed(int id,BaseButton *button) {
 	//UtilityFunctions::print(button->get_name(),"   ",id);
 }
 
-void HAnimatedBar::on_left_pressed() {
+void HAnimatedBar::_on_left_pressed() {
 	if(is_process) return; 
 	if(get_child(first_child_id) != first_child) {
 		first_child_id = 1;
 		first_child = Object::cast_to<Control>(get_child(1));
 		queue_sort();
-		if(get_child_count() > 2) call_deferred("on_left_pressed");
+		if(get_child_count() > 2) call_deferred("_on_left_pressed");
 		return;
 	}
 	if(first_child_id <= 1 || first_child == nullptr) return;
@@ -494,13 +495,13 @@ void HAnimatedBar::on_left_pressed() {
 	queue_sort();
 }
 
-void HAnimatedBar::on_right_pressed() {
+void HAnimatedBar::_on_right_pressed() {
 	if(is_process) return;
 	if(get_child(first_child_id) != first_child) {
 		first_child_id = 1;
 		first_child = Object::cast_to<Control>(get_child(1));
 		queue_sort();
-		if(get_child_count() > 2) call_deferred("on_right_pressed");
+		if(get_child_count() > 2) call_deferred("_on_right_pressed");
 		return;
 	}
 	int n = get_child_count();
@@ -568,13 +569,13 @@ void HAnimatedBar::on_right_pressed() {
 	queue_sort();
 }
 
-void VAnimatedBar::on_left_pressed() {
+void VAnimatedBar::_on_left_pressed() {
 	if(is_process) return;
 	if(get_child(first_child_id) != first_child) {
 		first_child_id = 1;
 		first_child = Object::cast_to<Control>(get_child(1));
 		queue_sort();
-		if(get_child_count() > 2) call_deferred("on_left_pressed");
+		if(get_child_count() > 2) call_deferred("_on_left_pressed");
 		return;
 	}
 	if(first_child_id <= 1 || first_child == nullptr) return;
@@ -605,13 +606,13 @@ void VAnimatedBar::on_left_pressed() {
 	queue_sort();
 }
 
-void VAnimatedBar::on_right_pressed() {
+void VAnimatedBar::_on_right_pressed() {
 	if(is_process) return;
 	if(get_child(first_child_id) != first_child) {
 		first_child_id = 1;
 		first_child = Object::cast_to<Control>(get_child(1));
 		queue_sort();
-		if(get_child_count() > 2) call_deferred("on_right_pressed");
+		if(get_child_count() > 2) call_deferred("_on_right_pressed");
 		return;
 	}
 	int n = get_child_count();
@@ -756,8 +757,10 @@ void AnimatedBar::set_custom_lr(bool is_enabled) {
 	if(!custom_lr) {
 		left->set_as_top_level(false);
 		//right->set_as_top_level(false);
-		left->disconnect("pressed",Callable(this, "on_left_pressed"));
-		right->disconnect("pressed",Callable(this, "on_right_pressed"));
+		if(left->is_connected("pressed",Callable(this, "_on_left_pressed")))
+			left->disconnect("pressed",Callable(this, "_on_left_pressed"));
+		if(right->is_connected("pressed",Callable(this, "_on_right_pressed")))
+			right->disconnect("pressed",Callable(this, "_on_right_pressed"));
 		if(left->get_name() == StringName("__DefaultLeft__")) {
 			remove_child(left);
 			left->queue_free();
@@ -776,13 +779,15 @@ void AnimatedBar::set_custom_lr(bool is_enabled) {
 		r->set_text(_labels.right);
 		add_child(right);
 		add_child(left);
-		right->connect("pressed",Callable(this, "on_right_pressed"));
-		left->connect("pressed",Callable(this, "on_left_pressed"));
+		right->connect("pressed",Callable(this, "_on_right_pressed"));
+		left->connect("pressed",Callable(this, "_on_left_pressed"));
 		left->set_as_top_level(true);
 		//right->set_as_top_level(true);
 	} else {
-		left->disconnect("pressed",Callable(this, "on_left_pressed"));
-		right->disconnect("pressed",Callable(this, "on_right_pressed"));
+		if(left->is_connected("pressed",Callable(this, "_on_left_pressed")))
+			left->disconnect("pressed",Callable(this, "_on_left_pressed"));
+		if(right->is_connected("pressed",Callable(this, "_on_right_pressed")))
+			right->disconnect("pressed",Callable(this, "_on_right_pressed"));
 		remove_child(left);
 		remove_child(right);
 		left -> queue_free();
@@ -797,8 +802,10 @@ void AnimatedBar::set_custom_lr(bool is_enabled) {
 			Node *par = custom_left->get_parent();
 			if(par != this) custom_left->reparent(this);
 			else {
-				custom_left->disconnect("draw",Callable(this, "clip_child"));
-				custom_left->disconnect("pressed",Callable(this, "on_button_pressed"));
+				if(custom_left->is_connected("pressed",Callable(this, "_clip_child")))
+					custom_left->disconnect("pressed",Callable(this, "_clip_child"));
+				if(custom_left->is_connected("pressed",Callable(this, "_on_button_pressed")))
+					custom_left->disconnect("pressed",Callable(this, "_on_button_pressed"));
 			}
 			left = custom_left;
 		}
@@ -812,13 +819,15 @@ void AnimatedBar::set_custom_lr(bool is_enabled) {
 			Node *par = custom_right->get_parent();
 			if(par != this) custom_right->reparent(this);
 			else {
-				custom_right->disconnect("draw",Callable(this, "clip_child"));
-				custom_right->disconnect("pressed",Callable(this, "on_button_pressed"));
+				if(custom_right->is_connected("pressed",Callable(this, "_clip_child")))
+					custom_right->disconnect("pressed",Callable(this, "_clip_child"));
+				if(custom_right->is_connected("pressed",Callable(this, "_on_button_pressed")))
+					custom_right->disconnect("pressed",Callable(this, "_on_button_pressed"));
 			}
 			right = custom_right;
 		}
-		right->connect("pressed",Callable(this, "on_right_pressed"));
-		left->connect("pressed",Callable(this, "on_left_pressed"));
+		right->connect("pressed",Callable(this, "_on_right_pressed"));
+		left->connect("pressed",Callable(this, "_on_left_pressed"));
 		left->set_as_top_level(true);
 		//right->set_as_top_level(true);
 	}
@@ -940,13 +949,14 @@ void AnimatedBar::set_custom_left(NodePath p_path) {
 	custom_left = _custom_left;
 	if(custom_lr) {
 		left->set_as_top_level(false);
-		left->disconnect("pressed",Callable(this, "on_left_pressed"));
+		if(left->is_connected("pressed",Callable(this, "_on_left_pressed")))
+			left->disconnect("pressed",Callable(this, "_on_left_pressed"));
 		if(left->get_name() == StringName("__DefaultLeft__")) {
 			remove_child(left);
 			left->queue_free();
 		}
 		left = custom_left;
-		left->connect("pressed",Callable(this, "on_left_pressed"));
+		left->connect("pressed",Callable(this, "_on_left_pressed"));
 		left->set_as_top_level(true);
 		queue_sort();
 	}
@@ -975,13 +985,14 @@ void AnimatedBar::set_custom_right(NodePath p_path) {
 	custom_right = _custom_right;
 	if(custom_lr) {
 		//right->set_as_top_level(false);
-		right->disconnect("pressed",Callable(this, "on_right_pressed"));
+		if(right->is_connected("pressed",Callable(this, "_on_right_pressed")))
+			right->disconnect("pressed",Callable(this, "_on_right_pressed"));
 		if(right->get_name() == StringName("__DefaultRight__")) {
 			remove_child(right);
 			right->queue_free();
 		}
 		right = custom_right;
-		right->connect("pressed",Callable(this, "on_right_pressed"));
+		right->connect("pressed",Callable(this, "_on_right_pressed"));
 		//right->set_as_top_level(true);
 		queue_sort();
 	}

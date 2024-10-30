@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<class name="IrregularGridContainer" inherits="Container" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
+	<brief_description>
+		Usefull [GridContainer] for [ExpandableButton]
+	</brief_description>
+	<description>
+		Arranges its children deppending of theirs minimum size and strech ratio in full rows. If theirs minimum sizes are equal then grid is formed. Each row is being left with additional free space for [ExpandableButton] to expand into, which does not mean that this space is hollow because it is splitted into sizes of all children in corresponding row. 
+		See [member Control.size_flags_stretch_ratio] and [method Control.get_combined_minimum_size] for more details.
+		You might want to use [GridContainer] or [color=LightGreen][url=https://github.com/Magodra/SpanningTableContainer]SpanningTableContainer[/url][/color].
+	</description>
+	<tutorials>
+	</tutorials>
+	<members>
+		<member name="shrink_last_row" type="bool" setter="set_shrink_last_row" getter="is_last_row_shrinked" default="false">
+			If [code]true[/code] lenght of each element in last row is based on previous one.
+		</member>
+		<member name="spacing" type="float" setter="set_spacing" getter="get_spacing" default="0.0">
+			Defines size of spaces between elements and rows.[br][color=KHAKI][b]Note:[/b] this might be theme property in the future.[/color]
+		</member>
+	</members>
+</class>

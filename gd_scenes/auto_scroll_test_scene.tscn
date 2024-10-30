@@ -1,0 +1,77 @@
+[gd_scene load_steps=3 format=3 uid="uid://bwx8gusixekmd"]
+
+[ext_resource type="Texture2D" uid="uid://t4qtm4w8xkfs" path="res://images/icon.svg" id="1_yktb2"]
+
+[sub_resource type="GDScript" id="GDScript_tfaj1"]
+script/source = "@tool
+extends Control
+
+@export_range(0,101) var destination
+@export var take_off:bool
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	var button = RevisedButton.new()
+	button.text = \"[i]Click[/i] [b][color=LightGreen]me[/color][/b]\"
+	button.pressed.connect(self._revised_button_pressed)
+	add_child(button)
+	button.size = Vector2(125,45)
+
+func _revised_button_pressed():
+	print_rich(\"[color=Violet]Hello world![/color]\")
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(_delta: float) -> void:
+	if take_off:
+		take_off = false
+		$ProgressBar/AutoScroll.scroll_to(destination)
+	$CheckButton.set_pressed_no_signal($ProgressBar/AutoScroll.is_scrolling())
+"
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = SubResource("GDScript_tfaj1")
+destination = 80.0
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -500.0
+offset_top = -50.0
+offset_right = 500.0
+offset_bottom = 50.0
+grow_horizontal = 2
+grow_vertical = 2
+value = 79.05
+
+[node name="AutoScroll" type="AutoScroll" parent="ProgressBar"]
+auto_min_value = 40.0
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="CheckButton" type="ExpandableButton" parent="."]
+expansion_size = 140
+expansion_minimum_size = 122
+expansion_indentation = -36
+expansion_information_margin = 30
+text = "Scrolling gdgdsaggsssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss"
+icon = ExtResource("1_yktb2")
+alignment_order = 1
+vertical_text_alignment = 2
+icon_alignment = 2
+layout_mode = 0
+offset_left = 492.0
+offset_top = 577.0
+offset_right = 747.0
+offset_bottom = 781.0
+toggle_mode = true

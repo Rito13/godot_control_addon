@@ -29,11 +29,11 @@ public:
 	~AnimatedTabContainer();
 
 	void _notification(int p_what);
-	void clip_child(Control* child);
+	void _clip_child(Control* child);
 
-	void on_focus_activated(int p_tab_id,int p_bar_id);
-	void on_focus_changed(int p_tab_id,int p_bar_id);
-	void on_focus_deactivated();
+	void _on_focus_activated(int p_tab_id,int p_bar_id);
+	void _on_focus_changed(int p_tab_id,int p_bar_id);
+	void _on_focus_deactivated();
 
 	double get_speed();
 	void set_speed(double p_speed);

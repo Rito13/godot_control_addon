@@ -46,6 +46,9 @@ void ExpandableButton::_bind_methods() {
     // ClassDB::bind_method(D_METHOD("_on_self_up"), &ExpandableButton::on_self_up);
     // ClassDB::bind_method(D_METHOD("_on_self_down"), &ExpandableButton::on_self_down);
     // ClassDB::bind_method(D_METHOD("_on_self_toggled", "p_state"), &ExpandableButton::on_self_toggled);
+	// Enum
+	BIND_ENUM_CONSTANT(IMAGE)
+	BIND_ENUM_CONSTANT(TEXT)
 }
 
 ExpandableButton::ExpandableButton() {
@@ -105,10 +108,12 @@ void ExpandableButton::notify_about_minimum_size() {
 	//parent->rearrange(true);
 }
 
+/*
 void ExpandableButton::on_timer_out2() {
-    //UtilityFunctions::print("Time out");
-    //idle_time_timer->start();
+    UtilityFunctions::print("Time out");
+    idle_time_timer->start();
 }
+*/
 
 void ExpandableButton::on_self_up() {
     if(is_toggle_mode()) return;
@@ -619,14 +624,14 @@ void ExpandableButton::set_minimum_expansion_size(int p_size) {
     return;
 }
 
-void ExpandableButton::set_expansion_info(int p_int) {
-    if(p_int<=0) expansion_info = false;
+void ExpandableButton::set_expansion_info(ExpandableButton::EXPANSION_INFO p_val) {
+    if(p_val<=EXPANSION_INFO::IMAGE) expansion_info = false;
     else expansion_info = true;
 }
 
-int ExpandableButton::get_expansion_info() {
-    if(expansion_info) return 1;
-	else return 0;
+ExpandableButton::EXPANSION_INFO ExpandableButton::get_expansion_info() {
+    if(expansion_info) return EXPANSION_INFO::TEXT;
+	else return EXPANSION_INFO::IMAGE;
 }
 
 void ExpandableButton::set_info_margin(int p_margin) {

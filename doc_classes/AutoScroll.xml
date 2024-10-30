@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<class name="AutoScroll" inherits="Control" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
+	<brief_description>
+		Node adding auto scrolling feature to its [Range] parent.
+	</brief_description>
+	<description>
+		This node takes its parent [Range] and changes [member Range.value] with constant [member speed] until it reaches its destination. You can specify destination with [method scroll_to] method.
+	</description>
+	<tutorials>
+	</tutorials>
+	<methods>
+		<method name="is_scrolling">
+			<return type="bool" />
+			<description>
+				Returns [code]false[/code] if is inactive(already has reached its destination).
+			</description>
+		</method>
+		<method name="scroll_to">
+			<return type="void" />
+			<param index="0" name="value" type="float" />
+			<description>
+				Sets destination to [code]value[/code] and instantly starts auto scrolling process. If [code]value[/code] is lesser than [member auto_min_value] it is changed to match it.
+			</description>
+		</method>
+	</methods>
+	<members>
+		<member name="auto_min_value" type="float" setter="set_auto_min_value" getter="get_auto_min_value" default="inf_neg">
+			Defines minimum destination value. See [method scroll_to] for more details.
+		</member>
+		<member name="speed" type="float" setter="set_speed" getter="get_speed" default="10.0">
+			Defines speed of auto scrolling.
+		</member>
+	</members>
+</class>

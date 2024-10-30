@@ -26,12 +26,12 @@ void RevisedButton::_bind_methods() {
 	ClassDB::bind_method(D_METHOD("set_icon_alignment", "p_alignment"), &RevisedButton::set_icon_alignment);
 	ClassDB::bind_method(D_METHOD("get_vertical_icon_alignment"), &RevisedButton::get_vertical_icon_alignment);
 	ClassDB::bind_method(D_METHOD("set_vertical_icon_alignment", "p_alignment"), &RevisedButton::set_vertical_icon_alignment);
-	ClassDB::bind_method(D_METHOD("on_timer_out"), &RevisedButton::on_timer_out);
+	ClassDB::bind_method(D_METHOD("_on_timer_out"), &RevisedButton::_on_timer_out);
 	ClassDB::bind_method(D_METHOD("set_adaptable_speed", "p_autowrap"), &RevisedButton::set_adaptable_speed);
 	ClassDB::bind_method(D_METHOD("get_adaptable_speed"), &RevisedButton::get_adaptable_speed);
 	ClassDB::bind_method(D_METHOD("set_text_off", "p_status"), &RevisedButton::set_is_text_off);
 	ClassDB::bind_method(D_METHOD("is_text_off"), &RevisedButton::get_is_text_off);
-	ClassDB::bind_method(D_METHOD("get_theme", "p_bool"), &RevisedButton::get_theme);
+	ClassDB::bind_method(D_METHOD("_get_theme", "p_bool"), &RevisedButton::get_theme);
 	ClassDB::bind_method(D_METHOD("_texture_changed"), &RevisedButton::update_icon);
 	ClassDB::bind_method(D_METHOD("set_flat", "p_status"), &RevisedButton::set_flat_status);
 	ClassDB::bind_method(D_METHOD("is_flat"), &RevisedButton::get_flat_status);
@@ -61,6 +61,9 @@ void RevisedButton::_bind_methods() {
 	BIND_THEME_ITEM(Theme::DATA_TYPE_COLOR, Button, font_hover_color);
 	BIND_THEME_ITEM(Theme::DATA_TYPE_COLOR, Button, font_hover_pressed_color);
 	BIND_THEME_ITEM(Theme::DATA_TYPE_COLOR, Button, font_disabled_color); */
+	// Enum
+	BIND_ENUM_CONSTANT(ALIGNMENT_ORDER_VERTICAL_FIRST)
+	BIND_ENUM_CONSTANT(ALIGNMENT_ORDER_HORIZONTAL_FIRST)
 }
 
 RevisedButton::RevisedButton() {
@@ -88,8 +91,8 @@ RevisedButton::RevisedButton() {
 	idle_time_timer->set_one_shot(true);
 	text_parent->set_clip_contents(true);
     text_parent->set_mouse_filter(Control::MouseFilter::MOUSE_FILTER_IGNORE);
-	idle_time_timer->connect("timeout", Callable(this, "on_timer_out"));
-	//idle_time_timer->start();
+	idle_time_timer->connect("timeout", Callable(this, "_on_timer_out"));
+	//start_timer();
 
 	// Setup RichTextLabel (text_container)
 	text_container->set_autowrap_mode(TextServer::AutowrapMode::AUTOWRAP_WORD_SMART);
@@ -116,7 +119,7 @@ RevisedButton::~RevisedButton() {
 	//text_parent->queue_free();
 }
 
-void RevisedButton::on_timer_out() {
+void RevisedButton::_on_timer_out() {
     if(timer_time_2) {
         scrolling = false;
         timer_time_2 = false;
@@ -125,7 +128,7 @@ void RevisedButton::on_timer_out() {
     timer_time_2 = true;
     Range *range_object = Object::cast_to<Range>(scroll->get_parent());
     range_object->set_value(scroll->get_auto_min_value());
-    idle_time_timer->start();
+    start_timer();
 }
 
 bool RevisedButton::has_theme(uint8_t what,const StringName &name) const {
@@ -271,6 +274,12 @@ void RevisedButton::get_theme(bool p_bool) {
 	find_theme("RevisedButton",true);
 }
 
+void RevisedButton::start_timer() {
+	if(idle_time_timer == nullptr) return;
+	if(!idle_time_timer->is_inside_tree()) return;
+	idle_time_timer->start();
+}
+ 
 void RevisedButton::update_text(bool recursive) {
     if(!recursive && v_text_alignment == VERTICAL_ALIGNMENT_CENTER) if(!update_text_vertical_alignment(true)) return;
     text_container->set_text(_color_bbcode+_h_bbcode+_v_bbcode+better_text);
@@ -280,7 +289,7 @@ void RevisedButton::update_text(bool recursive) {
     //range_object->set_step(0);
     set_adaptable_speed(adaptable_speed);
 	if(idle_time_timer->get_parent()==text_parent)
-    	idle_time_timer->start();
+    	start_timer();
     scrolling = true;
     timer_time_2 = true;
 }
@@ -433,7 +442,7 @@ void RevisedButton::process(double delta) {
 
     // Wrap text
     if(!scroll->is_scrolling()&&idle_time_timer->get_time_left()==0) {
-        idle_time_timer->start();
+        start_timer();
     }
 }
 
@@ -946,19 +955,17 @@ bool RevisedButton::get_icon_shrink() {
     return shrink_icon;
 }
 
-void RevisedButton::set_force_vertical_alignment_before_horizontal(const int p_order) {
-	if(p_order == 0) force_vertical_alignment_before_horizontal = false;
-	else if(p_order == 1) force_vertical_alignment_before_horizontal = true;
+void RevisedButton::set_force_vertical_alignment_before_horizontal(const RevisedButton::ALIGNMENT_ORDER p_order) {
+	if(p_order == ALIGNMENT_ORDER_HORIZONTAL_FIRST) force_vertical_alignment_before_horizontal = false;
+	else if(p_order == ALIGNMENT_ORDER_VERTICAL_FIRST) force_vertical_alignment_before_horizontal = true;
 	else {
-		std::string standardString = std::to_string(p_order);
-		String godotString = String(standardString.c_str());
-		String _msg = "Order of value "+godotString+" is not suported \n	Suported oredrs: \n	0 - HORIZONTAL_FIRST \n	1 - VERTICAL_FIRST";
+		String _msg = "Uknown value of p_order \n	Suported values: \n	0 - HORIZONTAL_FIRST \n	1 - VERTICAL_FIRST";
 		UtilityFunctions::print_rich("[color=VIOLET]",String(L"●")," Control++:  ",_msg,"[color=SNOW]");
         ERR_FAIL_MSG(_msg);
 	}
 }
 
-int RevisedButton::get_force_vertical_alignment_before_horizontal() const {
-	if(force_vertical_alignment_before_horizontal) return 1;
-	else return 0;
+RevisedButton::ALIGNMENT_ORDER RevisedButton::get_force_vertical_alignment_before_horizontal() const {
+	if(force_vertical_alignment_before_horizontal) return ALIGNMENT_ORDER_VERTICAL_FIRST;
+	else return ALIGNMENT_ORDER_HORIZONTAL_FIRST;
 }

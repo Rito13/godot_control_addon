@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<class name="ExpandableButton" inherits="RevisedButton" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
+	<brief_description>
+		Button with additional content shown while hovered.
+	</brief_description>
+	<description>
+		Expands when hovered by mouse revealing additional content on left side.[br]Was not intended to work with transparent [StyleBox]es, but it still can.
+		[b]Note:[/b] Its [member minimum_size] changes depending of it state and frame of expanding animation.
+		[color=Violet][b]Note:[/b] It is planed to add more directions.[/color]
+	</description>
+	<tutorials>
+	</tutorials>
+	<methods>
+		<method name="expand">
+			<return type="void" />
+			<description>
+				Shows additional content.
+			</description>
+		</method>
+		<method name="reduce">
+			<return type="void" />
+			<description>
+				Hides additional content.
+			</description>
+		</method>
+	</methods>
+	<members>
+		<member name="base_minimum_size" type="Vector2" setter="set_base_minimum_size" getter="get_base_minimum_size" default="Vector2(0, 0)">
+			Minimum size of the main body.
+		</member>
+		<member name="expansion_indentation" type="int" setter="set_expansion_indentation" getter="get_expansion_indentation" default="0">
+			Defines additional lenght of expanded [StyleBox].[br]Added lenght will always appear underneath main [StyleBox] unless [member expansion_indentation] is negative.
+		</member>
+		<member name="expansion_information" type="int" setter="set_expansion_info" getter="get_expansion_info" enum="ExpandableButton.EXPANSION_INFO" default="0">
+			Defines which part of content is additional.
+			[color=Violet][b]Note:[/b] It is planed to add posibility for two texts and/or buttons.[/color]
+		</member>
+		<member name="expansion_information_margin" type="int" setter="set_info_margin" getter="get_info_margin" default="0">
+			If set to positive value then additional content is moved aside main body otherwise part of it renders underneath it.
+		</member>
+		<member name="expansion_minimum_size" type="int" setter="set_minimum_expansion_size" getter="get_minimum_expansion_size" default="0">
+			Shows to user the minimum size of additional content.
+			[b]Note:[/b] [method set_minimum_expansion_size] does nothing.
+		</member>
+		<member name="expansion_size" type="int" setter="set_expansion_size" getter="get_expansion_size" default="70">
+			Defines size of additional content unless [member expansion_size] is less than [member expansion_minimum_size].
+		</member>
+		<member name="expansion_speed" type="float" setter="set_expansion_speed" getter="get_expansion_speed" default="25.0">
+			Defines how fast additional content will appear.
+		</member>
+		<member name="theme_type_variation" type="StringName" setter="set_theme_type_variation" getter="get_theme_type_variation" overrides="Control" default="&amp;&quot;_ExpandableButton_hidden&quot;" />
+	</members>
+	<constants>
+		<constant name="IMAGE" value="0" enum="EXPANSION_INFO">
+		</constant>
+		<constant name="TEXT" value="1" enum="EXPANSION_INFO">
+		</constant>
+	</constants>
+</class>

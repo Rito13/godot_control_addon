@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<class name="RevisedButton" inherits="BaseButton" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
+	<brief_description>
+		[Button] wich uses [RichTextLable] to show text.
+	</brief_description>
+	<description>
+		[RevisedButton] is more complex themed button than [Button]. It can contain text and an icon, and it will display them according to the current [Theme].
+		[b]Example of creating a [RevisedButton] and assigning an action when pressed by code:[/b]
+		[codeblocks]
+		[gdscript]
+		func _ready() -&gt; void:
+		    var button = RevisedButton.new()
+		    button.text = "[i]Click[/i] [b][color=LightGreen]me[/color][/b]"
+		    button.pressed.connect(self._revised_button_pressed)
+		    add_child(button)
+		    button.size = Vector2(125,45)
+
+		func _revised_button_pressed():
+		    print_rich("[color=Violet]Hello world![/color]")
+		[/gdscript]
+		[csharp]
+		public override void _Ready()
+		{
+		    var button = new RevisedButton();
+		    button.Text = "[i]Click[/i] [b][color=LightGreen]me[/color][/b]";
+		    button.Size.X = 125;
+		    button.Size.Y = 45;
+		    button.Pressed += RevisedButtonPressed;
+		    AddChild(button);
+		}
+
+		private void RevisedButtonPressed()
+		{
+		    GD.Print("Hello world!");
+		}
+		[/csharp]
+		[/codeblocks]
+		See also [BaseButton] which contains common properties and methods associated with this node.
+		[b]Note:[/b] Buttons do not interpret touch input and therefore don't support multitouch, since mouse emulation can only press one button at a given time. Use [TouchScreenButton] for buttons that trigger gameplay movement or actions.
+	</description>
+	<tutorials>
+	</tutorials>
+	<members>
+		<member name="alignment_order" type="int" setter="set_alignment_order" getter="get_alignment_order" enum="RevisedButton.ALIGNMENT_ORDER" default="0">
+			Defines which alignment is more important. See [enum ALIGNMENT_ORDER] for more details.
+			[b]Note:[/b] Will be expanded in future versions.
+		</member>
+		<member name="auto_scrolling_speed" type="float" setter="set_adaptable_speed" getter="get_adaptable_speed" default="20.0">
+			Defines speed of text auto scrolling. See [AutoScroll] for more details.
+		</member>
+		<member name="autowrap_mode" type="int" setter="set_text_autowrap" getter="get_text_autowrap" enum="TextServer.AutowrapMode" default="3">
+			If set to something other than [constant TextServer.AUTOWRAP_OFF],wich should always be true, the text gets wrapped inside the node's bounding rectangle.
+		</member>
+		<member name="expand_icon" type="bool" setter="set_expand_icon" getter="is_expand_icon" default="false">
+			When enabled, the button's icon will expand/shrink to fit the button's size while keeping its aspect.
+		</member>
+		<member name="flat" type="bool" setter="set_flat" getter="is_flat" default="false">
+			Flat buttons don't display decoration.
+		</member>
+		<member name="horizontal_text_alignment" type="int" setter="set_text_alignment" getter="get_text_alignment" enum="HorizontalAlignment" default="1">
+			Text alignment policy for the button's text, use one of the [enum HorizontalAlignment] constants.
+		</member>
+		<member name="icon" type="Texture2D" setter="set_button_icon" getter="get_button_icon">
+			Button's icon, if text is present the icon will be placed before the text unless its horizontal alignment is set to [constant HORIZONTAL_ALIGNMENT_RIGHT].
+		</member>
+		<member name="icon_alignment" type="int" setter="set_icon_alignment" getter="get_icon_alignment" enum="HorizontalAlignment" default="1">
+			Specifies if the icon should be aligned horizontally to the left, right, or center of a button. Uses the same [enum HorizontalAlignment] constants as the text alignment.
+		</member>
+		<member name="is_text_off" type="bool" setter="set_text_off" getter="is_text_off" default="false">
+			When enabled, the text will be hidden.
+		</member>
+		<member name="text" type="String" setter="set_text" getter="get_text" default="&quot;Text&quot;">
+			The button's text that will be displayed inside the button's area.
+		</member>
+		<member name="vertical_icon_alignment" type="int" setter="set_vertical_icon_alignment" getter="get_vertical_icon_alignment" enum="VerticalAlignment" default="0">
+			Specifies if the icon should be aligned vertically to the top, bottom, or center of a button. Uses the same [enum VerticalAlignment] constants as the text alignment.
+		</member>
+		<member name="vertical_text_alignment" type="int" setter="set_v_text_alignment" getter="get_v_text_alignment" enum="VerticalAlignment" default="0">
+			Text alignment policy for the button's text, use one of the [enum VerticalAlignment] constants.
+		</member>
+	</members>
+	<constants>
+		<constant name="ALIGNMENT_ORDER_VERTICAL_FIRST" value="1" enum="ALIGNMENT_ORDER">
+		</constant>
+		<constant name="ALIGNMENT_ORDER_HORIZONTAL_FIRST" value="0" enum="ALIGNMENT_ORDER">
+		</constant>
+	</constants>
+</class>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<class name="VAnimatedBar" inherits="AnimatedBar" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
+	<brief_description>
+		Class for creating vertical tool bar.
+	</brief_description>
+	<description>
+		Positions its [Control] children in vertical orientation with navigation buttons on top and bottom sides.
+		See also [AnimatedBar] for more details.
+	</description>
+	<tutorials>
+	</tutorials>
+	<methods>
+		<method name="get_left_navigation_button_size" qualifiers="const">
+			<return type="Vector2" />
+			<description>
+				Overwrites [AnimatedBar].get_left_navigation_button_size() virtual method. Returns size of top navigation button.
+				[b]Note:[/b] Returned value contains spacing.
+			</description>
+		</method>
+		<method name="get_navigation_buttons_size" qualifiers="const">
+			<return type="Vector2" />
+			<description>
+				Overwrites [AnimatedBar].get_navigation_buttons_size() virtual method. Returns size of top plus bottom navigation button.
+				[b]Note:[/b] Returned value contains double size of spacing.
+			</description>
+		</method>
+		<method name="get_right_navigation_button_size" qualifiers="const">
+			<return type="Vector2" />
+			<description>
+				Overwrites [AnimatedBar].get_right_navigation_button_size() virtual method. Returns size of bottom navigation button.
+				[b]Note:[/b] Returned value contains spacing.
+			</description>
+		</method>
+	</methods>
+</class>

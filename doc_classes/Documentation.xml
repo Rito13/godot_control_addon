@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<class name="Documentation" inherits="Object" deprecated="GDExtension from version 4.3 supports documentation." xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
+	<brief_description>
+		Used to inplement documentation to c++ classes until it is supported by GDExtension.
+	</brief_description>
+	<description>
+	</description>
+	<tutorials>
+	</tutorials>
+	<methods>
+		<method name="get_EditorHelps">
+			<return type="Node[]" />
+			<description>
+			</description>
+		</method>
+		<method name="pass_time">
+			<return type="bool" />
+			<param index="0" name="delta" type="float" />
+			<param index="1" name="max_value" type="int" default="-1" />
+			<description>
+			</description>
+		</method>
+	</methods>
+	<members>
+		<member name="The_documentation_for_GDExtension_is_not_suported_yet" type="float" setter="set_amplitude" getter="get_amplitude" default="0.0">
+		</member>
+	</members>
+</class>

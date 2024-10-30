@@ -37,12 +37,17 @@ public:
 	ExpandableButton();
 	~ExpandableButton();
 
+	enum EXPANSION_INFO {
+		IMAGE = 0,
+		TEXT = 1,
+	};
+
 	virtual Vector2 _get_minimum_size() const override;
 
 	void _update_minimum_size(Vector2 texture_size);
 
 	void _notification(int p_what);
-	void on_timer_out2();
+	//void on_timer_out2();
 	void on_self_down();
 	void on_self_up();
 	void on_self_toggled(bool p_state);
@@ -50,8 +55,8 @@ public:
 	void set_expansion_size(int p_size);
 	int get_expansion_size();
 
-	void set_expansion_info(int p_int);
-	int get_expansion_info();
+	void set_expansion_info(EXPANSION_INFO p_value);
+	EXPANSION_INFO get_expansion_info();
 
 	void set_info_margin(int p_margin);
 	int get_info_margin();
@@ -78,5 +83,7 @@ public:
 };
 
 }
+
+VARIANT_ENUM_CAST(ExpandableButton::EXPANSION_INFO)
 
 #endif
