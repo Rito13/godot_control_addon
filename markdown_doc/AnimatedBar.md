@@ -10,6 +10,7 @@ Emits custom siglalls when one of button children is pressed.
 See also [HAnimatedBar] and [VAnimatedBar].  
   
   
+**gdscript:**  
 ```gdscript
   
 		func Test():  
@@ -19,6 +20,7 @@ See also [HAnimatedBar] and [VAnimatedBar].
   
   
   
+**csharp:**  
 ```csharp
   
 		private void Test()  
@@ -30,6 +32,7 @@ See also [HAnimatedBar] and [VAnimatedBar].
   
   
   
+**text:**  
 ```text
   
 		Text with multiple lines.  

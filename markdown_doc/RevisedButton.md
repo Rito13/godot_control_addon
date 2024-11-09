@@ -9,6 +9,7 @@
 [RevisedButton] is more complex themed button than [Button]. It can contain text and an icon, and it will display them according to the current [Theme].  
 **Example of creating a [RevisedButton] and assigning an action when pressed by code:**  
   
+**gdscript:**  
 ```gdscript
   
 		func _ready() -> void:  
@@ -22,6 +23,7 @@
 		    print_rich("[color=Violet]Hello world![/color]")  
 		  
 ```  
+**csharp:**  
 ```csharp
   
 		public override void _Ready()  
