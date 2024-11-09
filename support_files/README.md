@@ -1,5 +1,7 @@
-This is Control++ godot plugin.
+#This is Control++ godot plugin.
 
----- Description ----
+##---- Description ----
 
-Here is a link to [Source Code](https://github.com/Rito13/godot_control_addon)
+See [README.md](../../README.md) file in supervisor directory or find it in source code.
+
+Here is a link to [Source Code](https://github.com/Rito13/godot_control_addon).
