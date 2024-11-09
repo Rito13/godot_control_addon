@@ -1,9 +1,14 @@
 # VAnimatedBar
 
 **Inherits:** AnimatedBar
-<br />		Class for creating vertical tool bar.<br />	
+
+		Class for creating vertical tool bar.
+	
 ## Description 
-<br />		Positions its [Control] children in vertical orientation with navigation buttons on top and bottom sides.<br />		See also [AnimatedBar] for more details.<br />	
+
+		Positions its [Control] children in vertical orientation with navigation buttons on top and bottom sides.
+		See also [AnimatedBar] for more details.
+	
 ## Tutorials 
 
 	

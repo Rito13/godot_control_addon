@@ -1,9 +1,12 @@
 # Documentation
 
 **Inherits:** Object
-<br />		Used to inplement documentation to c++ classes until it is supported by GDExtension.<br />	
+
+		Used to inplement documentation to c++ classes until it is supported by GDExtension.
+	
 ## Description 
-<br />	
+
+	
 ## Tutorials 
 
 	

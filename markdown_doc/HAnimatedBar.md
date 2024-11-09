@@ -1,9 +1,14 @@
 # HAnimatedBar
 
 **Inherits:** AnimatedBar
-<br />		Class for creating horizontal tool bar.<br />	
+
+		Class for creating horizontal tool bar.
+	
 ## Description 
-<br />		Positions its [Control] children in horizontal orientation with navigation buttons on left and right sides.<br />		See also [AnimatedBar] for more details.<br />	
+
+		Positions its [Control] children in horizontal orientation with navigation buttons on left and right sides.
+		See also [AnimatedBar] for more details.
+	
 ## Tutorials 
 
 	

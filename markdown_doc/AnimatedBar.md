@@ -1,9 +1,14 @@
 # AnimatedBar
 
 **Inherits:** Container
-<br />		Class for creating tool bar.<br />	
+
+		Class for creating tool bar.
+	
 ## Description 
-<br />		Emits custom siglalls when one of button children is pressed.<br />		See also [HAnimatedBar] and [VAnimatedBar].<br />	
+
+		Emits custom siglalls when one of button children is pressed.
+		See also [HAnimatedBar] and [VAnimatedBar].
+	
 ## Tutorials 
 
 	
