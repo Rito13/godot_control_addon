@@ -11,7 +11,7 @@
 -->
 <a name="TOP"></a>
 
-## IrregularGridContainer
+# IrregularGridContainer
 
 **Inherits:** [Container](https://docs.godotengine.org/en/stable/classes/class_container.html)
 
@@ -19,52 +19,50 @@ Usefull [GridContainer](https://docs.godotengine.org/en/stable/classes/class_gri
 
 <a name="Description"></a>
 
-### Description
+## Description
 
 Arranges its children deppending of theirs minimum size and strech ratio in full rows. If theirs minimum sizes are equal then grid is formed. Each row is being left with additional free space for [ExpandableButton](./ExpandableButton.md) to expand into, which does not mean that this space is hollow because it is splitted into sizes of all children in corresponding row. 
 
 See [Control.size_flags_stretch_ratio](https://docs.godotengine.org/en/stable/classes/class_control.html#class_control_member_size_flags_stretch_ratio) and [Control.get_combined_minimum_size](https://docs.godotengine.org/en/stable/classes/class_control.html#class_control_method_get_combined_minimum_size) for more details.
 
-You might want to use [GridContainer](https://docs.godotengine.org/en/stable/classes/class_gridcontainer.html) or [color=LightGreen](https://docs.godotengine.org/en/stable/classes/class_color=lightgreen.html)[SpanningTableContainer](https://github.com/Magodra/SpanningTableContainer)[/color].
+You might want to use [GridContainer](https://docs.godotengine.org/en/stable/classes/class_gridcontainer.html) or <LightGreen>[SpanningTableContainer](https://github.com/Magodra/SpanningTableContainer)</LightGreen>.
 
 <a name="Properties"></a>
 
-### Properties
+## Properties
 
-.. table::
-   :widths: auto
+|                                                                          |                                              |           |
+|--------------------------------------------------------------------------|----------------------------------------------|-----------|
+| [bool](https://docs.godotengine.org/en/stable/classes/class_bool.html)   | [shrink_last_row](#property_shrink_last_row) | ``false`` |
+| [float](https://docs.godotengine.org/en/stable/classes/class_float.html) | [spacing](#property_spacing)                 | ``0.0``   |
 
-   +--------------------------------------------------------------------------+-------------------------------------------------------------------------------+-----------+
-   | [bool](https://docs.godotengine.org/en/stable/classes/class_bool.html)   | :ref:`shrink_last_row<class_IrregularGridContainer_property_shrink_last_row>` | ``false`` |
-   +--------------------------------------------------------------------------+-------------------------------------------------------------------------------+-----------+
-   | [float](https://docs.godotengine.org/en/stable/classes/class_float.html) | :ref:`spacing<class_IrregularGridContainer_property_spacing>`                 | ``0.0``   |
-   +--------------------------------------------------------------------------+-------------------------------------------------------------------------------+-----------+
-
-#### section
+---
 
 <a name="PropertyDescriptions"></a>
 
-### Property Descriptions
+## Property Descriptions
 
 <a name="[bool](https://docs.godotengine.org/en/stable/classes/class_bool.html) **shrink_last_row** = ``false``"></a>
 
-##### [bool](https://docs.godotengine.org/en/stable/classes/class_bool.html) **shrink_last_row** = ``false``
+#### [bool](https://docs.godotengine.org/en/stable/classes/class_bool.html) **shrink_last_row** = ``false``
 
-- |void| **set_shrink_last_row**( value\: [bool](https://docs.godotengine.org/en/stable/classes/class_bool.html) )
+- *void* **set_shrink_last_row**( value\: [bool](https://docs.godotengine.org/en/stable/classes/class_bool.html) )
 - [bool](https://docs.godotengine.org/en/stable/classes/class_bool.html) **is_last_row_shrinked**( )
 
 If ``true`` lenght of each element in last row is based on previous one.
 
-#### item
-
 <a name="[float](https://docs.godotengine.org/en/stable/classes/class_float.html) **spacing** = ``0.0``"></a>
 
-##### [float](https://docs.godotengine.org/en/stable/classes/class_float.html) **spacing** = ``0.0``
+#### [float](https://docs.godotengine.org/en/stable/classes/class_float.html) **spacing** = ``0.0``
 
-- |void| **set_spacing**( value\: [float](https://docs.godotengine.org/en/stable/classes/class_float.html) )
+- *void* **set_spacing**( value\: [float](https://docs.godotengine.org/en/stable/classes/class_float.html) )
 - [float](https://docs.godotengine.org/en/stable/classes/class_float.html) **get_spacing**( )
 
 Defines size of spaces between elements and rows.
 
-[color=KHAKI](https://docs.godotengine.org/en/stable/classes/class_color=khaki.html)**Note:** this might be theme property in the future.[/color]
+<KHAKI>**Note:** this might be theme property in the future.</KHAKI>
 
+<style>
+LightGreen { color: LightGreen }
+KHAKI { color: KHAKI }
+</style>

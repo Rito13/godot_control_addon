@@ -11,7 +11,7 @@
 -->
 <a name="TOP"></a>
 
-## GDExample
+# GDExample
 
 **Deprecated:** Why it is here?
 

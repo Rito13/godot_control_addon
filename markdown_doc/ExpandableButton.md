@@ -11,7 +11,7 @@
 -->
 <a name="TOP"></a>
 
-## ExpandableButton
+# ExpandableButton
 
 **Inherits:** [RevisedButton](./RevisedButton.md) **<** [BaseButton](https://docs.godotengine.org/en/stable/classes/class_basebutton.html)
 
@@ -19,7 +19,7 @@ Button with additional content shown while hovered.
 
 <a name="Description"></a>
 
-### Description
+## Description
 
 Expands when hovered by mouse revealing additional content on left side.
 
@@ -27,59 +27,45 @@ Was not intended to work with transparent [StyleBox](https://docs.godotengine.or
 
 **Note:** Its [minimum_size](./expandablebutton.md#property_minimum_size) changes depending of it state and frame of expanding animation.
 
-[color=Violet](https://docs.godotengine.org/en/stable/classes/class_color=violet.html)**Note:** It is planed to add more directions.[/color]
+<Violet>**Note:** It is planed to add more directions.</Violet>
 
 <a name="Properties"></a>
 
-### Properties
+## Properties
 
-.. table::
-   :widths: auto
-
-   +------------------------------------------------------------------------------------+---------------------------------------------------------------------------------------------------+---------------------------------------------------------------------------------------------------------+
-   | [Vector2](https://docs.godotengine.org/en/stable/classes/class_vector2.html)       | :ref:`base_minimum_size<class_ExpandableButton_property_base_minimum_size>`                       | ``Vector2(0, 0)``                                                                                       |
-   +------------------------------------------------------------------------------------+---------------------------------------------------------------------------------------------------+---------------------------------------------------------------------------------------------------------+
-   | [int](https://docs.godotengine.org/en/stable/classes/class_int.html)               | :ref:`expansion_indentation<class_ExpandableButton_property_expansion_indentation>`               | ``0``                                                                                                   |
-   +------------------------------------------------------------------------------------+---------------------------------------------------------------------------------------------------+---------------------------------------------------------------------------------------------------------+
-   | [EXPANSION_INFO](./ExpandableButton.md#enum_EXPANSION_INFO)                        | :ref:`expansion_information<class_ExpandableButton_property_expansion_information>`               | ``0``                                                                                                   |
-   +------------------------------------------------------------------------------------+---------------------------------------------------------------------------------------------------+---------------------------------------------------------------------------------------------------------+
-   | [int](https://docs.godotengine.org/en/stable/classes/class_int.html)               | :ref:`expansion_information_margin<class_ExpandableButton_property_expansion_information_margin>` | ``0``                                                                                                   |
-   +------------------------------------------------------------------------------------+---------------------------------------------------------------------------------------------------+---------------------------------------------------------------------------------------------------------+
-   | [int](https://docs.godotengine.org/en/stable/classes/class_int.html)               | :ref:`expansion_minimum_size<class_ExpandableButton_property_expansion_minimum_size>`             | ``0``                                                                                                   |
-   +------------------------------------------------------------------------------------+---------------------------------------------------------------------------------------------------+---------------------------------------------------------------------------------------------------------+
-   | [int](https://docs.godotengine.org/en/stable/classes/class_int.html)               | :ref:`expansion_size<class_ExpandableButton_property_expansion_size>`                             | ``70``                                                                                                  |
-   +------------------------------------------------------------------------------------+---------------------------------------------------------------------------------------------------+---------------------------------------------------------------------------------------------------------+
-   | [float](https://docs.godotengine.org/en/stable/classes/class_float.html)           | :ref:`expansion_speed<class_ExpandableButton_property_expansion_speed>`                           | ``25.0``                                                                                                |
-   +------------------------------------------------------------------------------------+---------------------------------------------------------------------------------------------------+---------------------------------------------------------------------------------------------------------+
-   | [StringName](https://docs.godotengine.org/en/stable/classes/class_stringname.html) | theme_type_variation                                                                              | ``&"_ExpandableButton_hidden"`` (overrides :ref:`Control<class_Control_property_theme_type_variation>`) |
-   +------------------------------------------------------------------------------------+---------------------------------------------------------------------------------------------------+---------------------------------------------------------------------------------------------------------+
+|                                                                                    |                                                                        |                                                                                                                                                                                         |
+|------------------------------------------------------------------------------------|------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| [Vector2](https://docs.godotengine.org/en/stable/classes/class_vector2.html)       | [base_minimum_size](#property_base_minimum_size)                       | ``Vector2(0, 0)``                                                                                                                                                                       |
+| [int](https://docs.godotengine.org/en/stable/classes/class_int.html)               | [expansion_indentation](#property_expansion_indentation)               | ``0``                                                                                                                                                                                   |
+| [EXPANSION_INFO](./ExpandableButton.md#enum_EXPANSION_INFO)                        | [expansion_information](#property_expansion_information)               | ``0``                                                                                                                                                                                   |
+| [int](https://docs.godotengine.org/en/stable/classes/class_int.html)               | [expansion_information_margin](#property_expansion_information_margin) | ``0``                                                                                                                                                                                   |
+| [int](https://docs.godotengine.org/en/stable/classes/class_int.html)               | [expansion_minimum_size](#property_expansion_minimum_size)             | ``0``                                                                                                                                                                                   |
+| [int](https://docs.godotengine.org/en/stable/classes/class_int.html)               | [expansion_size](#property_expansion_size)                             | ``70``                                                                                                                                                                                  |
+| [float](https://docs.godotengine.org/en/stable/classes/class_float.html)           | [expansion_speed](#property_expansion_speed)                           | ``25.0``                                                                                                                                                                                |
+| [StringName](https://docs.godotengine.org/en/stable/classes/class_stringname.html) | theme_type_variation                                                   | ``&"_ExpandableButton_hidden"`` (overrides [Control.theme_type_variation](https://docs.godotengine.org/en/stable/classes/class_control.html#class_control_member_theme_type_variation)) |
 
 <a name="Methods"></a>
 
-### Methods
+## Methods
 
-.. table::
-   :widths: auto
+|        |                            |
+|--------|----------------------------|
+| *void* | [expand](method_expand)( ) |
+| *void* | [reduce](method_reduce)( ) |
 
-   +--------+--------------------------------------------------------+
-   | |void| | :ref:`expand<class_ExpandableButton_method_expand>`( ) |
-   +--------+--------------------------------------------------------+
-   | |void| | :ref:`reduce<class_ExpandableButton_method_reduce>`( ) |
-   +--------+--------------------------------------------------------+
-
-#### section
+---
 
 <a name="Enumerations"></a>
 
-### Enumerations
+## Enumerations
 
 <a name="enum_EXPANSION_INFO"></a>
 
-##### enum **EXPANSION_INFO**:
+#### enum **EXPANSION_INFO**:
 
 <a name="constant_IMAGE"></a>
 
-###### [EXPANSION_INFO](./ExpandableButton.md#enum_EXPANSION_INFO) **IMAGE** = ``0``
+##### [EXPANSION_INFO](./ExpandableButton.md#enum_EXPANSION_INFO) **IMAGE** = ``0``
 
 There is currently no description for this enum. Please help us by [contributing one ](https://docs.godotengine.org/en/stable/contributing/documentation/updating_the_class_reference.html)!
 
@@ -87,116 +73,105 @@ There is currently no description for this enum. Please help us by [contributing
 
 <a name="constant_TEXT"></a>
 
-###### [EXPANSION_INFO](./ExpandableButton.md#enum_EXPANSION_INFO) **TEXT** = ``1``
+##### [EXPANSION_INFO](./ExpandableButton.md#enum_EXPANSION_INFO) **TEXT** = ``1``
 
 There is currently no description for this enum. Please help us by [contributing one ](https://docs.godotengine.org/en/stable/contributing/documentation/updating_the_class_reference.html)!
 
 
 
-#### section
+---
 
 <a name="PropertyDescriptions"></a>
 
-### Property Descriptions
+## Property Descriptions
 
 <a name="[Vector2](https://docs.godotengine.org/en/stable/classes/class_vector2.html) **base_minimum_size** = ``Vector2(0, 0)``"></a>
 
-##### [Vector2](https://docs.godotengine.org/en/stable/classes/class_vector2.html) **base_minimum_size** = ``Vector2(0, 0)``
+#### [Vector2](https://docs.godotengine.org/en/stable/classes/class_vector2.html) **base_minimum_size** = ``Vector2(0, 0)``
 
-- |void| **set_base_minimum_size**( value\: [Vector2](https://docs.godotengine.org/en/stable/classes/class_vector2.html) )
+- *void* **set_base_minimum_size**( value\: [Vector2](https://docs.godotengine.org/en/stable/classes/class_vector2.html) )
 - [Vector2](https://docs.godotengine.org/en/stable/classes/class_vector2.html) **get_base_minimum_size**( )
 
 Minimum size of the main body.
 
-#### item
-
 <a name="[int](https://docs.godotengine.org/en/stable/classes/class_int.html) **expansion_indentation** = ``0``"></a>
 
-##### [int](https://docs.godotengine.org/en/stable/classes/class_int.html) **expansion_indentation** = ``0``
+#### [int](https://docs.godotengine.org/en/stable/classes/class_int.html) **expansion_indentation** = ``0``
 
-- |void| **set_expansion_indentation**( value\: [int](https://docs.godotengine.org/en/stable/classes/class_int.html) )
+- *void* **set_expansion_indentation**( value\: [int](https://docs.godotengine.org/en/stable/classes/class_int.html) )
 - [int](https://docs.godotengine.org/en/stable/classes/class_int.html) **get_expansion_indentation**( )
 
 Defines additional lenght of expanded [StyleBox](https://docs.godotengine.org/en/stable/classes/class_stylebox.html).
 
 Added lenght will always appear underneath main [StyleBox](https://docs.godotengine.org/en/stable/classes/class_stylebox.html) unless [expansion_indentation](./expandablebutton.md#property_expansion_indentation) is negative.
 
-#### item
-
 <a name="[EXPANSION_INFO](./ExpandableButton.md#enum_EXPANSION_INFO) **expansion_information** = ``0``"></a>
 
-##### [EXPANSION_INFO](./ExpandableButton.md#enum_EXPANSION_INFO) **expansion_information** = ``0``
+#### [EXPANSION_INFO](./ExpandableButton.md#enum_EXPANSION_INFO) **expansion_information** = ``0``
 
-- |void| **set_expansion_info**( value\: [EXPANSION_INFO](./ExpandableButton.md#enum_EXPANSION_INFO) )
+- *void* **set_expansion_info**( value\: [EXPANSION_INFO](./ExpandableButton.md#enum_EXPANSION_INFO) )
 - [EXPANSION_INFO](./ExpandableButton.md#enum_EXPANSION_INFO) **get_expansion_info**( )
 
 Defines which part of content is additional.
 
-[color=Violet](https://docs.godotengine.org/en/stable/classes/class_color=violet.html)**Note:** It is planed to add posibility for two texts and/or buttons.[/color]
-
-#### item
+<Violet>**Note:** It is planed to add posibility for two texts and/or buttons.</Violet>
 
 <a name="[int](https://docs.godotengine.org/en/stable/classes/class_int.html) **expansion_information_margin** = ``0``"></a>
 
-##### [int](https://docs.godotengine.org/en/stable/classes/class_int.html) **expansion_information_margin** = ``0``
+#### [int](https://docs.godotengine.org/en/stable/classes/class_int.html) **expansion_information_margin** = ``0``
 
-- |void| **set_info_margin**( value\: [int](https://docs.godotengine.org/en/stable/classes/class_int.html) )
+- *void* **set_info_margin**( value\: [int](https://docs.godotengine.org/en/stable/classes/class_int.html) )
 - [int](https://docs.godotengine.org/en/stable/classes/class_int.html) **get_info_margin**( )
 
 If set to positive value then additional content is moved aside main body otherwise part of it renders underneath it.
 
-#### item
-
 <a name="[int](https://docs.godotengine.org/en/stable/classes/class_int.html) **expansion_minimum_size** = ``0``"></a>
 
-##### [int](https://docs.godotengine.org/en/stable/classes/class_int.html) **expansion_minimum_size** = ``0``
+#### [int](https://docs.godotengine.org/en/stable/classes/class_int.html) **expansion_minimum_size** = ``0``
 
-- |void| **set_minimum_expansion_size**( value\: [int](https://docs.godotengine.org/en/stable/classes/class_int.html) )
+- *void* **set_minimum_expansion_size**( value\: [int](https://docs.godotengine.org/en/stable/classes/class_int.html) )
 - [int](https://docs.godotengine.org/en/stable/classes/class_int.html) **get_minimum_expansion_size**( )
 
 Shows to user the minimum size of additional content.
 
 **Note:** [set_minimum_expansion_size](./expandablebutton.md#method_set_minimum_expansion_size) does nothing.
 
-#### item
-
 <a name="[int](https://docs.godotengine.org/en/stable/classes/class_int.html) **expansion_size** = ``70``"></a>
 
-##### [int](https://docs.godotengine.org/en/stable/classes/class_int.html) **expansion_size** = ``70``
+#### [int](https://docs.godotengine.org/en/stable/classes/class_int.html) **expansion_size** = ``70``
 
-- |void| **set_expansion_size**( value\: [int](https://docs.godotengine.org/en/stable/classes/class_int.html) )
+- *void* **set_expansion_size**( value\: [int](https://docs.godotengine.org/en/stable/classes/class_int.html) )
 - [int](https://docs.godotengine.org/en/stable/classes/class_int.html) **get_expansion_size**( )
 
 Defines size of additional content unless [expansion_size](./expandablebutton.md#property_expansion_size) is less than [expansion_minimum_size](./expandablebutton.md#property_expansion_minimum_size).
 
-#### item
-
 <a name="[float](https://docs.godotengine.org/en/stable/classes/class_float.html) **expansion_speed** = ``25.0``"></a>
 
-##### [float](https://docs.godotengine.org/en/stable/classes/class_float.html) **expansion_speed** = ``25.0``
+#### [float](https://docs.godotengine.org/en/stable/classes/class_float.html) **expansion_speed** = ``25.0``
 
-- |void| **set_expansion_speed**( value\: [float](https://docs.godotengine.org/en/stable/classes/class_float.html) )
+- *void* **set_expansion_speed**( value\: [float](https://docs.godotengine.org/en/stable/classes/class_float.html) )
 - [float](https://docs.godotengine.org/en/stable/classes/class_float.html) **get_expansion_speed**( )
 
 Defines how fast additional content will appear.
 
-#### section
+---
 
 <a name="MethodDescriptions"></a>
 
-### Method Descriptions
+## Method Descriptions
 
 <a name="method_expand"></a>
 
-##### |void| **expand**( )
+#### *void* **expand**( )
 
 Shows additional content.
 
-#### item
-
 <a name="method_reduce"></a>
 
-##### |void| **reduce**( )
+#### *void* **reduce**( )
 
 Hides additional content.
 
+<style>
+Violet { color: Violet }
+</style>

@@ -11,7 +11,7 @@
 -->
 <a name="TOP"></a>
 
-## AutoScroll
+# AutoScroll
 
 **Inherits:** [Control](https://docs.godotengine.org/en/stable/classes/class_control.html)
 
@@ -19,79 +19,67 @@ Node adding auto scrolling feature to its [Range](https://docs.godotengine.org/e
 
 <a name="Description"></a>
 
-### Description
+## Description
 
 This node takes its parent [Range](https://docs.godotengine.org/en/stable/classes/class_range.html) and changes [Range.value](https://docs.godotengine.org/en/stable/classes/class_range.html#class_range_member_value) with constant [speed](./autoscroll.md#property_speed) until it reaches its destination. You can specify destination with [scroll_to](./autoscroll.md#method_scroll_to) method.
 
 <a name="Properties"></a>
 
-### Properties
+## Properties
 
-.. table::
-   :widths: auto
-
-   +--------------------------------------------------------------------------+-----------------------------------------------------------------+-------------+
-   | [float](https://docs.godotengine.org/en/stable/classes/class_float.html) | :ref:`auto_min_value<class_AutoScroll_property_auto_min_value>` | ``inf_neg`` |
-   +--------------------------------------------------------------------------+-----------------------------------------------------------------+-------------+
-   | [float](https://docs.godotengine.org/en/stable/classes/class_float.html) | :ref:`speed<class_AutoScroll_property_speed>`                   | ``10.0``    |
-   +--------------------------------------------------------------------------+-----------------------------------------------------------------+-------------+
+|                                                                          |                                            |             |
+|--------------------------------------------------------------------------|--------------------------------------------|-------------|
+| [float](https://docs.godotengine.org/en/stable/classes/class_float.html) | [auto_min_value](#property_auto_min_value) | ``inf_neg`` |
+| [float](https://docs.godotengine.org/en/stable/classes/class_float.html) | [speed](#property_speed)                   | ``10.0``    |
 
 <a name="Methods"></a>
 
-### Methods
+## Methods
 
-.. table::
-   :widths: auto
+|                                                                        |                                                                                                                   |
+|------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------|
+| [bool](https://docs.godotengine.org/en/stable/classes/class_bool.html) | [is_scrolling](method_is_scrolling)( )                                                                            |
+| *void*                                                                 | [scroll_to](method_scroll_to)( value\: [float](https://docs.godotengine.org/en/stable/classes/class_float.html) ) |
 
-   +------------------------------------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------+
-   | [bool](https://docs.godotengine.org/en/stable/classes/class_bool.html) | :ref:`is_scrolling<class_AutoScroll_method_is_scrolling>`( )                                                                            |
-   +------------------------------------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------+
-   | |void|                                                                 | :ref:`scroll_to<class_AutoScroll_method_scroll_to>`( value\: [float](https://docs.godotengine.org/en/stable/classes/class_float.html) ) |
-   +------------------------------------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------+
-
-#### section
+---
 
 <a name="PropertyDescriptions"></a>
 
-### Property Descriptions
+## Property Descriptions
 
 <a name="[float](https://docs.godotengine.org/en/stable/classes/class_float.html) **auto_min_value** = ``inf_neg``"></a>
 
-##### [float](https://docs.godotengine.org/en/stable/classes/class_float.html) **auto_min_value** = ``inf_neg``
+#### [float](https://docs.godotengine.org/en/stable/classes/class_float.html) **auto_min_value** = ``inf_neg``
 
-- |void| **set_auto_min_value**( value\: [float](https://docs.godotengine.org/en/stable/classes/class_float.html) )
+- *void* **set_auto_min_value**( value\: [float](https://docs.godotengine.org/en/stable/classes/class_float.html) )
 - [float](https://docs.godotengine.org/en/stable/classes/class_float.html) **get_auto_min_value**( )
 
 Defines minimum destination value. See [scroll_to](./autoscroll.md#method_scroll_to) for more details.
 
-#### item
-
 <a name="[float](https://docs.godotengine.org/en/stable/classes/class_float.html) **speed** = ``10.0``"></a>
 
-##### [float](https://docs.godotengine.org/en/stable/classes/class_float.html) **speed** = ``10.0``
+#### [float](https://docs.godotengine.org/en/stable/classes/class_float.html) **speed** = ``10.0``
 
-- |void| **set_speed**( value\: [float](https://docs.godotengine.org/en/stable/classes/class_float.html) )
+- *void* **set_speed**( value\: [float](https://docs.godotengine.org/en/stable/classes/class_float.html) )
 - [float](https://docs.godotengine.org/en/stable/classes/class_float.html) **get_speed**( )
 
 Defines speed of auto scrolling.
 
-#### section
+---
 
 <a name="MethodDescriptions"></a>
 
-### Method Descriptions
+## Method Descriptions
 
 <a name="method_is_scrolling"></a>
 
-##### [bool](https://docs.godotengine.org/en/stable/classes/class_bool.html) **is_scrolling**( )
+#### [bool](https://docs.godotengine.org/en/stable/classes/class_bool.html) **is_scrolling**( )
 
 Returns ``false`` if is inactive(already has reached its destination).
 
-#### item
-
 <a name="method_scroll_to"></a>
 
-##### |void| **scroll_to**( value\: [float](https://docs.godotengine.org/en/stable/classes/class_float.html) )
+#### *void* **scroll_to**( value\: [float](https://docs.godotengine.org/en/stable/classes/class_float.html) )
 
 Sets destination to ``value`` and instantly starts auto scrolling process. If ``value`` is lesser than [auto_min_value](./autoscroll.md#property_auto_min_value) it is changed to match it.
 

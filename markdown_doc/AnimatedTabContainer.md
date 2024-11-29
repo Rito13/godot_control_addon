@@ -11,7 +11,7 @@
 -->
 <a name="TOP"></a>
 
-## AnimatedTabContainer
+# AnimatedTabContainer
 
 **Inherits:** [Container](https://docs.godotengine.org/en/stable/classes/class_container.html)
 
@@ -19,7 +19,7 @@ An animated container that connects each child control as a retractable tab whit
 
 <a name="Description"></a>
 
-### Description
+## Description
 
 Resizes and sets position of all [AnimatedBar](./AnimatedBar.md) children so they appear on sides(default bottom and right). Cosiders rest of the controll children as tabs. Initially all tabs are hidden but when one of bars' button is pressed current tab is changed and extended or retracted.
 
@@ -33,26 +33,23 @@ See also [TabContainer](https://docs.godotengine.org/en/stable/classes/class_tab
 
 <a name="Properties"></a>
 
-### Properties
+## Properties
 
-.. table::
-   :widths: auto
+|                                                                          |                          |         |
+|--------------------------------------------------------------------------|--------------------------|---------|
+| [float](https://docs.godotengine.org/en/stable/classes/class_float.html) | [speed](#property_speed) | ``4.0`` |
 
-   +--------------------------------------------------------------------------+---------------------------------------------------------+---------+
-   | [float](https://docs.godotengine.org/en/stable/classes/class_float.html) | :ref:`speed<class_AnimatedTabContainer_property_speed>` | ``4.0`` |
-   +--------------------------------------------------------------------------+---------------------------------------------------------+---------+
-
-#### section
+---
 
 <a name="PropertyDescriptions"></a>
 
-### Property Descriptions
+## Property Descriptions
 
 <a name="[float](https://docs.godotengine.org/en/stable/classes/class_float.html) **speed** = ``4.0``"></a>
 
-##### [float](https://docs.godotengine.org/en/stable/classes/class_float.html) **speed** = ``4.0``
+#### [float](https://docs.godotengine.org/en/stable/classes/class_float.html) **speed** = ``4.0``
 
-- |void| **set_speed**( value\: [float](https://docs.godotengine.org/en/stable/classes/class_float.html) )
+- *void* **set_speed**( value\: [float](https://docs.godotengine.org/en/stable/classes/class_float.html) )
 - [float](https://docs.godotengine.org/en/stable/classes/class_float.html) **get_speed**( )
 
 Defines speed of tab's extending and retracting process.
