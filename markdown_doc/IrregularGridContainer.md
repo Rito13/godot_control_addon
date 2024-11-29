@@ -42,7 +42,7 @@ You might want to use [GridContainer](https://docs.godotengine.org/en/stable/cla
 
 ## Property Descriptions
 
-<a name="[bool](https://docs.godotengine.org/en/stable/classes/class_bool.html) **shrink_last_row** = ``false``"></a>
+<a name="property_shrink_last_row"></a>
 
 #### [bool](https://docs.godotengine.org/en/stable/classes/class_bool.html) **shrink_last_row** = ``false``
 
@@ -51,7 +51,7 @@ You might want to use [GridContainer](https://docs.godotengine.org/en/stable/cla
 
 If ``true`` lenght of each element in last row is based on previous one.
 
-<a name="[float](https://docs.godotengine.org/en/stable/classes/class_float.html) **spacing** = ``0.0``"></a>
+<a name="property_spacing"></a>
 
 #### [float](https://docs.godotengine.org/en/stable/classes/class_float.html) **spacing** = ``0.0``
 

@@ -116,7 +116,7 @@ There is currently no description for this enum. Please help us by [contributing
 
 ## Property Descriptions
 
-<a name="[ALIGNMENT_ORDER](./RevisedButton.md#enum_ALIGNMENT_ORDER) **alignment_order** = ``0``"></a>
+<a name="property_alignment_order"></a>
 
 #### [ALIGNMENT_ORDER](./RevisedButton.md#enum_ALIGNMENT_ORDER) **alignment_order** = ``0``
 
@@ -127,7 +127,7 @@ Defines which alignment is more important. See [ALIGNMENT_ORDER](./RevisedButton
 
 **Note:** Will be expanded in future versions.
 
-<a name="[float](https://docs.godotengine.org/en/stable/classes/class_float.html) **auto_scrolling_speed** = ``20.0``"></a>
+<a name="property_auto_scrolling_speed"></a>
 
 #### [float](https://docs.godotengine.org/en/stable/classes/class_float.html) **auto_scrolling_speed** = ``20.0``
 
@@ -136,7 +136,7 @@ Defines which alignment is more important. See [ALIGNMENT_ORDER](./RevisedButton
 
 Defines speed of text auto scrolling. See [AutoScroll](./AutoScroll.md) for more details.
 
-<a name="[AutowrapMode](https://docs.godotengine.org/en/stable/classes/class_textserver.html#enum_TextServer_AutowrapMode) **autowrap_mode** = ``3``"></a>
+<a name="property_autowrap_mode"></a>
 
 #### [AutowrapMode](https://docs.godotengine.org/en/stable/classes/class_textserver.html#enum_TextServer_AutowrapMode) **autowrap_mode** = ``3``
 
@@ -145,7 +145,7 @@ Defines speed of text auto scrolling. See [AutoScroll](./AutoScroll.md) for more
 
 If set to something other than [TextServer.AUTOWRAP_OFF](https://docs.godotengine.org/en/stable/classes/class_textserver.html#class_textserver_constant_AUTOWRAP_OFF),wich should always be true, the text gets wrapped inside the node's bounding rectangle.
 
-<a name="[bool](https://docs.godotengine.org/en/stable/classes/class_bool.html) **expand_icon** = ``false``"></a>
+<a name="property_expand_icon"></a>
 
 #### [bool](https://docs.godotengine.org/en/stable/classes/class_bool.html) **expand_icon** = ``false``
 
@@ -154,7 +154,7 @@ If set to something other than [TextServer.AUTOWRAP_OFF](https://docs.godotengin
 
 When enabled, the button's icon will expand/shrink to fit the button's size while keeping its aspect.
 
-<a name="[bool](https://docs.godotengine.org/en/stable/classes/class_bool.html) **flat** = ``false``"></a>
+<a name="property_flat"></a>
 
 #### [bool](https://docs.godotengine.org/en/stable/classes/class_bool.html) **flat** = ``false``
 
@@ -163,7 +163,7 @@ When enabled, the button's icon will expand/shrink to fit the button's size whil
 
 Flat buttons don't display decoration.
 
-<a name="[HorizontalAlignment](https://docs.godotengine.org/en/stable/classes/class_@globalscope.html#enum_@GlobalScope_HorizontalAlignment) **horizontal_text_alignment** = ``1``"></a>
+<a name="property_horizontal_text_alignment"></a>
 
 #### [HorizontalAlignment](https://docs.godotengine.org/en/stable/classes/class_@globalscope.html#enum_@GlobalScope_HorizontalAlignment) **horizontal_text_alignment** = ``1``
 
@@ -172,7 +172,7 @@ Flat buttons don't display decoration.
 
 Text alignment policy for the button's text, use one of the [HorizontalAlignment](https://docs.godotengine.org/en/stable/classes/class_@globalscope.html#enum_@GlobalScope_HorizontalAlignment) constants.
 
-<a name="[Texture2D](https://docs.godotengine.org/en/stable/classes/class_texture2d.html) **icon**"></a>
+<a name="property_icon"></a>
 
 #### [Texture2D](https://docs.godotengine.org/en/stable/classes/class_texture2d.html) **icon**
 
@@ -181,7 +181,7 @@ Text alignment policy for the button's text, use one of the [HorizontalAlignment
 
 Button's icon, if text is present the icon will be placed before the text unless its horizontal alignment is set to [@GlobalScope.HORIZONTAL_ALIGNMENT_RIGHT](./@globalscope.md#constant_HORIZONTAL_ALIGNMENT_RIGHT).
 
-<a name="[HorizontalAlignment](https://docs.godotengine.org/en/stable/classes/class_@globalscope.html#enum_@GlobalScope_HorizontalAlignment) **icon_alignment** = ``1``"></a>
+<a name="property_icon_alignment"></a>
 
 #### [HorizontalAlignment](https://docs.godotengine.org/en/stable/classes/class_@globalscope.html#enum_@GlobalScope_HorizontalAlignment) **icon_alignment** = ``1``
 
@@ -190,7 +190,7 @@ Button's icon, if text is present the icon will be placed before the text unless
 
 Specifies if the icon should be aligned horizontally to the left, right, or center of a button. Uses the same [HorizontalAlignment](https://docs.godotengine.org/en/stable/classes/class_@globalscope.html#enum_@GlobalScope_HorizontalAlignment) constants as the text alignment.
 
-<a name="[bool](https://docs.godotengine.org/en/stable/classes/class_bool.html) **is_text_off** = ``false``"></a>
+<a name="property_is_text_off"></a>
 
 #### [bool](https://docs.godotengine.org/en/stable/classes/class_bool.html) **is_text_off** = ``false``
 
@@ -199,7 +199,7 @@ Specifies if the icon should be aligned horizontally to the left, right, or cent
 
 When enabled, the text will be hidden.
 
-<a name="[String](https://docs.godotengine.org/en/stable/classes/class_string.html) **text** = ``"Text"``"></a>
+<a name="property_text"></a>
 
 #### [String](https://docs.godotengine.org/en/stable/classes/class_string.html) **text** = ``"Text"``
 
@@ -208,7 +208,7 @@ When enabled, the text will be hidden.
 
 The button's text that will be displayed inside the button's area.
 
-<a name="[VerticalAlignment](https://docs.godotengine.org/en/stable/classes/class_@globalscope.html#enum_@GlobalScope_VerticalAlignment) **vertical_icon_alignment** = ``0``"></a>
+<a name="property_vertical_icon_alignment"></a>
 
 #### [VerticalAlignment](https://docs.godotengine.org/en/stable/classes/class_@globalscope.html#enum_@GlobalScope_VerticalAlignment) **vertical_icon_alignment** = ``0``
 
@@ -217,7 +217,7 @@ The button's text that will be displayed inside the button's area.
 
 Specifies if the icon should be aligned vertically to the top, bottom, or center of a button. Uses the same [VerticalAlignment](https://docs.godotengine.org/en/stable/classes/class_@globalscope.html#enum_@GlobalScope_VerticalAlignment) constants as the text alignment.
 
-<a name="[VerticalAlignment](https://docs.godotengine.org/en/stable/classes/class_@globalscope.html#enum_@GlobalScope_VerticalAlignment) **vertical_text_alignment** = ``0``"></a>
+<a name="property_vertical_text_alignment"></a>
 
 #### [VerticalAlignment](https://docs.godotengine.org/en/stable/classes/class_@globalscope.html#enum_@GlobalScope_VerticalAlignment) **vertical_text_alignment** = ``0``
 

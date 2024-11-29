@@ -48,10 +48,10 @@ Was not intended to work with transparent [StyleBox](https://docs.godotengine.or
 
 ## Methods
 
-|        |                            |
-|--------|----------------------------|
-| *void* | [expand](method_expand)( ) |
-| *void* | [reduce](method_reduce)( ) |
+|        |                                                  |
+|--------|--------------------------------------------------|
+| *void* | [expand](./ExpandableButton.md#method_expand)( ) |
+| *void* | [reduce](./ExpandableButton.md#method_reduce)( ) |
 
 ---
 
@@ -85,7 +85,7 @@ There is currently no description for this enum. Please help us by [contributing
 
 ## Property Descriptions
 
-<a name="[Vector2](https://docs.godotengine.org/en/stable/classes/class_vector2.html) **base_minimum_size** = ``Vector2(0, 0)``"></a>
+<a name="property_base_minimum_size"></a>
 
 #### [Vector2](https://docs.godotengine.org/en/stable/classes/class_vector2.html) **base_minimum_size** = ``Vector2(0, 0)``
 
@@ -94,7 +94,7 @@ There is currently no description for this enum. Please help us by [contributing
 
 Minimum size of the main body.
 
-<a name="[int](https://docs.godotengine.org/en/stable/classes/class_int.html) **expansion_indentation** = ``0``"></a>
+<a name="property_expansion_indentation"></a>
 
 #### [int](https://docs.godotengine.org/en/stable/classes/class_int.html) **expansion_indentation** = ``0``
 
@@ -105,7 +105,7 @@ Defines additional lenght of expanded [StyleBox](https://docs.godotengine.org/en
 
 Added lenght will always appear underneath main [StyleBox](https://docs.godotengine.org/en/stable/classes/class_stylebox.html) unless [expansion_indentation](./expandablebutton.md#property_expansion_indentation) is negative.
 
-<a name="[EXPANSION_INFO](./ExpandableButton.md#enum_EXPANSION_INFO) **expansion_information** = ``0``"></a>
+<a name="property_expansion_information"></a>
 
 #### [EXPANSION_INFO](./ExpandableButton.md#enum_EXPANSION_INFO) **expansion_information** = ``0``
 
@@ -116,7 +116,7 @@ Defines which part of content is additional.
 
 <Violet>**Note:** It is planed to add posibility for two texts and/or buttons.</Violet>
 
-<a name="[int](https://docs.godotengine.org/en/stable/classes/class_int.html) **expansion_information_margin** = ``0``"></a>
+<a name="property_expansion_information_margin"></a>
 
 #### [int](https://docs.godotengine.org/en/stable/classes/class_int.html) **expansion_information_margin** = ``0``
 
@@ -125,7 +125,7 @@ Defines which part of content is additional.
 
 If set to positive value then additional content is moved aside main body otherwise part of it renders underneath it.
 
-<a name="[int](https://docs.godotengine.org/en/stable/classes/class_int.html) **expansion_minimum_size** = ``0``"></a>
+<a name="property_expansion_minimum_size"></a>
 
 #### [int](https://docs.godotengine.org/en/stable/classes/class_int.html) **expansion_minimum_size** = ``0``
 
@@ -136,7 +136,7 @@ Shows to user the minimum size of additional content.
 
 **Note:** [set_minimum_expansion_size](./expandablebutton.md#method_set_minimum_expansion_size) does nothing.
 
-<a name="[int](https://docs.godotengine.org/en/stable/classes/class_int.html) **expansion_size** = ``70``"></a>
+<a name="property_expansion_size"></a>
 
 #### [int](https://docs.godotengine.org/en/stable/classes/class_int.html) **expansion_size** = ``70``
 
@@ -145,7 +145,7 @@ Shows to user the minimum size of additional content.
 
 Defines size of additional content unless [expansion_size](./expandablebutton.md#property_expansion_size) is less than [expansion_minimum_size](./expandablebutton.md#property_expansion_minimum_size).
 
-<a name="[float](https://docs.godotengine.org/en/stable/classes/class_float.html) **expansion_speed** = ``25.0``"></a>
+<a name="property_expansion_speed"></a>
 
 #### [float](https://docs.godotengine.org/en/stable/classes/class_float.html) **expansion_speed** = ``25.0``
 

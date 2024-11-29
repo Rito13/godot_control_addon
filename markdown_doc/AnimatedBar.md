@@ -91,12 +91,12 @@ There was a blank line.
 
 ## Methods
 
-|                                                                        |                                                                            |
-|------------------------------------------------------------------------|----------------------------------------------------------------------------|
-| [bool](https://docs.godotengine.org/en/stable/classes/class_bool.html) | [are_navigation_buttons_visible](method_are_navigation_buttons_visible)( ) |
-| *void*                                                                 | [deactivate_focus](method_deactivate_focus)( )                             |
-| [int](https://docs.godotengine.org/en/stable/classes/class_int.html)   | [get_options_quantity](method_get_options_quantity)( ) *const*             |
-| [ORIENTATION](./AnimatedBar.md#enum_ORIENTATION)                       | [get_orientation](method_get_orientation)( ) *const*                       |
+|                                                                        |                                                                                             |
+|------------------------------------------------------------------------|---------------------------------------------------------------------------------------------|
+| [bool](https://docs.godotengine.org/en/stable/classes/class_bool.html) | [are_navigation_buttons_visible](./AnimatedBar.md#method_are_navigation_buttons_visible)( ) |
+| *void*                                                                 | [deactivate_focus](./AnimatedBar.md#method_deactivate_focus)( )                             |
+| [int](https://docs.godotengine.org/en/stable/classes/class_int.html)   | [get_options_quantity](./AnimatedBar.md#method_get_options_quantity)( ) *const*             |
+| [ORIENTATION](./AnimatedBar.md#enum_ORIENTATION)                       | [get_orientation](./AnimatedBar.md#method_get_orientation)( ) *const*                       |
 
 ---
 
@@ -162,7 +162,7 @@ Default value.
 
 ## Property Descriptions
 
-<a name="[bool](https://docs.godotengine.org/en/stable/classes/class_bool.html) **fill_remaining_space** = ``true``"></a>
+<a name="property_fill_remaining_space"></a>
 
 #### [bool](https://docs.godotengine.org/en/stable/classes/class_bool.html) **fill_remaining_space** = ``true``
 
@@ -171,7 +171,7 @@ Default value.
 
 If ``true`` [Control](https://docs.godotengine.org/en/stable/classes/class_control.html) children are stretched to fill remaining space.
 
-<a name="[NodePath](https://docs.godotengine.org/en/stable/classes/class_nodepath.html) **navigation_buttons_custom_left** = ``NodePath("")``"></a>
+<a name="property_navigation_buttons_custom_left"></a>
 
 #### [NodePath](https://docs.godotengine.org/en/stable/classes/class_nodepath.html) **navigation_buttons_custom_left** = ``NodePath("")``
 
@@ -180,7 +180,7 @@ If ``true`` [Control](https://docs.godotengine.org/en/stable/classes/class_contr
 
 If is not set to null pointer and [navigation_buttons_use_custom](./animatedbar.md#property_navigation_buttons_use_custom) is set to ``true`` then child found by this path replaces default left navigation button.
 
-<a name="[NodePath](https://docs.godotengine.org/en/stable/classes/class_nodepath.html) **navigation_buttons_custom_right** = ``NodePath("")``"></a>
+<a name="property_navigation_buttons_custom_right"></a>
 
 #### [NodePath](https://docs.godotengine.org/en/stable/classes/class_nodepath.html) **navigation_buttons_custom_right** = ``NodePath("")``
 
@@ -189,7 +189,7 @@ If is not set to null pointer and [navigation_buttons_use_custom](./animatedbar.
 
 If is not set to null pointer and [navigation_buttons_use_custom](./animatedbar.md#property_navigation_buttons_use_custom) is set to ``true`` then child found by this path replaces default right navigation button.
 
-<a name="[float](https://docs.godotengine.org/en/stable/classes/class_float.html) **navigation_buttons_spacing** = ``5.0``"></a>
+<a name="property_navigation_buttons_spacing"></a>
 
 #### [float](https://docs.godotengine.org/en/stable/classes/class_float.html) **navigation_buttons_spacing** = ``5.0``
 
@@ -198,7 +198,7 @@ If is not set to null pointer and [navigation_buttons_use_custom](./animatedbar.
 
 Defines space between navigation buttons and other content.
 
-<a name="[bool](https://docs.godotengine.org/en/stable/classes/class_bool.html) **navigation_buttons_use_custom** = ``false``"></a>
+<a name="property_navigation_buttons_use_custom"></a>
 
 #### [bool](https://docs.godotengine.org/en/stable/classes/class_bool.html) **navigation_buttons_use_custom** = ``false``
 
@@ -207,7 +207,7 @@ Defines space between navigation buttons and other content.
 
 Defines if to use custom navigation buttons.
 
-<a name="[int](https://docs.godotengine.org/en/stable/classes/class_int.html) **navigation_buttons_visibility** = ``3``"></a>
+<a name="property_navigation_buttons_visibility"></a>
 
 #### [int](https://docs.godotengine.org/en/stable/classes/class_int.html) **navigation_buttons_visibility** = ``3``
 
@@ -220,7 +220,7 @@ If set to 1 then navigation buttons are always visible.
 
 If set to other number then navigation buttons whill automatically hide and show up.
 
-<a name="[float](https://docs.godotengine.org/en/stable/classes/class_float.html) **spacing** = ``10.0``"></a>
+<a name="property_spacing"></a>
 
 #### [float](https://docs.godotengine.org/en/stable/classes/class_float.html) **spacing** = ``10.0``
 
@@ -229,7 +229,7 @@ If set to other number then navigation buttons whill automatically hide and show
 
 Defines space between individual [Control](https://docs.godotengine.org/en/stable/classes/class_control.html) Children.
 
-<a name="[float](https://docs.godotengine.org/en/stable/classes/class_float.html) **speed** = ``4.0``"></a>
+<a name="property_speed"></a>
 
 #### [float](https://docs.godotengine.org/en/stable/classes/class_float.html) **speed** = ``4.0``
 

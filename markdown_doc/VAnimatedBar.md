@@ -29,11 +29,11 @@ See also [AnimatedBar](./AnimatedBar.md) for more details.
 
 ## Methods
 
-|                                                                              |                                                                                        |
-|------------------------------------------------------------------------------|----------------------------------------------------------------------------------------|
-| [Vector2](https://docs.godotengine.org/en/stable/classes/class_vector2.html) | [get_left_navigation_button_size](method_get_left_navigation_button_size)( ) *const*   |
-| [Vector2](https://docs.godotengine.org/en/stable/classes/class_vector2.html) | [get_navigation_buttons_size](method_get_navigation_buttons_size)( ) *const*           |
-| [Vector2](https://docs.godotengine.org/en/stable/classes/class_vector2.html) | [get_right_navigation_button_size](method_get_right_navigation_button_size)( ) *const* |
+|                                                                              |                                                                                                          |
+|------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------|
+| [Vector2](https://docs.godotengine.org/en/stable/classes/class_vector2.html) | [get_left_navigation_button_size](./VAnimatedBar.md#method_get_left_navigation_button_size)( ) *const*   |
+| [Vector2](https://docs.godotengine.org/en/stable/classes/class_vector2.html) | [get_navigation_buttons_size](./VAnimatedBar.md#method_get_navigation_buttons_size)( ) *const*           |
+| [Vector2](https://docs.godotengine.org/en/stable/classes/class_vector2.html) | [get_right_navigation_button_size](./VAnimatedBar.md#method_get_right_navigation_button_size)( ) *const* |
 
 ---
 

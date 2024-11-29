@@ -31,10 +31,10 @@ Used to inplement documentation to c++ classes until it is supported by GDExtens
 
 ## Methods
 
-|                                                                                                                                                    |                                                                                                                                                                                                          |
-|----------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| [Array](https://docs.godotengine.org/en/stable/classes/class_array.html)\[[Node](https://docs.godotengine.org/en/stable/classes/class_node.html)\] | [get_EditorHelps](method_get_EditorHelps)( )                                                                                                                                                             |
-| [bool](https://docs.godotengine.org/en/stable/classes/class_bool.html)                                                                             | [pass_time](method_pass_time)( delta\: [float](https://docs.godotengine.org/en/stable/classes/class_float.html), max_value\: [int](https://docs.godotengine.org/en/stable/classes/class_int.html) = -1 ) |
+|                                                                                                                                                    |                                                                                                                                                                                                                             |
+|----------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| [Array](https://docs.godotengine.org/en/stable/classes/class_array.html)\[[Node](https://docs.godotengine.org/en/stable/classes/class_node.html)\] | [get_EditorHelps](./Documentation.md#method_get_EditorHelps)( )                                                                                                                                                             |
+| [bool](https://docs.godotengine.org/en/stable/classes/class_bool.html)                                                                             | [pass_time](./Documentation.md#method_pass_time)( delta\: [float](https://docs.godotengine.org/en/stable/classes/class_float.html), max_value\: [int](https://docs.godotengine.org/en/stable/classes/class_int.html) = -1 ) |
 
 ---
 
@@ -42,7 +42,7 @@ Used to inplement documentation to c++ classes until it is supported by GDExtens
 
 ## Property Descriptions
 
-<a name="[float](https://docs.godotengine.org/en/stable/classes/class_float.html) **The_documentation_for_GDExtension_is_not_suported_yet** = ``0.0``"></a>
+<a name="property_The_documentation_for_GDExtension_is_not_suported_yet"></a>
 
 #### [float](https://docs.godotengine.org/en/stable/classes/class_float.html) **The_documentation_for_GDExtension_is_not_suported_yet** = ``0.0``
 

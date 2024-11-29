@@ -36,10 +36,10 @@ This node takes its parent [Range](https://docs.godotengine.org/en/stable/classe
 
 ## Methods
 
-|                                                                        |                                                                                                                   |
-|------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------|
-| [bool](https://docs.godotengine.org/en/stable/classes/class_bool.html) | [is_scrolling](method_is_scrolling)( )                                                                            |
-| *void*                                                                 | [scroll_to](method_scroll_to)( value\: [float](https://docs.godotengine.org/en/stable/classes/class_float.html) ) |
+|                                                                        |                                                                                                                                   |
+|------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------|
+| [bool](https://docs.godotengine.org/en/stable/classes/class_bool.html) | [is_scrolling](./AutoScroll.md#method_is_scrolling)( )                                                                            |
+| *void*                                                                 | [scroll_to](./AutoScroll.md#method_scroll_to)( value\: [float](https://docs.godotengine.org/en/stable/classes/class_float.html) ) |
 
 ---
 
@@ -47,7 +47,7 @@ This node takes its parent [Range](https://docs.godotengine.org/en/stable/classe
 
 ## Property Descriptions
 
-<a name="[float](https://docs.godotengine.org/en/stable/classes/class_float.html) **auto_min_value** = ``inf_neg``"></a>
+<a name="property_auto_min_value"></a>
 
 #### [float](https://docs.godotengine.org/en/stable/classes/class_float.html) **auto_min_value** = ``inf_neg``
 
@@ -56,7 +56,7 @@ This node takes its parent [Range](https://docs.godotengine.org/en/stable/classe
 
 Defines minimum destination value. See [scroll_to](./autoscroll.md#method_scroll_to) for more details.
 
-<a name="[float](https://docs.godotengine.org/en/stable/classes/class_float.html) **speed** = ``10.0``"></a>
+<a name="property_speed"></a>
 
 #### [float](https://docs.godotengine.org/en/stable/classes/class_float.html) **speed** = ``10.0``
 

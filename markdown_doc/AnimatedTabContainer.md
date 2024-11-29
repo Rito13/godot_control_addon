@@ -45,7 +45,7 @@ See also [TabContainer](https://docs.godotengine.org/en/stable/classes/class_tab
 
 ## Property Descriptions
 
-<a name="[float](https://docs.godotengine.org/en/stable/classes/class_float.html) **speed** = ``4.0``"></a>
+<a name="property_speed"></a>
 
 #### [float](https://docs.godotengine.org/en/stable/classes/class_float.html) **speed** = ``4.0``
 
