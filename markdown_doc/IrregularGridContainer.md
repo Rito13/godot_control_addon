@@ -9,13 +9,17 @@
 .. _class_IrregularGridContainer:
 
 -->
-## IrregularGridContainer {#TOP}
+<a name="TOP"></a>
+
+## IrregularGridContainer
 
 **Inherits:** [Container](https://docs.godotengine.org/en/stable/classes/class_container.html)
 
 Usefull [GridContainer](https://docs.godotengine.org/en/stable/classes/class_gridcontainer.html) for [ExpandableButton](./ExpandableButton.md)
 
-<a name="Description"></a>### Description
+<a name="Description"></a>
+
+### Description
 
 Arranges its children deppending of theirs minimum size and strech ratio in full rows. If theirs minimum sizes are equal then grid is formed. Each row is being left with additional free space for [ExpandableButton](./ExpandableButton.md) to expand into, which does not mean that this space is hollow because it is splitted into sizes of all children in corresponding row. 
 
@@ -23,7 +27,9 @@ See [Control.size_flags_stretch_ratio](https://docs.godotengine.org/en/stable/cl
 
 You might want to use [GridContainer](https://docs.godotengine.org/en/stable/classes/class_gridcontainer.html) or [color=LightGreen](https://docs.godotengine.org/en/stable/classes/class_color=lightgreen.html)[SpanningTableContainer](https://github.com/Magodra/SpanningTableContainer)[/color].
 
-<a name="Properties"></a>### Properties
+<a name="Properties"></a>
+
+### Properties
 
 .. table::
    :widths: auto
@@ -36,9 +42,13 @@ You might want to use [GridContainer](https://docs.godotengine.org/en/stable/cla
 
 #### section
 
-### Property Descriptions {#PropertyDescriptions}
+<a name="PropertyDescriptions"></a>
 
-<a name="[bool](https://docs.godotengine.org/en/stable/classes/class_bool.html) **shrink_last_row** = ``false``"></a>##### [bool](https://docs.godotengine.org/en/stable/classes/class_bool.html) **shrink_last_row** = ``false``
+### Property Descriptions
+
+<a name="[bool](https://docs.godotengine.org/en/stable/classes/class_bool.html) **shrink_last_row** = ``false``"></a>
+
+##### [bool](https://docs.godotengine.org/en/stable/classes/class_bool.html) **shrink_last_row** = ``false``
 
 - |void| **set_shrink_last_row**( value\: [bool](https://docs.godotengine.org/en/stable/classes/class_bool.html) )
 - [bool](https://docs.godotengine.org/en/stable/classes/class_bool.html) **is_last_row_shrinked**( )
@@ -47,7 +57,9 @@ If ``true`` lenght of each element in last row is based on previous one.
 
 #### item
 
-<a name="[float](https://docs.godotengine.org/en/stable/classes/class_float.html) **spacing** = ``0.0``"></a>##### [float](https://docs.godotengine.org/en/stable/classes/class_float.html) **spacing** = ``0.0``
+<a name="[float](https://docs.godotengine.org/en/stable/classes/class_float.html) **spacing** = ``0.0``"></a>
+
+##### [float](https://docs.godotengine.org/en/stable/classes/class_float.html) **spacing** = ``0.0``
 
 - |void| **set_spacing**( value\: [float](https://docs.godotengine.org/en/stable/classes/class_float.html) )
 - [float](https://docs.godotengine.org/en/stable/classes/class_float.html) **get_spacing**( )

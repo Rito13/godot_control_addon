@@ -9,19 +9,25 @@
 .. _class_HAnimatedBar:
 
 -->
-## HAnimatedBar {#TOP}
+<a name="TOP"></a>
+
+## HAnimatedBar
 
 **Inherits:** [AnimatedBar](./AnimatedBar.md) **<** [Container](https://docs.godotengine.org/en/stable/classes/class_container.html)
 
 Class for creating horizontal tool bar.
 
-<a name="Description"></a>### Description
+<a name="Description"></a>
+
+### Description
 
 Positions its [Control](https://docs.godotengine.org/en/stable/classes/class_control.html) children in horizontal orientation with navigation buttons on left and right sides.
 
 See also [AnimatedBar](./AnimatedBar.md) for more details.
 
-<a name="Methods"></a>### Methods
+<a name="Methods"></a>
+
+### Methods
 
 .. table::
    :widths: auto
@@ -36,9 +42,13 @@ See also [AnimatedBar](./AnimatedBar.md) for more details.
 
 #### section
 
-### Method Descriptions {#MethodDescriptions}
+<a name="MethodDescriptions"></a>
 
-##### [Vector2](https://docs.godotengine.org/en/stable/classes/class_vector2.html) **get_left_navigation_button_size**( ) |const| {#method_get_left_navigation_button_size}
+### Method Descriptions
+
+<a name="method_get_left_navigation_button_size"></a>
+
+##### [Vector2](https://docs.godotengine.org/en/stable/classes/class_vector2.html) **get_left_navigation_button_size**( ) |const|
 
 Overwrites [AnimatedBar](./AnimatedBar.md).get_left_navigation_button_size() virtual method. Returns size of left navigation button.
 
@@ -46,7 +56,9 @@ Overwrites [AnimatedBar](./AnimatedBar.md).get_left_navigation_button_size() vir
 
 #### item
 
-##### [Vector2](https://docs.godotengine.org/en/stable/classes/class_vector2.html) **get_navigation_buttons_size**( ) |const| {#method_get_navigation_buttons_size}
+<a name="method_get_navigation_buttons_size"></a>
+
+##### [Vector2](https://docs.godotengine.org/en/stable/classes/class_vector2.html) **get_navigation_buttons_size**( ) |const|
 
 Overwrites [AnimatedBar](./AnimatedBar.md).get_navigation_buttons_size() virtual method. Returns size of left plus right navigation button.
 
@@ -54,7 +66,9 @@ Overwrites [AnimatedBar](./AnimatedBar.md).get_navigation_buttons_size() virtual
 
 #### item
 
-##### [Vector2](https://docs.godotengine.org/en/stable/classes/class_vector2.html) **get_right_navigation_button_size**( ) |const| {#method_get_right_navigation_button_size}
+<a name="method_get_right_navigation_button_size"></a>
+
+##### [Vector2](https://docs.godotengine.org/en/stable/classes/class_vector2.html) **get_right_navigation_button_size**( ) |const|
 
 Overwrites [AnimatedBar](./AnimatedBar.md).get_right_navigation_button_size() virtual method. Returns size of right navigation button.
 

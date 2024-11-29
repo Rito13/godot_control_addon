@@ -9,7 +9,9 @@
 .. _class_Documentation:
 
 -->
-## Documentation {#TOP}
+<a name="TOP"></a>
+
+## Documentation
 
 **Deprecated:** GDExtension from version 4.3 supports documentation.
 
@@ -17,7 +19,9 @@
 
 Used to inplement documentation to c++ classes until it is supported by GDExtension.
 
-<a name="Properties"></a>### Properties
+<a name="Properties"></a>
+
+### Properties
 
 .. table::
    :widths: auto
@@ -26,7 +30,9 @@ Used to inplement documentation to c++ classes until it is supported by GDExtens
    | [float](https://docs.godotengine.org/en/stable/classes/class_float.html) | :ref:`The_documentation_for_GDExtension_is_not_suported_yet<class_Documentation_property_The_documentation_for_GDExtension_is_not_suported_yet>` | ``0.0`` |
    +--------------------------------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------+---------+
 
-<a name="Methods"></a>### Methods
+<a name="Methods"></a>
+
+### Methods
 
 .. table::
    :widths: auto
@@ -39,9 +45,13 @@ Used to inplement documentation to c++ classes until it is supported by GDExtens
 
 #### section
 
-### Property Descriptions {#PropertyDescriptions}
+<a name="PropertyDescriptions"></a>
 
-<a name="[float](https://docs.godotengine.org/en/stable/classes/class_float.html) **The_documentation_for_GDExtension_is_not_suported_yet** = ``0.0``"></a>##### [float](https://docs.godotengine.org/en/stable/classes/class_float.html) **The_documentation_for_GDExtension_is_not_suported_yet** = ``0.0``
+### Property Descriptions
+
+<a name="[float](https://docs.godotengine.org/en/stable/classes/class_float.html) **The_documentation_for_GDExtension_is_not_suported_yet** = ``0.0``"></a>
+
+##### [float](https://docs.godotengine.org/en/stable/classes/class_float.html) **The_documentation_for_GDExtension_is_not_suported_yet** = ``0.0``
 
 - |void| **set_amplitude**( value\: [float](https://docs.godotengine.org/en/stable/classes/class_float.html) )
 - [float](https://docs.godotengine.org/en/stable/classes/class_float.html) **get_amplitude**( )
@@ -50,15 +60,21 @@ There is currently no description for this property. Please help us by [contribu
 
 #### section
 
-### Method Descriptions {#MethodDescriptions}
+<a name="MethodDescriptions"></a>
 
-##### [Array](https://docs.godotengine.org/en/stable/classes/class_array.html)\[[Node](https://docs.godotengine.org/en/stable/classes/class_node.html)\] **get_EditorHelps**( ) {#method_get_EditorHelps}
+### Method Descriptions
+
+<a name="method_get_EditorHelps"></a>
+
+##### [Array](https://docs.godotengine.org/en/stable/classes/class_array.html)\[[Node](https://docs.godotengine.org/en/stable/classes/class_node.html)\] **get_EditorHelps**( )
 
 There is currently no description for this method. Please help us by [contributing one ](https://docs.godotengine.org/en/stable/contributing/documentation/updating_the_class_reference.html)!
 
 #### item
 
-##### [bool](https://docs.godotengine.org/en/stable/classes/class_bool.html) **pass_time**( delta\: [float](https://docs.godotengine.org/en/stable/classes/class_float.html), max_value\: [int](https://docs.godotengine.org/en/stable/classes/class_int.html) = -1 ) {#method_pass_time}
+<a name="method_pass_time"></a>
+
+##### [bool](https://docs.godotengine.org/en/stable/classes/class_bool.html) **pass_time**( delta\: [float](https://docs.godotengine.org/en/stable/classes/class_float.html), max_value\: [int](https://docs.godotengine.org/en/stable/classes/class_int.html) = -1 )
 
 There is currently no description for this method. Please help us by [contributing one ](https://docs.godotengine.org/en/stable/contributing/documentation/updating_the_class_reference.html)!
 

@@ -9,13 +9,17 @@
 .. _class_AnimatedTabContainer:
 
 -->
-## AnimatedTabContainer {#TOP}
+<a name="TOP"></a>
+
+## AnimatedTabContainer
 
 **Inherits:** [Container](https://docs.godotengine.org/en/stable/classes/class_container.html)
 
 An animated container that connects each child control as a retractable tab whit [AnimatedBar](./AnimatedBar.md) children.
 
-<a name="Description"></a>### Description
+<a name="Description"></a>
+
+### Description
 
 Resizes and sets position of all [AnimatedBar](./AnimatedBar.md) children so they appear on sides(default bottom and right). Cosiders rest of the controll children as tabs. Initially all tabs are hidden but when one of bars' button is pressed current tab is changed and extended or retracted.
 
@@ -27,7 +31,9 @@ Resizes and sets position of all [AnimatedBar](./AnimatedBar.md) children so the
 
 See also [TabContainer](https://docs.godotengine.org/en/stable/classes/class_tabcontainer.html) for inanimate tab container.
 
-<a name="Properties"></a>### Properties
+<a name="Properties"></a>
+
+### Properties
 
 .. table::
    :widths: auto
@@ -38,9 +44,13 @@ See also [TabContainer](https://docs.godotengine.org/en/stable/classes/class_tab
 
 #### section
 
-### Property Descriptions {#PropertyDescriptions}
+<a name="PropertyDescriptions"></a>
 
-<a name="[float](https://docs.godotengine.org/en/stable/classes/class_float.html) **speed** = ``4.0``"></a>##### [float](https://docs.godotengine.org/en/stable/classes/class_float.html) **speed** = ``4.0``
+### Property Descriptions
+
+<a name="[float](https://docs.godotengine.org/en/stable/classes/class_float.html) **speed** = ``4.0``"></a>
+
+##### [float](https://docs.godotengine.org/en/stable/classes/class_float.html) **speed** = ``4.0``
 
 - |void| **set_speed**( value\: [float](https://docs.godotengine.org/en/stable/classes/class_float.html) )
 - [float](https://docs.godotengine.org/en/stable/classes/class_float.html) **get_speed**( )

@@ -9,7 +9,9 @@
 .. _class_AnimatedBar:
 
 -->
-## AnimatedBar {#TOP}
+<a name="TOP"></a>
+
+## AnimatedBar
 
 **Inherits:** [Container](https://docs.godotengine.org/en/stable/classes/class_container.html)
 
@@ -17,7 +19,9 @@
 
 Class for creating tool bar.
 
-<a name="Description"></a>### Description
+<a name="Description"></a>
+
+### Description
 
 Emits custom siglalls when one of button children is pressed.
 
@@ -68,7 +72,9 @@ There was a blank line.
 
 
 
-<a name="Properties"></a>### Properties
+<a name="Properties"></a>
+
+### Properties
 
 .. table::
    :widths: auto
@@ -91,7 +97,9 @@ There was a blank line.
    | [float](https://docs.godotengine.org/en/stable/classes/class_float.html)       | :ref:`speed<class_AnimatedBar_property_speed>`                                                     | ``4.0``          |
    +--------------------------------------------------------------------------------+----------------------------------------------------------------------------------------------------+------------------+
 
-<a name="Methods"></a>### Methods
+<a name="Methods"></a>
+
+### Methods
 
 .. table::
    :widths: auto
@@ -108,53 +116,77 @@ There was a blank line.
 
 #### section
 
-<a name="Signals"></a>### Signals
+<a name="Signals"></a>
 
-##### **focus_activated**( focused_child_id\: [int](https://docs.godotengine.org/en/stable/classes/class_int.html) ) {#signal_focus_activated}
+### Signals
+
+<a name="signal_focus_activated"></a>
+
+##### **focus_activated**( focused_child_id\: [int](https://docs.godotengine.org/en/stable/classes/class_int.html) )
 
 Emitted when option changes from nothing to something.
 
 #### item
 
-##### **focus_changed**( focused_child_id\: [int](https://docs.godotengine.org/en/stable/classes/class_int.html) ) {#signal_focus_changed}
+<a name="signal_focus_changed"></a>
+
+##### **focus_changed**( focused_child_id\: [int](https://docs.godotengine.org/en/stable/classes/class_int.html) )
 
 Emitted when one option changes to another.
 
 #### item
 
-##### **focus_deactivated**( ) {#signal_focus_deactivated}
+<a name="signal_focus_deactivated"></a>
+
+##### **focus_deactivated**( )
 
 Emitted when option changes from something to nothing.
 
 #### item
 
-##### **options_quantity_changed**( new_quantity\: [int](https://docs.godotengine.org/en/stable/classes/class_int.html) ) {#signal_options_quantity_changed}
+<a name="signal_options_quantity_changed"></a>
+
+##### **options_quantity_changed**( new_quantity\: [int](https://docs.godotengine.org/en/stable/classes/class_int.html) )
 
 Emitted when quantity of options changes.
 
 #### section
 
-<a name="Enumerations"></a>### Enumerations
+<a name="Enumerations"></a>
 
-##### enum **ORIENTATION**: {#enum_ORIENTATION}
+### Enumerations
 
-###### [ORIENTATION](./AnimatedBar.md#enum_ORIENTATION) **ORIENTATION_HORIZONTAL** = ``1`` {#constant_ORIENTATION_HORIZONTAL}
+<a name="enum_ORIENTATION"></a>
+
+##### enum **ORIENTATION**:
+
+<a name="constant_ORIENTATION_HORIZONTAL"></a>
+
+###### [ORIENTATION](./AnimatedBar.md#enum_ORIENTATION) **ORIENTATION_HORIZONTAL** = ``1``
 
 Value of [HAnimatedBar](./HAnimatedBar.md).
 
-###### [ORIENTATION](./AnimatedBar.md#enum_ORIENTATION) **ORIENTATION_VERTICAL** = ``2`` {#constant_ORIENTATION_VERTICAL}
+<a name="constant_ORIENTATION_VERTICAL"></a>
+
+###### [ORIENTATION](./AnimatedBar.md#enum_ORIENTATION) **ORIENTATION_VERTICAL** = ``2``
 
 Value of [VAnimatedBar](./VAnimatedBar.md).
 
-###### [ORIENTATION](./AnimatedBar.md#enum_ORIENTATION) **ORIENTATION_UNDEFINED** = ``0`` {#constant_ORIENTATION_UNDEFINED}
+<a name="constant_ORIENTATION_UNDEFINED"></a>
+
+###### [ORIENTATION](./AnimatedBar.md#enum_ORIENTATION) **ORIENTATION_UNDEFINED** = ``0``
 
 Default value.
 
 #### section
 
-### Property Descriptions {#PropertyDescriptions}
+<a name="PropertyDescriptions"></a>
 
-<a name="[bool](https://docs.godotengine.org/en/stable/classes/class_bool.html) **fill_remaining_space** = ``true``"></a>##### [bool](https://docs.godotengine.org/en/stable/classes/class_bool.html) **fill_remaining_space** = ``true``
+### Property Descriptions
+
+<a name="[bool](https://docs.godotengine.org/en/stable/classes/class_bool.html) **fill_remaining_space** = ``true``"></a>
+
+##### [bool](https://docs.godotengine.org/en/stable/classes/class_bool.html) **fill_remaining_space** = ``true``
 
 - |void| **set_fill_remaining_space**( value\: [bool](https://docs.godotengine.org/en/stable/classes/class_bool.html) )
 - [bool](https://docs.godotengine.org/en/stable/classes/class_bool.html) **is_remaining_space_filled**( )
@@ -163,7 +195,9 @@ If ``true`` [Control](https://docs.godotengine.org/en/stable/classes/class_contr
 
 #### item
 
-<a name="[NodePath](https://docs.godotengine.org/en/stable/classes/class_nodepath.html) **navigation_buttons_custom_left** = ``NodePath("")``"></a>##### [NodePath](https://docs.godotengine.org/en/stable/classes/class_nodepath.html) **navigation_buttons_custom_left** = ``NodePath("")``
+<a name="[NodePath](https://docs.godotengine.org/en/stable/classes/class_nodepath.html) **navigation_buttons_custom_left** = ``NodePath("")``"></a>
+
+##### [NodePath](https://docs.godotengine.org/en/stable/classes/class_nodepath.html) **navigation_buttons_custom_left** = ``NodePath("")``
 
 - |void| **set_custom_left_navigation_button**( value\: [NodePath](https://docs.godotengine.org/en/stable/classes/class_nodepath.html) )
 - [NodePath](https://docs.godotengine.org/en/stable/classes/class_nodepath.html) **get_custom_left_navigation_button**( )
@@ -172,7 +206,9 @@ If is not set to null pointer and [navigation_buttons_use_custom](./animatedbar.
 
 #### item
 
-<a name="[NodePath](https://docs.godotengine.org/en/stable/classes/class_nodepath.html) **navigation_buttons_custom_right** = ``NodePath("")``"></a>##### [NodePath](https://docs.godotengine.org/en/stable/classes/class_nodepath.html) **navigation_buttons_custom_right** = ``NodePath("")``
+<a name="[NodePath](https://docs.godotengine.org/en/stable/classes/class_nodepath.html) **navigation_buttons_custom_right** = ``NodePath("")``"></a>
+
+##### [NodePath](https://docs.godotengine.org/en/stable/classes/class_nodepath.html) **navigation_buttons_custom_right** = ``NodePath("")``
 
 - |void| **set_custom_right_navigation_button**( value\: [NodePath](https://docs.godotengine.org/en/stable/classes/class_nodepath.html) )
 - [NodePath](https://docs.godotengine.org/en/stable/classes/class_nodepath.html) **get_custom_right_navigation_button**( )
@@ -181,7 +217,9 @@ If is not set to null pointer and [navigation_buttons_use_custom](./animatedbar.
 
 #### item
 
-<a name="[float](https://docs.godotengine.org/en/stable/classes/class_float.html) **navigation_buttons_spacing** = ``5.0``"></a>##### [float](https://docs.godotengine.org/en/stable/classes/class_float.html) **navigation_buttons_spacing** = ``5.0``
+<a name="[float](https://docs.godotengine.org/en/stable/classes/class_float.html) **navigation_buttons_spacing** = ``5.0``"></a>
+
+##### [float](https://docs.godotengine.org/en/stable/classes/class_float.html) **navigation_buttons_spacing** = ``5.0``
 
 - |void| **set_navigation_buttons_spacing**( value\: [float](https://docs.godotengine.org/en/stable/classes/class_float.html) )
 - [float](https://docs.godotengine.org/en/stable/classes/class_float.html) **get_navigation_buttons_spacing**( )
@@ -190,7 +228,9 @@ Defines space between navigation buttons and other content.
 
 #### item
 
-<a name="[bool](https://docs.godotengine.org/en/stable/classes/class_bool.html) **navigation_buttons_use_custom** = ``false``"></a>##### [bool](https://docs.godotengine.org/en/stable/classes/class_bool.html) **navigation_buttons_use_custom** = ``false``
+<a name="[bool](https://docs.godotengine.org/en/stable/classes/class_bool.html) **navigation_buttons_use_custom** = ``false``"></a>
+
+##### [bool](https://docs.godotengine.org/en/stable/classes/class_bool.html) **navigation_buttons_use_custom** = ``false``
 
 - |void| **use_custom_navigation_buttons**( value\: [bool](https://docs.godotengine.org/en/stable/classes/class_bool.html) )
 - [bool](https://docs.godotengine.org/en/stable/classes/class_bool.html) **are_custom_navigation_buttons_used**( )
@@ -199,7 +239,9 @@ Defines if to use custom navigation buttons.
 
 #### item
 
-<a name="[int](https://docs.godotengine.org/en/stable/classes/class_int.html) **navigation_buttons_visibility** = ``3``"></a>##### [int](https://docs.godotengine.org/en/stable/classes/class_int.html) **navigation_buttons_visibility** = ``3``
+<a name="[int](https://docs.godotengine.org/en/stable/classes/class_int.html) **navigation_buttons_visibility** = ``3``"></a>
+
+##### [int](https://docs.godotengine.org/en/stable/classes/class_int.html) **navigation_buttons_visibility** = ``3``
 
 - |void| **set_navigation_buttons_visibility**( value\: [int](https://docs.godotengine.org/en/stable/classes/class_int.html) )
 - [int](https://docs.godotengine.org/en/stable/classes/class_int.html) **get_navigation_buttons_visibility**( )
@@ -212,7 +254,9 @@ If set to other number then navigation buttons whill automatically hide and show
 
 #### item
 
-<a name="[float](https://docs.godotengine.org/en/stable/classes/class_float.html) **spacing** = ``10.0``"></a>##### [float](https://docs.godotengine.org/en/stable/classes/class_float.html) **spacing** = ``10.0``
+<a name="[float](https://docs.godotengine.org/en/stable/classes/class_float.html) **spacing** = ``10.0``"></a>
+
+##### [float](https://docs.godotengine.org/en/stable/classes/class_float.html) **spacing** = ``10.0``
 
 - |void| **set_spacing**( value\: [float](https://docs.godotengine.org/en/stable/classes/class_float.html) )
 - [float](https://docs.godotengine.org/en/stable/classes/class_float.html) **get_spacing**( )
@@ -221,7 +265,9 @@ Defines space between individual [Control](https://docs.godotengine.org/en/stabl
 
 #### item
 
-<a name="[float](https://docs.godotengine.org/en/stable/classes/class_float.html) **speed** = ``4.0``"></a>##### [float](https://docs.godotengine.org/en/stable/classes/class_float.html) **speed** = ``4.0``
+<a name="[float](https://docs.godotengine.org/en/stable/classes/class_float.html) **speed** = ``4.0``"></a>
+
+##### [float](https://docs.godotengine.org/en/stable/classes/class_float.html) **speed** = ``4.0``
 
 - |void| **set_speed**( value\: [float](https://docs.godotengine.org/en/stable/classes/class_float.html) )
 - [float](https://docs.godotengine.org/en/stable/classes/class_float.html) **get_speed**( )
@@ -230,27 +276,37 @@ Defines sliding speed of content after pressing one of navigation buttons.
 
 #### section
 
-### Method Descriptions {#MethodDescriptions}
+<a name="MethodDescriptions"></a>
 
-##### [bool](https://docs.godotengine.org/en/stable/classes/class_bool.html) **are_navigation_buttons_visible**( ) {#method_are_navigation_buttons_visible}
+### Method Descriptions
+
+<a name="method_are_navigation_buttons_visible"></a>
+
+##### [bool](https://docs.godotengine.org/en/stable/classes/class_bool.html) **are_navigation_buttons_visible**( )
 
 Returns ``true`` if left and right navigation buttons(by default, those with arrows) are visible.
 
 #### item
 
-##### |void| **deactivate_focus**( ) {#method_deactivate_focus}
+<a name="method_deactivate_focus"></a>
+
+##### |void| **deactivate_focus**( )
 
 Does same thing as pressing already chosen butoon(eg. choosing already choosen tool).
 
 #### item
 
-##### [int](https://docs.godotengine.org/en/stable/classes/class_int.html) **get_options_quantity**( ) |const| {#method_get_options_quantity}
+<a name="method_get_options_quantity"></a>
+
+##### [int](https://docs.godotengine.org/en/stable/classes/class_int.html) **get_options_quantity**( ) |const|
 
 Return number of [Control](https://docs.godotengine.org/en/stable/classes/class_control.html) children.
 
 #### item
 
-##### [ORIENTATION](./AnimatedBar.md#enum_ORIENTATION) **get_orientation**( ) |const| {#method_get_orientation}
+<a name="method_get_orientation"></a>
+
+##### [ORIENTATION](./AnimatedBar.md#enum_ORIENTATION) **get_orientation**( ) |const|
 
 Returns orientation of this class.
 

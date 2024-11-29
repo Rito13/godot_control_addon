@@ -9,7 +9,9 @@
 .. _class_GDExample:
 
 -->
-## GDExample {#TOP}
+<a name="TOP"></a>
+
+## GDExample
 
 **Deprecated:** Why it is here?
 
