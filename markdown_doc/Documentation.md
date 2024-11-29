@@ -13,11 +13,11 @@
 
 **Deprecated:** GDExtension from version 4.3 supports documentation.
 
-**Inherits:** [Object](https://docs.godotengine.org/en/stable/classes/class_Object.html)
+**Inherits:** [Object](https://docs.godotengine.org/en/stable/classes/class_object.html)
 
 Used to inplement documentation to c++ classes until it is supported by GDExtension.
 
-### Properties {#Properties}
+<a name="Properties"></a>### Properties
 
 .. table::
    :widths: auto
@@ -26,25 +26,25 @@ Used to inplement documentation to c++ classes until it is supported by GDExtens
    | [float](https://docs.godotengine.org/en/stable/classes/class_float.html) | :ref:`The_documentation_for_GDExtension_is_not_suported_yet<class_Documentation_property_The_documentation_for_GDExtension_is_not_suported_yet>` | ``0.0`` |
    +--------------------------------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------+---------+
 
-### Methods {#Methods}
+<a name="Methods"></a>### Methods
 
 .. table::
    :widths: auto
 
-   +----------------------------------------------------------------------------------------------------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-   | [Array](https://docs.godotengine.org/en/stable/classes/class_array.html)\[[Node](https://docs.godotengine.org/en/stable/classes/class_Node.html)\] | :ref:`get_EditorHelps<class_Documentation_method_get_EditorHelps>`\ (\ )                                                                                                                                                              |
-   +----------------------------------------------------------------------------------------------------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-   | [bool](https://docs.godotengine.org/en/stable/classes/class_bool.html)                                                                             | :ref:`pass_time<class_Documentation_method_pass_time>`\ (\ delta\: [float](https://docs.godotengine.org/en/stable/classes/class_float.html), max_value\: [int](https://docs.godotengine.org/en/stable/classes/class_int.html) = -1\ ) |
-   +----------------------------------------------------------------------------------------------------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+   +----------------------------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+   | [Array](https://docs.godotengine.org/en/stable/classes/class_array.html)\[[Node](https://docs.godotengine.org/en/stable/classes/class_node.html)\] | :ref:`get_EditorHelps<class_Documentation_method_get_EditorHelps>`( )                                                                                                                                                             |
+   +----------------------------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+   | [bool](https://docs.godotengine.org/en/stable/classes/class_bool.html)                                                                             | :ref:`pass_time<class_Documentation_method_pass_time>`( delta\: [float](https://docs.godotengine.org/en/stable/classes/class_float.html), max_value\: [int](https://docs.godotengine.org/en/stable/classes/class_int.html) = -1 ) |
+   +----------------------------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 
 #### section
 
 ### Property Descriptions {#PropertyDescriptions}
 
-##### [float](https://docs.godotengine.org/en/stable/classes/class_float.html) **The_documentation_for_GDExtension_is_not_suported_yet** = ``0.0`` {#[float](https://docs.godotengine.org/en/stable/classes/class_float.html) **The_documentation_for_GDExtension_is_not_suported_yet** = ``0.0``}
+<a name="[float](https://docs.godotengine.org/en/stable/classes/class_float.html) **The_documentation_for_GDExtension_is_not_suported_yet** = ``0.0``"></a>##### [float](https://docs.godotengine.org/en/stable/classes/class_float.html) **The_documentation_for_GDExtension_is_not_suported_yet** = ``0.0``
 
-- |void| **set_amplitude**\ (\ value\: [float](https://docs.godotengine.org/en/stable/classes/class_float.html)\ )
-- [float](https://docs.godotengine.org/en/stable/classes/class_float.html) **get_amplitude**\ (\ )
+- |void| **set_amplitude**( value\: [float](https://docs.godotengine.org/en/stable/classes/class_float.html) )
+- [float](https://docs.godotengine.org/en/stable/classes/class_float.html) **get_amplitude**( )
 
 There is currently no description for this property. Please help us by [contributing one ](https://docs.godotengine.org/en/stable/contributing/documentation/updating_the_class_reference.html)!
 
@@ -52,13 +52,13 @@ There is currently no description for this property. Please help us by [contribu
 
 ### Method Descriptions {#MethodDescriptions}
 
-##### [Array](https://docs.godotengine.org/en/stable/classes/class_array.html)\[[Node](https://docs.godotengine.org/en/stable/classes/class_Node.html)\] **get_EditorHelps**\ (\ ) {#method_get_EditorHelps}
+##### [Array](https://docs.godotengine.org/en/stable/classes/class_array.html)\[[Node](https://docs.godotengine.org/en/stable/classes/class_node.html)\] **get_EditorHelps**( ) {#method_get_EditorHelps}
 
 There is currently no description for this method. Please help us by [contributing one ](https://docs.godotengine.org/en/stable/contributing/documentation/updating_the_class_reference.html)!
 
 #### item
 
-##### [bool](https://docs.godotengine.org/en/stable/classes/class_bool.html) **pass_time**\ (\ delta\: [float](https://docs.godotengine.org/en/stable/classes/class_float.html), max_value\: [int](https://docs.godotengine.org/en/stable/classes/class_int.html) = -1\ ) {#method_pass_time}
+##### [bool](https://docs.godotengine.org/en/stable/classes/class_bool.html) **pass_time**( delta\: [float](https://docs.godotengine.org/en/stable/classes/class_float.html), max_value\: [int](https://docs.godotengine.org/en/stable/classes/class_int.html) = -1 ) {#method_pass_time}
 
 There is currently no description for this method. Please help us by [contributing one ](https://docs.godotengine.org/en/stable/contributing/documentation/updating_the_class_reference.html)!
 

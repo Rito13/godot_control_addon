@@ -11,52 +11,52 @@
 -->
 ## HAnimatedBar {#TOP}
 
-**Inherits:** [AnimatedBar](./AnimatedBar.md) **<** [Container](https://docs.godotengine.org/en/stable/classes/class_Container.html)
+**Inherits:** [AnimatedBar](./AnimatedBar.md) **<** [Container](https://docs.godotengine.org/en/stable/classes/class_container.html)
 
 Class for creating horizontal tool bar.
 
-### Description {#Description}
+<a name="Description"></a>### Description
 
-Positions its [Control](https://docs.godotengine.org/en/stable/classes/class_Control.html) children in horizontal orientation with navigation buttons on left and right sides.
+Positions its [Control](https://docs.godotengine.org/en/stable/classes/class_control.html) children in horizontal orientation with navigation buttons on left and right sides.
 
 See also [AnimatedBar](./AnimatedBar.md) for more details.
 
-### Methods {#Methods}
+<a name="Methods"></a>### Methods
 
 .. table::
    :widths: auto
 
-   +------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------+
-   | [Vector2](https://docs.godotengine.org/en/stable/classes/class_Vector2.html) | :ref:`get_left_navigation_button_size<class_HAnimatedBar_method_get_left_navigation_button_size>`\ (\ ) |const|   |
-   +------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------+
-   | [Vector2](https://docs.godotengine.org/en/stable/classes/class_Vector2.html) | :ref:`get_navigation_buttons_size<class_HAnimatedBar_method_get_navigation_buttons_size>`\ (\ ) |const|           |
-   +------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------+
-   | [Vector2](https://docs.godotengine.org/en/stable/classes/class_Vector2.html) | :ref:`get_right_navigation_button_size<class_HAnimatedBar_method_get_right_navigation_button_size>`\ (\ ) |const| |
-   +------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------+
+   +------------------------------------------------------------------------------+----------------------------------------------------------------------------------------------------------------+
+   | [Vector2](https://docs.godotengine.org/en/stable/classes/class_vector2.html) | :ref:`get_left_navigation_button_size<class_HAnimatedBar_method_get_left_navigation_button_size>`( ) |const|   |
+   +------------------------------------------------------------------------------+----------------------------------------------------------------------------------------------------------------+
+   | [Vector2](https://docs.godotengine.org/en/stable/classes/class_vector2.html) | :ref:`get_navigation_buttons_size<class_HAnimatedBar_method_get_navigation_buttons_size>`( ) |const|           |
+   +------------------------------------------------------------------------------+----------------------------------------------------------------------------------------------------------------+
+   | [Vector2](https://docs.godotengine.org/en/stable/classes/class_vector2.html) | :ref:`get_right_navigation_button_size<class_HAnimatedBar_method_get_right_navigation_button_size>`( ) |const| |
+   +------------------------------------------------------------------------------+----------------------------------------------------------------------------------------------------------------+
 
 #### section
 
 ### Method Descriptions {#MethodDescriptions}
 
-##### [Vector2](https://docs.godotengine.org/en/stable/classes/class_Vector2.html) **get_left_navigation_button_size**\ (\ ) |const| {#method_get_left_navigation_button_size}
+##### [Vector2](https://docs.godotengine.org/en/stable/classes/class_vector2.html) **get_left_navigation_button_size**( ) |const| {#method_get_left_navigation_button_size}
 
 Overwrites [AnimatedBar](./AnimatedBar.md).get_left_navigation_button_size() virtual method. Returns size of left navigation button.
 
-\ **Note:** Returned value contains spacing.
+**Note:** Returned value contains spacing.
 
 #### item
 
-##### [Vector2](https://docs.godotengine.org/en/stable/classes/class_Vector2.html) **get_navigation_buttons_size**\ (\ ) |const| {#method_get_navigation_buttons_size}
+##### [Vector2](https://docs.godotengine.org/en/stable/classes/class_vector2.html) **get_navigation_buttons_size**( ) |const| {#method_get_navigation_buttons_size}
 
 Overwrites [AnimatedBar](./AnimatedBar.md).get_navigation_buttons_size() virtual method. Returns size of left plus right navigation button.
 
-\ **Note:** Returned value contains double size of spacing.
+**Note:** Returned value contains double size of spacing.
 
 #### item
 
-##### [Vector2](https://docs.godotengine.org/en/stable/classes/class_Vector2.html) **get_right_navigation_button_size**\ (\ ) |const| {#method_get_right_navigation_button_size}
+##### [Vector2](https://docs.godotengine.org/en/stable/classes/class_vector2.html) **get_right_navigation_button_size**( ) |const| {#method_get_right_navigation_button_size}
 
 Overwrites [AnimatedBar](./AnimatedBar.md).get_right_navigation_button_size() virtual method. Returns size of right navigation button.
 
-\ **Note:** Returned value contains spacing.
+**Note:** Returned value contains spacing.
 

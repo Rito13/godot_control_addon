@@ -13,7 +13,7 @@
 
 **Deprecated:** Why it is here?
 
-**Inherits:** [Sprite2D](https://docs.godotengine.org/en/stable/classes/class_Sprite2D.html)
+**Inherits:** [Sprite2D](https://docs.godotengine.org/en/stable/classes/class_sprite2d.html)
 
 .. container:: contribute
 

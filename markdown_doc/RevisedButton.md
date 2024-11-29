@@ -11,17 +11,17 @@
 -->
 ## RevisedButton {#TOP}
 
-**Inherits:** [BaseButton](https://docs.godotengine.org/en/stable/classes/class_BaseButton.html)
+**Inherits:** [BaseButton](https://docs.godotengine.org/en/stable/classes/class_basebutton.html)
 
 **Inherited By:** [ExpandableButton](./ExpandableButton.md)
 
-[Button](https://docs.godotengine.org/en/stable/classes/class_Button.html) wich uses [RichTextLable](https://docs.godotengine.org/en/stable/classes/class_RichTextLable.html) to show text.
+[Button](https://docs.godotengine.org/en/stable/classes/class_button.html) wich uses [RichTextLable](https://docs.godotengine.org/en/stable/classes/class_richtextlable.html) to show text.
 
-### Description {#Description}
+<a name="Description"></a>### Description
 
-**RevisedButton** is more complex themed button than [Button](https://docs.godotengine.org/en/stable/classes/class_Button.html). It can contain text and an icon, and it will display them according to the current [Theme](https://docs.godotengine.org/en/stable/classes/class_Theme.html).
+**RevisedButton** is more complex themed button than [Button](https://docs.godotengine.org/en/stable/classes/class_button.html). It can contain text and an icon, and it will display them according to the current [Theme](https://docs.godotengine.org/en/stable/classes/class_theme.html).
 
-\ **Example of creating a **RevisedButton** and assigning an action when pressed by code:**\ 
+**Example of creating a **RevisedButton** and assigning an action when pressed by code:**
 
 
 .. tabs::
@@ -57,11 +57,11 @@
 
 
 
-See also [BaseButton](https://docs.godotengine.org/en/stable/classes/class_BaseButton.html) which contains common properties and methods associated with this node.
+See also [BaseButton](https://docs.godotengine.org/en/stable/classes/class_basebutton.html) which contains common properties and methods associated with this node.
 
-\ **Note:** Buttons do not interpret touch input and therefore don't support multitouch, since mouse emulation can only press one button at a given time. Use [TouchScreenButton](https://docs.godotengine.org/en/stable/classes/class_TouchScreenButton.html) for buttons that trigger gameplay movement or actions.
+**Note:** Buttons do not interpret touch input and therefore don't support multitouch, since mouse emulation can only press one button at a given time. Use [TouchScreenButton](https://docs.godotengine.org/en/stable/classes/class_touchscreenbutton.html) for buttons that trigger gameplay movement or actions.
 
-### Properties {#Properties}
+<a name="Properties"></a>### Properties
 
 .. table::
    :widths: auto
@@ -71,30 +71,30 @@ See also [BaseButton](https://docs.godotengine.org/en/stable/classes/class_BaseB
    +-------------------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------------------------------------+------------+
    | [float](https://docs.godotengine.org/en/stable/classes/class_float.html)                                                            | :ref:`auto_scrolling_speed<class_RevisedButton_property_auto_scrolling_speed>`           | ``20.0``   |
    +-------------------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------------------------------------+------------+
-   | [AutowrapMode](https://docs.godotengine.org/en/stable/classes/class_TextServer.html#enum_TextServer_AutowrapMode)                   | :ref:`autowrap_mode<class_RevisedButton_property_autowrap_mode>`                         | ``3``      |
+   | [AutowrapMode](https://docs.godotengine.org/en/stable/classes/class_textserver.html#enum_TextServer_AutowrapMode)                   | :ref:`autowrap_mode<class_RevisedButton_property_autowrap_mode>`                         | ``3``      |
    +-------------------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------------------------------------+------------+
    | [bool](https://docs.godotengine.org/en/stable/classes/class_bool.html)                                                              | :ref:`expand_icon<class_RevisedButton_property_expand_icon>`                             | ``false``  |
    +-------------------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------------------------------------+------------+
    | [bool](https://docs.godotengine.org/en/stable/classes/class_bool.html)                                                              | :ref:`flat<class_RevisedButton_property_flat>`                                           | ``false``  |
    +-------------------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------------------------------------+------------+
-   | [HorizontalAlignment](https://docs.godotengine.org/en/stable/classes/class_@GlobalScope.html#enum_@GlobalScope_HorizontalAlignment) | :ref:`horizontal_text_alignment<class_RevisedButton_property_horizontal_text_alignment>` | ``1``      |
+   | [HorizontalAlignment](https://docs.godotengine.org/en/stable/classes/class_@globalscope.html#enum_@GlobalScope_HorizontalAlignment) | :ref:`horizontal_text_alignment<class_RevisedButton_property_horizontal_text_alignment>` | ``1``      |
    +-------------------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------------------------------------+------------+
-   | [Texture2D](https://docs.godotengine.org/en/stable/classes/class_Texture2D.html)                                                    | :ref:`icon<class_RevisedButton_property_icon>`                                           |            |
+   | [Texture2D](https://docs.godotengine.org/en/stable/classes/class_texture2d.html)                                                    | :ref:`icon<class_RevisedButton_property_icon>`                                           |            |
    +-------------------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------------------------------------+------------+
-   | [HorizontalAlignment](https://docs.godotengine.org/en/stable/classes/class_@GlobalScope.html#enum_@GlobalScope_HorizontalAlignment) | :ref:`icon_alignment<class_RevisedButton_property_icon_alignment>`                       | ``1``      |
+   | [HorizontalAlignment](https://docs.godotengine.org/en/stable/classes/class_@globalscope.html#enum_@GlobalScope_HorizontalAlignment) | :ref:`icon_alignment<class_RevisedButton_property_icon_alignment>`                       | ``1``      |
    +-------------------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------------------------------------+------------+
    | [bool](https://docs.godotengine.org/en/stable/classes/class_bool.html)                                                              | :ref:`is_text_off<class_RevisedButton_property_is_text_off>`                             | ``false``  |
    +-------------------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------------------------------------+------------+
-   | [String](https://docs.godotengine.org/en/stable/classes/class_String.html)                                                          | :ref:`text<class_RevisedButton_property_text>`                                           | ``"Text"`` |
+   | [String](https://docs.godotengine.org/en/stable/classes/class_string.html)                                                          | :ref:`text<class_RevisedButton_property_text>`                                           | ``"Text"`` |
    +-------------------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------------------------------------+------------+
-   | [VerticalAlignment](https://docs.godotengine.org/en/stable/classes/class_@GlobalScope.html#enum_@GlobalScope_VerticalAlignment)     | :ref:`vertical_icon_alignment<class_RevisedButton_property_vertical_icon_alignment>`     | ``0``      |
+   | [VerticalAlignment](https://docs.godotengine.org/en/stable/classes/class_@globalscope.html#enum_@GlobalScope_VerticalAlignment)     | :ref:`vertical_icon_alignment<class_RevisedButton_property_vertical_icon_alignment>`     | ``0``      |
    +-------------------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------------------------------------+------------+
-   | [VerticalAlignment](https://docs.godotengine.org/en/stable/classes/class_@GlobalScope.html#enum_@GlobalScope_VerticalAlignment)     | :ref:`vertical_text_alignment<class_RevisedButton_property_vertical_text_alignment>`     | ``0``      |
+   | [VerticalAlignment](https://docs.godotengine.org/en/stable/classes/class_@globalscope.html#enum_@GlobalScope_VerticalAlignment)     | :ref:`vertical_text_alignment<class_RevisedButton_property_vertical_text_alignment>`     | ``0``      |
    +-------------------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------------------------------------+------------+
 
 #### section
 
-### Enumerations {#Enumerations}
+<a name="Enumerations"></a>### Enumerations
 
 ##### enum **ALIGNMENT_ORDER**: {#enum_ALIGNMENT_ORDER}
 
@@ -114,111 +114,111 @@ There is currently no description for this enum. Please help us by [contributing
 
 ### Property Descriptions {#PropertyDescriptions}
 
-##### [ALIGNMENT_ORDER](./RevisedButton.md#enum_ALIGNMENT_ORDER) **alignment_order** = ``0`` {#[ALIGNMENT_ORDER](./RevisedButton.md#enum_ALIGNMENT_ORDER) **alignment_order** = ``0``}
+<a name="[ALIGNMENT_ORDER](./RevisedButton.md#enum_ALIGNMENT_ORDER) **alignment_order** = ``0``"></a>##### [ALIGNMENT_ORDER](./RevisedButton.md#enum_ALIGNMENT_ORDER) **alignment_order** = ``0``
 
-- |void| **set_alignment_order**\ (\ value\: [ALIGNMENT_ORDER](./RevisedButton.md#enum_ALIGNMENT_ORDER)\ )
-- [ALIGNMENT_ORDER](./RevisedButton.md#enum_ALIGNMENT_ORDER) **get_alignment_order**\ (\ )
+- |void| **set_alignment_order**( value\: [ALIGNMENT_ORDER](./RevisedButton.md#enum_ALIGNMENT_ORDER) )
+- [ALIGNMENT_ORDER](./RevisedButton.md#enum_ALIGNMENT_ORDER) **get_alignment_order**( )
 
 Defines which alignment is more important. See [ALIGNMENT_ORDER](./RevisedButton.md#enum_ALIGNMENT_ORDER) for more details.
 
-\ **Note:** Will be expanded in future versions.
+**Note:** Will be expanded in future versions.
 
 #### item
 
-##### [float](https://docs.godotengine.org/en/stable/classes/class_float.html) **auto_scrolling_speed** = ``20.0`` {#[float](https://docs.godotengine.org/en/stable/classes/class_float.html) **auto_scrolling_speed** = ``20.0``}
+<a name="[float](https://docs.godotengine.org/en/stable/classes/class_float.html) **auto_scrolling_speed** = ``20.0``"></a>##### [float](https://docs.godotengine.org/en/stable/classes/class_float.html) **auto_scrolling_speed** = ``20.0``
 
-- |void| **set_adaptable_speed**\ (\ value\: [float](https://docs.godotengine.org/en/stable/classes/class_float.html)\ )
-- [float](https://docs.godotengine.org/en/stable/classes/class_float.html) **get_adaptable_speed**\ (\ )
+- |void| **set_adaptable_speed**( value\: [float](https://docs.godotengine.org/en/stable/classes/class_float.html) )
+- [float](https://docs.godotengine.org/en/stable/classes/class_float.html) **get_adaptable_speed**( )
 
 Defines speed of text auto scrolling. See [AutoScroll](./AutoScroll.md) for more details.
 
 #### item
 
-##### [AutowrapMode](https://docs.godotengine.org/en/stable/classes/class_TextServer.html#enum_TextServer_AutowrapMode) **autowrap_mode** = ``3`` {#[AutowrapMode](https://docs.godotengine.org/en/stable/classes/class_TextServer.html#enum_TextServer_AutowrapMode) **autowrap_mode** = ``3``}
+<a name="[AutowrapMode](https://docs.godotengine.org/en/stable/classes/class_textserver.html#enum_TextServer_AutowrapMode) **autowrap_mode** = ``3``"></a>##### [AutowrapMode](https://docs.godotengine.org/en/stable/classes/class_textserver.html#enum_TextServer_AutowrapMode) **autowrap_mode** = ``3``
 
-- |void| **set_text_autowrap**\ (\ value\: [AutowrapMode](https://docs.godotengine.org/en/stable/classes/class_TextServer.html#enum_TextServer_AutowrapMode)\ )
-- [AutowrapMode](https://docs.godotengine.org/en/stable/classes/class_TextServer.html#enum_TextServer_AutowrapMode) **get_text_autowrap**\ (\ )
+- |void| **set_text_autowrap**( value\: [AutowrapMode](https://docs.godotengine.org/en/stable/classes/class_textserver.html#enum_TextServer_AutowrapMode) )
+- [AutowrapMode](https://docs.godotengine.org/en/stable/classes/class_textserver.html#enum_TextServer_AutowrapMode) **get_text_autowrap**( )
 
-If set to something other than [TextServer.AUTOWRAP_OFF](https://docs.godotengine.org/en/stable/classes/class_TextServer.html#class_TextServer_constant_AUTOWRAP_OFF),wich should always be true, the text gets wrapped inside the node's bounding rectangle.
+If set to something other than [TextServer.AUTOWRAP_OFF](https://docs.godotengine.org/en/stable/classes/class_textserver.html#class_textserver_constant_AUTOWRAP_OFF),wich should always be true, the text gets wrapped inside the node's bounding rectangle.
 
 #### item
 
-##### [bool](https://docs.godotengine.org/en/stable/classes/class_bool.html) **expand_icon** = ``false`` {#[bool](https://docs.godotengine.org/en/stable/classes/class_bool.html) **expand_icon** = ``false``}
+<a name="[bool](https://docs.godotengine.org/en/stable/classes/class_bool.html) **expand_icon** = ``false``"></a>##### [bool](https://docs.godotengine.org/en/stable/classes/class_bool.html) **expand_icon** = ``false``
 
-- |void| **set_expand_icon**\ (\ value\: [bool](https://docs.godotengine.org/en/stable/classes/class_bool.html)\ )
-- [bool](https://docs.godotengine.org/en/stable/classes/class_bool.html) **is_expand_icon**\ (\ )
+- |void| **set_expand_icon**( value\: [bool](https://docs.godotengine.org/en/stable/classes/class_bool.html) )
+- [bool](https://docs.godotengine.org/en/stable/classes/class_bool.html) **is_expand_icon**( )
 
 When enabled, the button's icon will expand/shrink to fit the button's size while keeping its aspect.
 
 #### item
 
-##### [bool](https://docs.godotengine.org/en/stable/classes/class_bool.html) **flat** = ``false`` {#[bool](https://docs.godotengine.org/en/stable/classes/class_bool.html) **flat** = ``false``}
+<a name="[bool](https://docs.godotengine.org/en/stable/classes/class_bool.html) **flat** = ``false``"></a>##### [bool](https://docs.godotengine.org/en/stable/classes/class_bool.html) **flat** = ``false``
 
-- |void| **set_flat**\ (\ value\: [bool](https://docs.godotengine.org/en/stable/classes/class_bool.html)\ )
-- [bool](https://docs.godotengine.org/en/stable/classes/class_bool.html) **is_flat**\ (\ )
+- |void| **set_flat**( value\: [bool](https://docs.godotengine.org/en/stable/classes/class_bool.html) )
+- [bool](https://docs.godotengine.org/en/stable/classes/class_bool.html) **is_flat**( )
 
 Flat buttons don't display decoration.
 
 #### item
 
-##### [HorizontalAlignment](https://docs.godotengine.org/en/stable/classes/class_@GlobalScope.html#enum_@GlobalScope_HorizontalAlignment) **horizontal_text_alignment** = ``1`` {#[HorizontalAlignment](https://docs.godotengine.org/en/stable/classes/class_@GlobalScope.html#enum_@GlobalScope_HorizontalAlignment) **horizontal_text_alignment** = ``1``}
+<a name="[HorizontalAlignment](https://docs.godotengine.org/en/stable/classes/class_@globalscope.html#enum_@GlobalScope_HorizontalAlignment) **horizontal_text_alignment** = ``1``"></a>##### [HorizontalAlignment](https://docs.godotengine.org/en/stable/classes/class_@globalscope.html#enum_@GlobalScope_HorizontalAlignment) **horizontal_text_alignment** = ``1``
 
-- |void| **set_text_alignment**\ (\ value\: [HorizontalAlignment](https://docs.godotengine.org/en/stable/classes/class_@GlobalScope.html#enum_@GlobalScope_HorizontalAlignment)\ )
-- [HorizontalAlignment](https://docs.godotengine.org/en/stable/classes/class_@GlobalScope.html#enum_@GlobalScope_HorizontalAlignment) **get_text_alignment**\ (\ )
+- |void| **set_text_alignment**( value\: [HorizontalAlignment](https://docs.godotengine.org/en/stable/classes/class_@globalscope.html#enum_@GlobalScope_HorizontalAlignment) )
+- [HorizontalAlignment](https://docs.godotengine.org/en/stable/classes/class_@globalscope.html#enum_@GlobalScope_HorizontalAlignment) **get_text_alignment**( )
 
-Text alignment policy for the button's text, use one of the [HorizontalAlignment](https://docs.godotengine.org/en/stable/classes/class_@GlobalScope.html#enum_@GlobalScope_HorizontalAlignment) constants.
-
-#### item
-
-##### [Texture2D](https://docs.godotengine.org/en/stable/classes/class_Texture2D.html) **icon** {#[Texture2D](https://docs.godotengine.org/en/stable/classes/class_Texture2D.html) **icon**}
-
-- |void| **set_button_icon**\ (\ value\: [Texture2D](https://docs.godotengine.org/en/stable/classes/class_Texture2D.html)\ )
-- [Texture2D](https://docs.godotengine.org/en/stable/classes/class_Texture2D.html) **get_button_icon**\ (\ )
-
-Button's icon, if text is present the icon will be placed before the text unless its horizontal alignment is set to [@GlobalScope.HORIZONTAL_ALIGNMENT_RIGHT](./@GlobalScope.md#constant_HORIZONTAL_ALIGNMENT_RIGHT).
+Text alignment policy for the button's text, use one of the [HorizontalAlignment](https://docs.godotengine.org/en/stable/classes/class_@globalscope.html#enum_@GlobalScope_HorizontalAlignment) constants.
 
 #### item
 
-##### [HorizontalAlignment](https://docs.godotengine.org/en/stable/classes/class_@GlobalScope.html#enum_@GlobalScope_HorizontalAlignment) **icon_alignment** = ``1`` {#[HorizontalAlignment](https://docs.godotengine.org/en/stable/classes/class_@GlobalScope.html#enum_@GlobalScope_HorizontalAlignment) **icon_alignment** = ``1``}
+<a name="[Texture2D](https://docs.godotengine.org/en/stable/classes/class_texture2d.html) **icon**"></a>##### [Texture2D](https://docs.godotengine.org/en/stable/classes/class_texture2d.html) **icon**
 
-- |void| **set_icon_alignment**\ (\ value\: [HorizontalAlignment](https://docs.godotengine.org/en/stable/classes/class_@GlobalScope.html#enum_@GlobalScope_HorizontalAlignment)\ )
-- [HorizontalAlignment](https://docs.godotengine.org/en/stable/classes/class_@GlobalScope.html#enum_@GlobalScope_HorizontalAlignment) **get_icon_alignment**\ (\ )
+- |void| **set_button_icon**( value\: [Texture2D](https://docs.godotengine.org/en/stable/classes/class_texture2d.html) )
+- [Texture2D](https://docs.godotengine.org/en/stable/classes/class_texture2d.html) **get_button_icon**( )
 
-Specifies if the icon should be aligned horizontally to the left, right, or center of a button. Uses the same [HorizontalAlignment](https://docs.godotengine.org/en/stable/classes/class_@GlobalScope.html#enum_@GlobalScope_HorizontalAlignment) constants as the text alignment.
+Button's icon, if text is present the icon will be placed before the text unless its horizontal alignment is set to [@GlobalScope.HORIZONTAL_ALIGNMENT_RIGHT](./@globalscope.md#constant_HORIZONTAL_ALIGNMENT_RIGHT).
 
 #### item
 
-##### [bool](https://docs.godotengine.org/en/stable/classes/class_bool.html) **is_text_off** = ``false`` {#[bool](https://docs.godotengine.org/en/stable/classes/class_bool.html) **is_text_off** = ``false``}
+<a name="[HorizontalAlignment](https://docs.godotengine.org/en/stable/classes/class_@globalscope.html#enum_@GlobalScope_HorizontalAlignment) **icon_alignment** = ``1``"></a>##### [HorizontalAlignment](https://docs.godotengine.org/en/stable/classes/class_@globalscope.html#enum_@GlobalScope_HorizontalAlignment) **icon_alignment** = ``1``
 
-- |void| **set_text_off**\ (\ value\: [bool](https://docs.godotengine.org/en/stable/classes/class_bool.html)\ )
-- [bool](https://docs.godotengine.org/en/stable/classes/class_bool.html) **is_text_off**\ (\ )
+- |void| **set_icon_alignment**( value\: [HorizontalAlignment](https://docs.godotengine.org/en/stable/classes/class_@globalscope.html#enum_@GlobalScope_HorizontalAlignment) )
+- [HorizontalAlignment](https://docs.godotengine.org/en/stable/classes/class_@globalscope.html#enum_@GlobalScope_HorizontalAlignment) **get_icon_alignment**( )
+
+Specifies if the icon should be aligned horizontally to the left, right, or center of a button. Uses the same [HorizontalAlignment](https://docs.godotengine.org/en/stable/classes/class_@globalscope.html#enum_@GlobalScope_HorizontalAlignment) constants as the text alignment.
+
+#### item
+
+<a name="[bool](https://docs.godotengine.org/en/stable/classes/class_bool.html) **is_text_off** = ``false``"></a>##### [bool](https://docs.godotengine.org/en/stable/classes/class_bool.html) **is_text_off** = ``false``
+
+- |void| **set_text_off**( value\: [bool](https://docs.godotengine.org/en/stable/classes/class_bool.html) )
+- [bool](https://docs.godotengine.org/en/stable/classes/class_bool.html) **is_text_off**( )
 
 When enabled, the text will be hidden.
 
 #### item
 
-##### [String](https://docs.godotengine.org/en/stable/classes/class_String.html) **text** = ``"Text"`` {#[String](https://docs.godotengine.org/en/stable/classes/class_String.html) **text** = ``"Text"``}
+<a name="[String](https://docs.godotengine.org/en/stable/classes/class_string.html) **text** = ``"Text"``"></a>##### [String](https://docs.godotengine.org/en/stable/classes/class_string.html) **text** = ``"Text"``
 
-- |void| **set_text**\ (\ value\: [String](https://docs.godotengine.org/en/stable/classes/class_String.html)\ )
-- [String](https://docs.godotengine.org/en/stable/classes/class_String.html) **get_text**\ (\ )
+- |void| **set_text**( value\: [String](https://docs.godotengine.org/en/stable/classes/class_string.html) )
+- [String](https://docs.godotengine.org/en/stable/classes/class_string.html) **get_text**( )
 
 The button's text that will be displayed inside the button's area.
 
 #### item
 
-##### [VerticalAlignment](https://docs.godotengine.org/en/stable/classes/class_@GlobalScope.html#enum_@GlobalScope_VerticalAlignment) **vertical_icon_alignment** = ``0`` {#[VerticalAlignment](https://docs.godotengine.org/en/stable/classes/class_@GlobalScope.html#enum_@GlobalScope_VerticalAlignment) **vertical_icon_alignment** = ``0``}
+<a name="[VerticalAlignment](https://docs.godotengine.org/en/stable/classes/class_@globalscope.html#enum_@GlobalScope_VerticalAlignment) **vertical_icon_alignment** = ``0``"></a>##### [VerticalAlignment](https://docs.godotengine.org/en/stable/classes/class_@globalscope.html#enum_@GlobalScope_VerticalAlignment) **vertical_icon_alignment** = ``0``
 
-- |void| **set_vertical_icon_alignment**\ (\ value\: [VerticalAlignment](https://docs.godotengine.org/en/stable/classes/class_@GlobalScope.html#enum_@GlobalScope_VerticalAlignment)\ )
-- [VerticalAlignment](https://docs.godotengine.org/en/stable/classes/class_@GlobalScope.html#enum_@GlobalScope_VerticalAlignment) **get_vertical_icon_alignment**\ (\ )
+- |void| **set_vertical_icon_alignment**( value\: [VerticalAlignment](https://docs.godotengine.org/en/stable/classes/class_@globalscope.html#enum_@GlobalScope_VerticalAlignment) )
+- [VerticalAlignment](https://docs.godotengine.org/en/stable/classes/class_@globalscope.html#enum_@GlobalScope_VerticalAlignment) **get_vertical_icon_alignment**( )
 
-Specifies if the icon should be aligned vertically to the top, bottom, or center of a button. Uses the same [VerticalAlignment](https://docs.godotengine.org/en/stable/classes/class_@GlobalScope.html#enum_@GlobalScope_VerticalAlignment) constants as the text alignment.
+Specifies if the icon should be aligned vertically to the top, bottom, or center of a button. Uses the same [VerticalAlignment](https://docs.godotengine.org/en/stable/classes/class_@globalscope.html#enum_@GlobalScope_VerticalAlignment) constants as the text alignment.
 
 #### item
 
-##### [VerticalAlignment](https://docs.godotengine.org/en/stable/classes/class_@GlobalScope.html#enum_@GlobalScope_VerticalAlignment) **vertical_text_alignment** = ``0`` {#[VerticalAlignment](https://docs.godotengine.org/en/stable/classes/class_@GlobalScope.html#enum_@GlobalScope_VerticalAlignment) **vertical_text_alignment** = ``0``}
+<a name="[VerticalAlignment](https://docs.godotengine.org/en/stable/classes/class_@globalscope.html#enum_@GlobalScope_VerticalAlignment) **vertical_text_alignment** = ``0``"></a>##### [VerticalAlignment](https://docs.godotengine.org/en/stable/classes/class_@globalscope.html#enum_@GlobalScope_VerticalAlignment) **vertical_text_alignment** = ``0``
 
-- |void| **set_v_text_alignment**\ (\ value\: [VerticalAlignment](https://docs.godotengine.org/en/stable/classes/class_@GlobalScope.html#enum_@GlobalScope_VerticalAlignment)\ )
-- [VerticalAlignment](https://docs.godotengine.org/en/stable/classes/class_@GlobalScope.html#enum_@GlobalScope_VerticalAlignment) **get_v_text_alignment**\ (\ )
+- |void| **set_v_text_alignment**( value\: [VerticalAlignment](https://docs.godotengine.org/en/stable/classes/class_@globalscope.html#enum_@GlobalScope_VerticalAlignment) )
+- [VerticalAlignment](https://docs.godotengine.org/en/stable/classes/class_@globalscope.html#enum_@GlobalScope_VerticalAlignment) **get_v_text_alignment**( )
 
-Text alignment policy for the button's text, use one of the [VerticalAlignment](https://docs.godotengine.org/en/stable/classes/class_@GlobalScope.html#enum_@GlobalScope_VerticalAlignment) constants.
+Text alignment policy for the button's text, use one of the [VerticalAlignment](https://docs.godotengine.org/en/stable/classes/class_@globalscope.html#enum_@GlobalScope_VerticalAlignment) constants.
 
