@@ -11,3 +11,4 @@ extern/godot-cpp-godot-4.2.2-stable
 .git/
 Control++.layout
 .sconsign.dblite
+.vscode/

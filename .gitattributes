@@ -1,14 +1,5 @@
 # Sources
-*.c     export-ignore
-*.cc    export-ignore
-*.cxx   export-ignore
-*.cpp   export-ignore
-*.cpi   export-ignore
-*.c++   export-ignore
-*.hpp   export-ignore
-*.h     export-ignore
-*.h++   export-ignore
-*.hh    export-ignore
+*.os
 
 # Compiled Object files
 *.slo   binary
@@ -40,12 +31,15 @@
 * text=auto eol=lf
 
 # Project Files
-.gitignore	export-ignore
-*.cbp		export-ignore
+# .gitignore	export-ignore
+# *.cbp		export-ignore
+
+# GitHub templates and other files
+.github/
 
 # Make Files
-CMakeLists.txt		export-ignore
-SConstruct		export-ignore
-CMakePresets.json	export-ignore
-templates/**		export-ignore
-support_files/**	export-ignore
+# CMakeLists.txt	export-ignore
+# SConstruct		export-ignore
+# CMakePresets.json	export-ignore
+# templates/**		export-ignore
+# support_files/**	export-ignore
