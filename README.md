@@ -1,6 +1,6 @@
-#This is Control++ godot plugin.
+# This is Control++ godot plugin.
 
-##---- Description ----
+## ---- Description ----
 
 This plugin adds control classes usefull for creating animated bars and tabs.
 Firstly [RevisedButton](markdown_doc/RevisedButton.md) is a class similar to godot Button but uses RichTextLable to show contained text and automatically scrols it when it exceeds bounds using [AutoScroll](markdown_doc/AutoScroll.md) class.
@@ -11,11 +11,11 @@ Firstly [RevisedButton](markdown_doc/RevisedButton.md) is a class similar to god
 
 Here is a link to [Source Code](https://github.com/Rito13/godot_control_addon).
 
-##---- Instalation ----
+## ---- Instalation ----
 
 Download latest release from [GitHub](https://github.com/Rito13/godot_control_addon/releases) or install using [Godot Asset Library](https://godotengine.org/asset-library/asset/{This_addon_ID}).
 
-##---- TODO ----
+## ---- TODO ----
  - Allow [AnimatedTabContainer](markdown_doc/AnimatedTabContainer.md) to have bars on left and upper side.
  - Fix [ExpandableButton](markdown_doc/ExpandableButton.md) draw two images.
  - Fix [ExpandableButton](markdown_doc/ExpandableButton.md) not overwriting [RevisedButton](markdown_doc/RevisedButton.md) behavior of positioning text.
@@ -29,3 +29,8 @@ Download latest release from [GitHub](https://github.com/Rito13/godot_control_ad
  - Think about circles and triangles.
  - Decreas CPU consumption of some classes (eg. [RevisedButton](markdown_doc/RevisedButton.md)).
  - Make better use of Godot theme API.
+ - Connect/Automate version number actualisations to commiting and releasing.
+ - Beautify source code.
+ - Make so markdown documentation is generated more beautiful.
+ - Use `import module_name;` syntax in c++ sources files.
+ - Beautify Logo (e.g. bend vertical axis of pluses).
