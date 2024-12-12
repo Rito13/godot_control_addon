@@ -13,7 +13,7 @@ Here is a link to [Source Code](https://github.com/Rito13/godot_control_addon).
 
 ## ---- Instalation ----
 
-Download latest release from [GitHub](https://github.com/Rito13/godot_control_addon/releases) or install using [Godot Asset Library](https://godotengine.org/asset-library/asset/{This_addon_ID}).
+Download latest release from [GitHub](https://github.com/Rito13/godot_control_addon/releases) or install using [Godot Asset Library](https://godotengine.org/asset-library/asset/3532).
 
 ## ---- TODO ----
  - Allow [AnimatedTabContainer](markdown_doc/AnimatedTabContainer.md) to have bars on left and upper side.

@@ -3,6 +3,8 @@
 import argparse
 import subprocess
 import os
+import json
+from functools import partial
 
 def check_return_code(return_code:int,what:str,force_yes:bool = False):
     if return_code == 0:
@@ -49,7 +51,7 @@ def check_distrobox_name(name:str):
         if not c in Allowed_Characters:
             raise ValueError(f"Character {c} is not allowed.")
 
-def set_up(verbose:bool = False,verbose_distrobox:bool = False,force_yes = False,distrobox_name:str=""):
+def set_up(verbose:bool = False,verbose_distrobox:bool = False,force_yes = False,distrobox_name:str="",path_to_godot:str = ""):
     try:
         check_distrobox_name(distrobox_name)
     except Exception as err:
@@ -91,12 +93,16 @@ def set_up(verbose:bool = False,verbose_distrobox:bool = False,force_yes = False
 
     try:
         with open(
-            os.path.join(".", ".distrobox_name.txt"),
+            os.path.join(".", ".IC_settings.txt"),
             "w",
             encoding="utf-8",
             newline="\n",
         ) as f:
-            f.write(distrobox_name)
+            dict = {
+                "distrobox_name": distrobox_name,
+                "path_to_godot": path_to_godot
+            }
+            f.write(json.dumps(dict, indent=4))
     except Exception as err:
         print(err)
 
@@ -118,51 +124,94 @@ def generate_md_docs(odir:str, lang:str, verbose:bool = False, force_colors:bool
                                   shell=True)
     check_return_code(return_code, "generating markdown documentation using python md doc generator")
 
-def load_distrobox_name()->str:
+def load_settings()->dict:
     cwd = os.getcwd()
     this_file_location = os.path.join(os.path.dirname(os.path.abspath(__file__)))
     os.chdir(this_file_location)
-    distrobox_name = ""
+    settings = ""
 
     try:
         with open(
-            os.path.join(".", ".distrobox_name.txt"),
+            os.path.join(".", ".IC_settings.txt"),
             "r",
             encoding="utf-8",
             newline="\n",
         ) as f:
-            distrobox_name = f.read()
-            distrobox_name = distrobox_name.replace("\n","")
+            settings = f.read()
+            settings = json.loads(settings)
     except Exception as err:
-        print('Got error:"' + str(err) + '" while ' + "loading distrobox name from file.")
+        print('Got error:"' + str(err) + '" while ' + "loading settings from file.")
         exit(1)
 
     try:
-        check_distrobox_name(distrobox_name)
+        check_distrobox_name(settings["distrobox_name"])
     except Exception as err:
         print("Name in .distrobox_name.txt file is invalid.")
         print(err,"Distrobox name must match [a-zA-Z0-9][a-zA-Z0-9_.-]* pattern.")
         exit(1)
 
+    try:
+        with open(
+            settings["path_to_godot"],
+            "r",
+            encoding="utf-8",
+            newline="\n",
+        ) as f:
+            pass
+    except Exception as err:
+        print('Got error:"' + str(err) + '" while ' + "reading Godot binary file.")
+        exit(1)
+
     os.chdir(cwd)
-    return distrobox_name
+    return settings
 
 
-def update_doc(platform:str , target:str, verbose:bool = False, verbose_distrobox:bool = False):
-    this_file_location = os.path.join(os.path.dirname(os.path.abspath(__file__)))
-    os.chdir(this_file_location)
+def compile(distrobox_name:str, platform:str , target:str, precision:str, verbose:bool = False, verbose_distrobox:bool = False, optimize:str = ""):
+    cwd = os.getcwd()
+    res_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)),"..")
+    os.chdir(res_dir)
 
-    distrobox_name = load_distrobox_name()
-
-    v_param = ""
+    is_release = False
     d_v_param = "" # value of verbose parameter for distrobox
+    if verbose_distrobox:
+        d_v_param = "--verbose"
+    if "release" in target:
+        is_release = True
+    if optimize == "":
+        optimize = "debug"
+        if is_release:
+            optimize = "speed"
+
+    return_code = subprocess.call(f"distrobox enter {distrobox_name} {d_v_param} -- ../venv-{distrobox_name}/bin/scons "+
+                                  f"verbose={verbose} target={target} platform={platform} disable_exceptions={is_release} "+
+                                  f"debug_symbols={not is_release} precision={precision} optimize={optimize}", shell=True)
+    check_return_code(return_code, f"compiling {target} for {platform}")
+    os.chdir(cwd)
+
+def update_doc(platform:str , target:str, precision:str, verbose:bool = False, verbose_distrobox:bool = False, optimize:str = ""):
+    res_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..")
+    os.chdir(res_dir)
+
+    settings = load_settings()
+    path_to_godot = settings["path_to_godot"]
+    distrobox_name = settings["distrobox_name"]
+
+    print("\nCompiling Source\n")
+    compile(distrobox_name,platform,target,precision,verbose,verbose_distrobox,optimize)
+
+    print("\nRunning Doctools\n")
+    v_param = ""
+    d_v_param = ""  # value of verbose parameter for distrobox
     if verbose:
         v_param = "--verbose"
     if verbose_distrobox:
         d_v_param = "--verbose"
+    return_code = subprocess.call(f"distrobox enter {distrobox_name} {d_v_param} -- {path_to_godot}"+
+                                  f" --doctool ./ --gdextension-docs {v_param}", shell=True)
+    check_return_code(return_code, f"compiling {target} for {platform}")
 
-    return_code = 1519#subprocess.call(f"distrobox enter {distrobox_name} {v_param} -- sudo apt {apt_v_param} install apt-file {y_param}", shell=True)
-    check_return_code(return_code, "installing apt-file")
+    print("\nCompiling New Docs\n")
+    compile(distrobox_name, platform, target, precision, verbose, verbose_distrobox, optimize)
 
 def set_up_main(args):
     print("Starting Setup")
@@ -170,12 +219,69 @@ def set_up_main(args):
     return
 
 def compile_main(args):
-    print("Starting Compilation")
+    print("Compiling",args.target,"for",args.platform,"with",args.precision,"precision.")
+    print("Curent optimization level is",args.optimize)
+    print("\nBeginning Of Compilation\n")
+    settings = load_settings()
+    distrobox_name = settings["distrobox_name"]
+    compile(distrobox_name, args.platform, args.target, args.precision, args.verbose, args.verbose_distrobox, args.optimize)
+    return
+
+def full_compile_main(args):
+    print("Compiling for all supported platforms(Linux and Windows) with",args.precision,"precision.")
+    settings = load_settings()
+    distrobox_name = settings["distrobox_name"]
+    compile(distrobox_name, "windows", "template_release", args.precision, args.verbose, args.verbose_distrobox, args.release_optimize)
+    compile(distrobox_name, "windows", "template_debug", args.precision, args.verbose, args.verbose_distrobox, args.debug_optimize)
+    compile(distrobox_name, "linux", "template_release", args.precision, args.verbose, args.verbose_distrobox, args.release_optimize)
+    compile(distrobox_name, "linux", "template_debug", args.precision, args.verbose, args.verbose_distrobox, args.debug_optimize)
     return
 
 def update_doc_main(args):
     print("Starting Documantation Update")
-    update_doc(args.platform, args.target, args.verbose, args.verbose_distrobox)
+    update_doc(args.platform, args.target, args.precision, args.verbose, args.verbose_distrobox)
+    return
+
+def gd_path_main(args):
+    print("Setting Godot Engine Path")
+    settings = ""
+    this_file_location = os.path.join(os.path.dirname(os.path.abspath(__file__)))
+    os.chdir(this_file_location)
+    try:
+        with open(
+                os.path.join(".", ".IC_settings.txt"),
+                "r",
+                encoding="utf-8",
+                newline="\n",
+        ) as f:
+            settings = f.read()
+            settings = json.loads(settings)
+    except Exception as err:
+        print('Got error:"' + str(err) + '" while ' + "loading settings from file.")
+        exit(1)
+    settings["path_to_godot"] = args.path
+    try:
+        with open(
+            settings["path_to_godot"],
+            "r",
+            encoding="utf-8",
+            newline="\n",
+        ) as f:
+            pass
+    except Exception as err:
+        print('Got error:"' + str(err) + '" while ' + "checking if Godot binary file exists.")
+        exit(1)
+    try:
+        with open(
+            os.path.join(".", ".IC_settings.txt"),
+            "w",
+            encoding="utf-8",
+            newline="\n",
+        ) as f:
+            f.write(json.dumps(settings, indent=4))
+    except Exception as err:
+        print(err)
+    print("Godot Path Saved Successfully")
     return
 
 def md_doc_main(args):
@@ -191,8 +297,8 @@ def md_doc_main(args):
     generate_md_docs(odir, args.lang, args.verbose, args.color)
     return
 
-def print_help(args):
-    print("Invalid usage, try to run this program wiht `--help` parameter for more information.")
+def default_main(parser,args):
+    parser.print_help()
 
 def main():
     parser = argparse.ArgumentParser()
@@ -208,42 +314,65 @@ def main():
         action="store_true",
         help="If passed, enables verbose printing of distrobox itself.",
     )
-    parser.set_defaults(func=print_help)
+    parser.set_defaults(func=partial(default_main,parser))
     subparsers = parser.add_subparsers(help='subcommand help')
 
     # create the parser for the "setup" command
-    parser_setup = subparsers.add_parser('setup', help='If passed, program will install dependencies and generate virtual enviroments.')
-    parser_setup.add_argument("--yes", "-y", action="store_true", help="If passed, program will not ask user it to continue.")
+    parser_setup = subparsers.add_parser('setup', help='Installs dependencies and generate virtual enviroments.')
+    parser_setup.add_argument("--yes", "-y", action="store_true", help="If passed, program will not ask user if to continue.")
     parser_setup.add_argument("--name", "-n", default="debian-10-test", help="Name under wich distrobox will be created.")
+    parser_setup.add_argument("--godot", "-g", default="~/Godot/.files/godot.linuxbsd.editor.double.x86_64", help="Absolute path to Godot Engine binary file.")
     parser_setup.set_defaults(func=set_up_main)
 
-    # create the parser for the "compile" command
-    parser_compile = subparsers.add_parser('compile', help='Not useful yet.')
-    parser_compile.add_argument("--lang", "-l", default="en", help="Language to use for section headings.")
-    parser_compile.add_argument(
+    # create the parser for the "zip" command
+    parser_zip = subparsers.add_parser('zip', help='Not useful yet.')
+    parser_zip.add_argument("--lang", "-l", default="en", help="Language to use for section headings.")
+    parser_zip.add_argument(
         "--color",
         action="store_true",
         help="If passed, force colored output even if stdout is not a TTY (useful for continuous integration).",
     )
-    parser_compile.add_argument("--output", "-o", default="../", help="The directory to save output .zip files.")
-    parser_compile.set_defaults(func=compile_main)
+    parser_zip.add_argument("--output", "-o", default="../", help="The directory to save output .zip files.")
+    parser_zip.set_defaults(func=compile_main)
 
     # create the parser for the "update_doc" command
-    parser_compile = subparsers.add_parser('update_doc', help='Udates .xml documentation based on source files. Then you can edit it manually.')
-    parser_compile.add_argument("--platform", "-p", default="linux", help="Platform to use for documentation update, define if default value bild does not compile.")
-    parser_compile.add_argument("--target", "-t", default="template_debug", help="Target to use for documentation update.")
-    parser_compile.set_defaults(func=update_doc_main)
+    parser_update_doc = subparsers.add_parser('update_doc', help='Udates .xml documentation based on source files. Then you can edit it manually.')
+    parser_update_doc.add_argument("--platform", "-p", default="linux", choices=["linux","macos","windows","android","ios","web"], help="Platform to use for documentation update, define if default value bild does not compile.")
+    parser_update_doc.add_argument("--target", "-t", default="template_debug", choices=["editor","template_release","template_debug"], help="Target to use for documentation update.")
+    parser_update_doc.add_argument("--precision", default="single", choices=["single","double"], help="Precision to use for documentation update.")
+    parser_update_doc.add_argument("--optimize", "-o", default="", choices=["","none","custom","debug","speed","speed_trace","size"], help="Optimization level to use for documentation update.")
+    parser_update_doc.set_defaults(func=update_doc_main)
+
+    # create the parser for the "compile" command
+    parser_compile = subparsers.add_parser('compile', help='Compiles one target for one platform.')
+    parser_compile.add_argument("--platform", "-p", default="linux", choices=["linux","macos","windows","android","ios","web"], help="Target platform.")
+    parser_compile.add_argument("--target", "-t", default="template_debug", choices=["editor","template_release","template_debug"], help="Compilation target.")
+    parser_compile.add_argument("--precision", default="single", choices=["single", "double"], help="Set the floating-point precision level.")
+    parser_compile.add_argument("--optimize", "-o", default="", choices=["","none","custom","debug","speed","speed_trace","size"], help="The desired optimization flags.")
+    parser_compile.set_defaults(func=compile_main)
+
+    # create the parser for the "full_compile" command
+    parser_full_compile = subparsers.add_parser('full_compile', help='Compiles release and debug templates for supported platforms.')
+    parser_full_compile.add_argument("--precision", default="single", choices=["single", "double"], help="Set the floating-point precision level.")
+    parser_full_compile.add_argument("--release_optimize", "-ro", default="", choices=["","none","custom","debug","speed","speed_trace","size"], help="The desired optimization flags for release builds.")
+    parser_full_compile.add_argument("--debug_optimize", "-do", default="", choices=["","none","custom","debug","speed","speed_trace","size"], help="The desired optimization flags for debug builds.")
+    parser_full_compile.set_defaults(func=full_compile_main)
+
+    # create the parser for the "gd_path" command
+    parser_gd_path = subparsers.add_parser('gd_path',help='Sets absotute path to Godot Engine binary file.')
+    parser_gd_path.add_argument("path", help="Absotute path to Godot Engine binary file.")
+    parser_gd_path.set_defaults(func=gd_path_main)
 
     # create the parser for the "md_doc" command
-    parser_compile = subparsers.add_parser('md_doc', help='Generates markdown documentation files.')
-    parser_compile.add_argument("--lang", "-l", default="en", help="Language to use for section headings.")
-    parser_compile.add_argument(
+    parser_md_doc = subparsers.add_parser('md_doc', help='Generates markdown documentation files.')
+    parser_md_doc.add_argument("--lang", "-l", default="en", help="Language to use for section headings.")
+    parser_md_doc.add_argument(
         "--color",
         action="store_true",
         help="If passed, force colored output even if stdout is not a TTY (useful for continuous integration).",
     )
-    parser_compile.add_argument("--output", "-o", default="res://markdown_doc/", help="The directory to save output .md files.")
-    parser_compile.set_defaults(func=md_doc_main)
+    parser_md_doc.add_argument("--output", "-o", default="res://markdown_doc/", help="The directory to save output .md files.")
+    parser_md_doc.set_defaults(func=md_doc_main)
     
     args = parser.parse_args()
     args.func(args)

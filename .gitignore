@@ -12,4 +12,4 @@ extern/godot-cpp-godot-4.2.2-stable
 Control++.layout
 .sconsign.dblite
 .vscode/
-tools/.distrobox_name.txt
+tools/.IC_settings.txt
